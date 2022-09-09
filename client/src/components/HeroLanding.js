@@ -1,9 +1,18 @@
 import { Link } from 'react-router-dom';
 import Hero from '../assets/images/landing-hero.svg';
+import bgVector from '../assets/images/hero-vector-bg.svg';
 
 const HeroLanding = () => {
   return (
-    <header className='flex'>
+    <header
+      className='flex relative h-screen'
+      style={{
+        backgroundImage: `url(${bgVector})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      }}>
       <div className='p-20'>
         <h2 className=' text-3xl'>Find and share your next adventure</h2>
         <p className='py-10'>
@@ -13,7 +22,7 @@ const HeroLanding = () => {
           <br />
           You can also share your experiences to help other travellers.
         </p>
-        <div className='flex gap-5'>
+        <div className='flex gap-5 '>
           <Link to='/explore' className='btn'>
             Explore
           </Link>
