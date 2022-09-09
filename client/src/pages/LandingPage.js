@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
-import Hero from '../assets/images/landing-hero.svg';
+import { Link } from 'react-router-dom';
+
 import Logo from '../assets/images/logo-tripia.png';
+import HeroLanding from '../components/HeroLanding';
 
 const LandingPage = () => {
   return (
@@ -12,15 +14,27 @@ const LandingPage = () => {
         </div>
         <div className='flex justify-end w-full pr-10'>
           <ul className='flex gap-10'>
-            <li>Login / Register</li>
-            <li>Dark mode</li>
+            <Link to='/register'>Login / Register</Link>
+            <li>
+              <div class='mb-3'>
+                <div class='relative inline-block w-10 mr-2 align-middle select-none'>
+                  <input
+                    type='checkbox'
+                    name='toggle'
+                    id='Theme'
+                    class='checked:bg-black outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer'
+                  />
+                  <label
+                    for='Light'
+                    class='block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer'></label>
+                </div>
+                <span class='text-white font-medium'>Light</span>
+              </div>
+            </li>
           </ul>
         </div>
       </nav>
-      <header className=''>
-        <div>Text left</div>
-        <div>img</div>
-      </header>
+      <HeroLanding />
     </Fragment>
   );
 };

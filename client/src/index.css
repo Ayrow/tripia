@@ -47,6 +47,7 @@ html {
   --light-blue: #769abe;
   --dark-blue: #0e2641;
   --orange: #e46f44;
+  --light-orange: #e58461;
 
   /* fonts  */
   --headingFont: 'Roboto Condensed', Sans-Serif;
@@ -161,7 +162,7 @@ ul {
 .btn {
   cursor: pointer;
   color: var(--white);
-  background: var(--primary-500);
+  background: var(--orange);
   border: transparent;
   border-radius: var(--borderRadius);
   letter-spacing: var(--letterSpacing);
@@ -172,7 +173,7 @@ ul {
   display: inline-block;
 }
 .btn:hover {
-  background: var(--primary-700);
+  background: var(--light-orange);
   box-shadow: var(--shadow-3);
 }
 .btn-hipster {
