@@ -4,10 +4,12 @@ import Logo from '../assets/images/logo-tripia.png';
 const Navbar = () => {
   return (
     <nav className='flex place-items-center w-full'>
-      <div className='flex flex-col p-5 w-1/5 place-items-center'>
+      <Link
+        to='/landing'
+        className='flex flex-col p-5 w-1/5 place-items-center'>
         <img src={Logo} alt='logo tripia' width='50px' height='50px' />
         <h1 className='text-xl uppercase'>Tripia</h1>
-      </div>
+      </Link>
 
       <div className='flex justify-end place-items-center w-full pr-10 gap-10'>
         <Link to='/explore'>Explore</Link>

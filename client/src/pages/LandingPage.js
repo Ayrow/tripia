@@ -7,7 +7,6 @@ import Footer from '../components/Footer';
 const LandingPage = () => {
   return (
     <Fragment>
-      <Navbar />
       <HeroLanding />
       <Footer />
     </Fragment>
