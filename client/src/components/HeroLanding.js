@@ -5,12 +5,13 @@ const HeroLanding = () => {
   return (
     <header className='flex'>
       <div className='p-20'>
-        <h2 className=' text-3xl'>Find and share your new adventure</h2>
+        <h2 className=' text-3xl'>Find and share your next adventure</h2>
         <p className='py-10'>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi,
-          possimus veniam. Impedit, sed reiciendis. Consequatur ducimus quis
-          nisi, id beatae reprehenderit delectus corrupti similique, veritatis
-          fuga aliquam, consequuntur fugit voluptatum!
+          Need advices or inspiration for your future holidays? <br />
+          This is the place to be! Find details about others' trip and make your
+          own!
+          <br />
+          You can also share your experiences to help other travellers.
         </p>
         <div className='flex gap-5'>
           <Link to='/explore' className='btn'>
