@@ -1,13 +1,11 @@
-import { useState } from 'react';
-
 const ModalMenuMobile = ({ setIsMobileMenuOpen }) => {
   return (
-    <div className='absolute w-full h-full overflow-y-visible'>
+    <div className='absolute w-full h-full overflow-y-visible '>
       <div className='z-10 inset-0 bg-gray-500 bg-opacity-75 '>
         <div className='flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center'>
-          <div className='inline-block relative overflow-hidden transform transition-all sm:align-middle sm:max-w-lg'>
+          <div className=' relative overflow-hidden transform transition-all sm:align-middle sm:max-w-lg'>
             <div>
-              <div className='rounded-lg p-8 bg-white shadow'>
+              <div className='rounded-lg p-20 bg-white  shadow'>
                 <div className='absolute right-4 top-4'>
                   <button
                     className='bg-transparent border border-transparent'
@@ -23,8 +21,8 @@ const ModalMenuMobile = ({ setIsMobileMenuOpen }) => {
                     </svg>
                   </button>
                 </div>
-                <div className='p-4 bg-white'>
-                  <div className='text-center mb-4 opacity-90'>
+                <div className='p-4 '>
+                  <div className='text-center mb-4  opacity-90'>
                     <a href='#' className='block relative'>
                       <img
                         alt='profil'
@@ -33,14 +31,9 @@ const ModalMenuMobile = ({ setIsMobileMenuOpen }) => {
                       />
                     </a>
                   </div>
-                  <div className='text-center'>
-                    <p className='text-2xl text-gray-800 dark:text-white'>
-                      Charlie
-                    </p>
-                    <p className='text-xl text-gray-500 dark:text-gray-200 font-light'>
-                      Lead dev
-                    </p>
-                    <p className='text-md text-gray-500 dark:text-gray-400 max-w-xs py-4 font-light'></p>
+                  <div className='text-center '>
+                    <p className='text-2xl text-black'>Charlie</p>
+                    <p className='text-xl text-black  font-light'>Lead dev</p>
                   </div>
                 </div>
               </div>

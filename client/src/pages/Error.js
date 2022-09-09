@@ -3,7 +3,7 @@ const Error = () => {
     <div className='bg-indigo-900 relative overflow-hidden h-screen'>
       <img
         src='/images/landscape/8.svg'
-        alt='hero'
+        alt='background'
         className='absolute h-full w-full object-cover'
       />
       <div className='inset-0 bg-black opacity-25 absolute'></div>
