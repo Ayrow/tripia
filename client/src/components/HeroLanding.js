@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Hero from '../assets/images/landing-hero.svg';
 
 const HeroLanding = () => {
@@ -11,7 +12,14 @@ const HeroLanding = () => {
           nisi, id beatae reprehenderit delectus corrupti similique, veritatis
           fuga aliquam, consequuntur fugit voluptatum!
         </p>
-        <button className='btn'>Explore</button>
+        <div className='flex gap-5'>
+          <Link to='/explore' className='btn'>
+            Explore
+          </Link>
+          <Link to='/register' className='btn'>
+            Register
+          </Link>
+        </div>
       </div>
       <div className='hidden md:flex w-1/2'>
         <img src={Hero} alt='hero' className='' />
