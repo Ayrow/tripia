@@ -7,7 +7,6 @@ const LandingPage = () => {
   return (
     <Fragment>
       <HeroLanding />
-      <Footer />
     </Fragment>
   );
 };

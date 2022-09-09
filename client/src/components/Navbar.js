@@ -2,14 +2,17 @@ import { Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import Logo from '../assets/images/logo-tripia.png';
 import ModalMenuMobile from './ModalMenuMobile';
+import { useState } from 'react';
 
 const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const toggleModalMenu = () => {
-    console.log('test');
+    setIsMobileMenuOpen(true);
   };
 
   return (
-    <nav className='flex place-items-center w-full'>
+    <nav className='relative flex place-items-center'>
       <Link
         to='/landing'
         className='flex flex-col p-5 w-1/5 place-items-center'>
@@ -37,8 +40,10 @@ const Navbar = () => {
           className='md:hidden cursor-pointer'
           onClick={toggleModalMenu}
         />
-        <ModalMenuMobile />
       </div>
+      {isMobileMenuOpen && (
+        <ModalMenuMobile setIsMobileMenuOpen={setIsMobileMenuOpen} />
+      )}
     </nav>
   );
 };
