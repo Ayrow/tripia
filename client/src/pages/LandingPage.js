@@ -1,12 +1,13 @@
 import { Fragment } from 'react';
 
 import HeroLanding from '../components/HeroLanding';
-import Footer from '../components/Footer';
+import CardsList from '../components/CardsList';
 
 const LandingPage = () => {
   return (
     <Fragment>
       <HeroLanding />
+      <CardsList />
     </Fragment>
   );
 };

@@ -11,7 +11,6 @@ const HeroLanding = () => {
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
       }}>
       <div className='p-20'>
         <h2 className=' text-3xl'>Find and share your next adventure</h2>
