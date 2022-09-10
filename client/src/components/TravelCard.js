@@ -11,14 +11,14 @@ const TravelCard = ({
 }) => {
   return (
     <div
-      className='w-full h-80'
+      className='w-full h-80 rounded-2xl shadow-lg'
       style={{
         backgroundImage: `url(${image})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
       }}>
-      <div className=' w-full grid row-span-1 pt-5 bg-black h-full bg-opacity-60'>
+      <div className=' w-full grid row-span-1 pt-5 bg-black h-full bg-opacity-60 rounded-2xl'>
         <div className='grid grid-cols-2 px-5 '>
           <h3 className=' flex text-3xl'>{location}</h3>
           <div className='flex flex-col gap-2 place-items-end'>
