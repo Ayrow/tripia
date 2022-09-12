@@ -5,13 +5,17 @@ const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className='relative flex flex-col justify-center min-h-screen overflow-hidden mx-5'>
       <div className='w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl'>
         <h1 className='text-3xl font-semibold text-center text-orange-700'>
           Register
         </h1>
-        <form onSubmit={(e) => e.preventDefault()} className='mt-6'>
+        <form onSubmit={onSubmit} className='mt-6'>
           <div className='mb-2'>
             <label
               for='username'
