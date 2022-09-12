@@ -9,6 +9,7 @@ import connectDB from './db/connect.js';
 //routers
 
 //middleware
+app.use(express.json());
 
 const port = process.env.PORT;
 
