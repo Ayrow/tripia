@@ -9,7 +9,12 @@ import connectDB from './db/connect.js';
 //routers
 
 //middleware
+import NotFoundMiddleware from './middleware/not-found.js';
+import ErrorHandlerMiddleware from './middleware/error-handler.js';
+
 app.use(express.json());
+app.use(NotFoundMiddleware);
+app.use(ErrorHandlerMiddleware);
 
 const port = process.env.PORT;
 
