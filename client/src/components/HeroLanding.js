@@ -5,23 +5,23 @@ import bgVector from '../assets/images/hero-vector-bg.svg';
 const HeroLanding = () => {
   return (
     <header
-      className='flex relative h-screen'
+      className='grid grid-cols-2 relative h-screen w-full'
       style={{
         backgroundImage: `url(${bgVector})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
       }}>
-      <div className='p-20'>
+      <div className='p-20 flex flex-col justify-center items-center text-center'>
         <h2 className=' text-3xl'>Find and share your next adventure</h2>
-        <p className='py-10'>
+        <p className='py-10 text-lg'>
           Need advices or inspiration for your future holidays? <br />
-          This is the place to be! Find details about others' trip and make your
-          own!
+          This is the place to be!
+          <br /> Find details about others' trip and make your own!
           <br />
           You can also share your experiences to help other travellers.
         </p>
-        <div className='flex gap-5 '>
+        <div className='flex gap-5 text-xl '>
           <Link to='/explore' className='btn'>
             Explore
           </Link>
@@ -30,8 +30,10 @@ const HeroLanding = () => {
           </Link>
         </div>
       </div>
-      <div className='hidden md:flex w-1/2'>
-        <img src={Hero} alt='hero' className='' />
+      <div className='flex justify-center w-full'>
+        <div className='hidden md:flex justify-center'>
+          <img src={Hero} alt='hero' className='' />
+        </div>
       </div>
     </header>
   );

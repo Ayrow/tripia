@@ -7,7 +7,7 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  res.status(200).json({ msg: 'login' });
+  res.status(200).json({ msg: 'updated user' });
 };
 
 export { register, login, updateUser };

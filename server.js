@@ -7,10 +7,13 @@ dotenv.config();
 import connectDB from './db/connect.js';
 
 //routers
+import authRouter from './routes/authRoutes.js';
 
 //middleware
 import NotFoundMiddleware from './middleware/not-found.js';
 import ErrorHandlerMiddleware from './middleware/error-handler.js';
+
+app.use('/api/v1/auth', authRouter);
 
 app.use(express.json());
 app.use(NotFoundMiddleware);
