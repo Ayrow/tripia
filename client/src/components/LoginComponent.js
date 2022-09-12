@@ -1,22 +1,24 @@
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 const LoginComponent = ({
-  onSubmit,
   handleChange,
   showPassword,
   setShowPassword,
+  ...values
 }) => {
   return (
-    <form onSubmit={onSubmit} className='mt-6'>
+    <>
       <div className='mb-2'>
         <label
-          for='email'
+          htmlFor='email'
           className='block text-sm font-semibold text-gray-800'>
           Email
         </label>
         <input
           type='email'
           required
+          name='email'
+          value={values.email}
           onChange={handleChange}
           className='block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
         />
@@ -24,7 +26,7 @@ const LoginComponent = ({
 
       <div className='flex flex-col mb-2'>
         <label
-          for='password'
+          htmlFor='password'
           className='block text-sm font-semibold text-gray-800'>
           Password
         </label>
@@ -34,6 +36,7 @@ const LoginComponent = ({
             type={showPassword ? 'text' : 'password'}
             id='password'
             onChange={handleChange}
+            value={values.password}
             className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40 '
             name='password'
           />
@@ -48,14 +51,7 @@ const LoginComponent = ({
           </div>
         </div>
       </div>
-
-      <a href='#' className='text-xs text-orange-600 hover:underline'>
-        Forgot Password?
-      </a>
-      <div className='mt-6'>
-        <button className='w-full btn'>Login</button>
-      </div>
-    </form>
+    </>
   );
 };
 export default LoginComponent;

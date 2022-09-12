@@ -1,36 +1,40 @@
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 const RegisterComponent = ({
-  onSubmit,
   handleChange,
   showPassword,
   setShowPassword,
   showConfirmPassword,
   setShowConfirmPassword,
+  ...values
 }) => {
   return (
-    <form onSubmit={onSubmit} className='mt-6'>
+    <>
       <div className='mb-2'>
         <label
-          for='username'
+          htmlFor='username'
           className='block text-sm font-semibold text-gray-800'>
           Username
         </label>
         <input
-          type='username'
+          type='text'
+          name='username'
           required
           onChange={handleChange}
+          value={values.username}
           className='block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
         />
       </div>
       <div className='mb-2'>
         <label
-          for='email'
+          htmlFor='email'
           className='block text-sm font-semibold text-gray-800'>
           Email
         </label>
         <input
           type='email'
+          name='email'
+          value={values.email}
           required
           onChange={handleChange}
           className='block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
@@ -39,7 +43,7 @@ const RegisterComponent = ({
 
       <div className='flex flex-col mb-2'>
         <label
-          for='password'
+          htmlFor='password'
           className='block text-sm font-semibold text-gray-800'>
           Password
         </label>
@@ -49,6 +53,7 @@ const RegisterComponent = ({
             type={showPassword ? 'text' : 'password'}
             id='password'
             onChange={handleChange}
+            value={values.password}
             className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40 '
             name='password'
           />
@@ -66,7 +71,7 @@ const RegisterComponent = ({
 
       <div className='flex flex-col mb-2'>
         <label
-          for='confirm-password'
+          htmlFor='confirm-password'
           className='block text-sm font-semibold text-gray-800'>
           Confirm Password
         </label>
@@ -74,9 +79,10 @@ const RegisterComponent = ({
           <input
             required
             type={showConfirmPassword ? 'text' : 'password'}
-            id='confirm-password'
+            id='confirmPassword'
+            value={values.confirmPassword}
             className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40 '
-            name='confirm-password'
+            name='confirmPassword'
           />
           <div className='absolute inset-y-0 right-0 flex items-center'>
             <button
@@ -88,11 +94,7 @@ const RegisterComponent = ({
           </div>
         </div>
       </div>
-
-      <div className='mt-6'>
-        <button className='w-full btn'>Register</button>
-      </div>
-    </form>
+    </>
   );
 };
 export default RegisterComponent;

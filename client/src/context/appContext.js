@@ -4,6 +4,7 @@ import reducer from './reducer';
 const AppContext = createContext();
 
 const initialState = {
+  isLoading: false,
   showAlert: false,
   alertMsg: '',
   user: null,
