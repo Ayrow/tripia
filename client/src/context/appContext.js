@@ -12,13 +12,16 @@ import {
 
 const AppContext = createContext();
 
+const user = localStorage.getItem('user');
+const token = localStorage.getItem('token');
+
 const initialState = {
   isLoading: false,
   showAlert: false,
   alertText: '',
   alertType: '',
-  user: null,
-  token: null,
+  user: user ? JSON.parse(user) : null,
+  token: token,
 };
 
 const AppProvider = ({ children }) => {
@@ -40,6 +43,16 @@ const AppProvider = ({ children }) => {
     }, 3000);
   };
 
+  const addUserToLocalStorage = () => {
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', token);
+  };
+
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  };
+
   const setupUser = async ({ currentUser, endPoint }) => {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
@@ -52,11 +65,14 @@ const AppProvider = ({ children }) => {
           token,
         },
       });
+      addUserToLocalStorage({ user, token });
     } catch (error) {
       dispatch({ type: SETUP_USER_ERROR });
     }
     clearAlert();
   };
+
+  const logoutUser = () => {};
 
   return (
     <AppContext.Provider value={{ ...state, setupUser, displayAlert }}>

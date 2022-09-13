@@ -42,7 +42,7 @@ const RegisterForm = () => {
     }
 
     if (!isMember && password !== confirmPassword) {
-      displayAlert({ type: 'danger', msg: 'The passwords must be the same' });
+      displayAlert({ type: 'danger', msg: `The passwords don't match` });
       return;
     }
 
