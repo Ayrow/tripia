@@ -12,13 +12,13 @@ const initialState = {
 };
 
 const RegisterForm = () => {
-  const { isLoading } = useAppContext();
+  const { isLoading, setupUser } = useAppContext();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [values, setValues] = useState(initialState);
 
   const toggleMember = () => {
-    setValues({ ...values, isMember: !values.isMember });
+    setValues({ initialState, isMember: !values.isMember });
   };
 
   const handleChange = (e) => {
@@ -28,16 +28,32 @@ const RegisterForm = () => {
   const onSubmit = (e) => {
     const { email, username, password, confirmPassword, isMember } = values;
     e.preventDefault();
+    console.log(username);
+    console.log(email);
+    console.log(password);
+    console.log(confirmPassword);
+
     if (
       !email ||
       !password ||
-      (!username && !isMember) ||
-      (!confirmPassword && !isMember)
+      (!isMember && !username) ||
+      (!isMember && !confirmPassword)
     ) {
-      console.log('error');
+      alert('all fields are required');
       return;
     }
-    const currentUser = { username, email, password };
+
+    if (!isMember && password !== confirmPassword) {
+      alert('Make sure to confirm your password');
+      return;
+    }
+
+    if (isMember) {
+    } else {
+    }
+
+    setupUser();
+    alert('all good');
   };
 
   return (

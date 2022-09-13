@@ -11,45 +11,39 @@ const RegisterComponent = ({
   return (
     <>
       <div className='mb-2'>
-        <label
-          htmlFor='username'
-          className='block text-sm font-semibold text-gray-800'>
+        <label className='block text-sm font-semibold text-gray-800'>
           Username
         </label>
         <input
           type='text'
           name='username'
-          required
+          // required
           onChange={handleChange}
           value={values.username}
           className='block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
         />
       </div>
       <div className='mb-2'>
-        <label
-          htmlFor='email'
-          className='block text-sm font-semibold text-gray-800'>
+        <label className='block text-sm font-semibold text-gray-800'>
           Email
         </label>
         <input
           type='email'
           name='email'
           value={values.email}
-          required
+          // required
           onChange={handleChange}
           className='block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
         />
       </div>
 
       <div className='flex flex-col mb-2'>
-        <label
-          htmlFor='password'
-          className='block text-sm font-semibold text-gray-800'>
+        <label className='block text-sm font-semibold text-gray-800'>
           Password
         </label>
         <div className='flex relative '>
           <input
-            required
+            // required
             type={showPassword ? 'text' : 'password'}
             id='password'
             onChange={handleChange}
@@ -61,7 +55,6 @@ const RegisterComponent = ({
             <button
               type='button'
               onClick={() => setShowPassword(!showPassword)}
-              onChange={handleChange}
               className=' pr-4 text-black text-xl'>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
@@ -70,16 +63,15 @@ const RegisterComponent = ({
       </div>
 
       <div className='flex flex-col mb-2'>
-        <label
-          htmlFor='confirm-password'
-          className='block text-sm font-semibold text-gray-800'>
+        <label className='block text-sm font-semibold text-gray-800'>
           Confirm Password
         </label>
         <div className='flex relative'>
           <input
-            required
+            // required
             type={showConfirmPassword ? 'text' : 'password'}
             id='confirmPassword'
+            onChange={handleChange}
             value={values.confirmPassword}
             className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40 '
             name='confirmPassword'

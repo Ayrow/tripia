@@ -9,14 +9,12 @@ const LoginComponent = ({
   return (
     <>
       <div className='mb-2'>
-        <label
-          htmlFor='email'
-          className='block text-sm font-semibold text-gray-800'>
+        <label className='block text-sm font-semibold text-gray-800'>
           Email
         </label>
         <input
           type='email'
-          required
+          // required
           name='email'
           value={values.email}
           onChange={handleChange}
@@ -25,14 +23,12 @@ const LoginComponent = ({
       </div>
 
       <div className='flex flex-col mb-2'>
-        <label
-          htmlFor='password'
-          className='block text-sm font-semibold text-gray-800'>
+        <label className='block text-sm font-semibold text-gray-800'>
           Password
         </label>
         <div className='flex relative '>
           <input
-            required
+            // required
             type={showPassword ? 'text' : 'password'}
             id='password'
             onChange={handleChange}
