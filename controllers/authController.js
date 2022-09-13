@@ -21,7 +21,7 @@ const register = async (req, res) => {
 
   const user = await User.create({ username, email, password });
 
-  const token = user.createJWT();
+  const token = await user.createJWT();
 
   res.status(StatusCodes.CREATED).json({
     user: {
@@ -45,7 +45,12 @@ const login = async (req, res) => {
     throw new UnAuthenticatedError('Invalid credentials');
   }
 
-  const token = user.createJWT();
+  const isPasswordCorrect = await user.comparePassword(password);
+  if (!isPasswordCorrect) {
+    throw new UnAuthenticatedError('Invalid credentials');
+  }
+
+  const token = await user.createJWT();
   user.password = undefined;
   res.status(StatusCodes.OK).json({ user, token });
 };

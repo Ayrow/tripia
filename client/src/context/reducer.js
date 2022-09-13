@@ -32,7 +32,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
-        alertTxt: action.payload.alertTxt,
+        alertType: action.payload.type,
+        alertText: action.payload.msg,
         user: action.payload.user,
         token: action.payload.token,
       };

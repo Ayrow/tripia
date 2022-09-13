@@ -53,12 +53,14 @@ const RegisterForm = () => {
         currentUser,
         endPoint: 'login',
         alertText: 'Login successful! Redirecting...',
+        alertType: 'success',
       });
     } else {
       setupUser({
         currentUser,
         endPoint: 'register',
         alertText: 'Register successful! Redirecting...',
+        alertType: 'success',
       });
     }
   };

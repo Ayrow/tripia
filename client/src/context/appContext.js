@@ -58,22 +58,21 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
       const { data } = await authFetch.post(`/auth/${endPoint}`, currentUser);
-
       const { user, token } = data;
       dispatch({
         type: SETUP_USER_SUCCESS,
         payload: {
           user,
           token,
-          alertText,
         },
       });
+      displayAlert({ type: 'success', msg: alertText });
       addUserToLocalStorage({ user, token });
     } catch (error) {
       dispatch({
         type: SETUP_USER_ERROR,
-        payload: { msg: error.response.data.msg },
       });
+      displayAlert({ type: 'danger', msg: 'Incorrect credentials' });
     }
     clearAlert();
   };
