@@ -8,9 +8,8 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  LOGOUT_USER,
 } from './actions';
-
-const AppContext = createContext();
 
 const user = localStorage.getItem('user');
 const token = localStorage.getItem('token');
@@ -24,12 +23,14 @@ const initialState = {
   token: token,
 };
 
+const AppContext = createContext();
+
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   //axios
   const authFetch = axios.create({
-    baseURL: 'api/v1',
+    baseURL: '/api/v1',
   });
 
   const displayAlert = ({ type, msg }) => {
@@ -53,29 +54,38 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem('token');
   };
 
-  const setupUser = async ({ currentUser, endPoint }) => {
+  const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
-      const { data } = await authFetch('/register', currentUser);
+      const { data } = await authFetch.post(`/auth/${endPoint}`, currentUser);
+
       const { user, token } = data;
       dispatch({
         type: SETUP_USER_SUCCESS,
         payload: {
           user,
           token,
+          alertText,
         },
       });
       addUserToLocalStorage({ user, token });
     } catch (error) {
-      dispatch({ type: SETUP_USER_ERROR });
+      dispatch({
+        type: SETUP_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
     }
     clearAlert();
   };
 
-  const logoutUser = () => {};
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
 
   return (
-    <AppContext.Provider value={{ ...state, setupUser, displayAlert }}>
+    <AppContext.Provider
+      value={{ ...state, setupUser, displayAlert, logoutUser }}>
       {children}
     </AppContext.Provider>
   );
@@ -85,4 +95,4 @@ const useAppContext = () => {
   return useContext(AppContext);
 };
 
-export { useAppContext, AppProvider };
+export { useAppContext, AppProvider, initialState };

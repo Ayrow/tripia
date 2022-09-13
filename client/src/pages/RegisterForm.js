@@ -28,8 +28,8 @@ const RegisterForm = () => {
   };
 
   const onSubmit = (e) => {
-    const { email, username, password, confirmPassword, isMember } = values;
     e.preventDefault();
+    const { email, username, password, confirmPassword, isMember } = values;
 
     if (
       !email ||
@@ -61,7 +61,6 @@ const RegisterForm = () => {
         alertText: 'Register successful! Redirecting...',
       });
     }
-    setupUser();
   };
 
   return (

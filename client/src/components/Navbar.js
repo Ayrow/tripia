@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import Logo from '../assets/images/logo-tripia.png';
 import { FaMoon, FaSun } from 'react-icons/fa';
+import { useAppContext } from '../context/appContext';
 
 const Navbar = () => {
+  const { user } = useAppContext();
+  console.log(user);
+
   return (
     <nav className='relative z-10 flex place-items-center w-full'>
       <Link to='/' className='flex p-5 w-1/5 place-items-center'>
@@ -11,7 +15,13 @@ const Navbar = () => {
       </Link>
       <div className='flex justify-end place-items-center w-full pr-5 gap-8 sm:gap-10'>
         <Link to='/explore'>Explore</Link>
-        <Link to='/register'>Login / Register</Link>
+
+        {user ? (
+          <button className=' btn'>My Account</button>
+        ) : (
+          <Link to='/register'>Login / Register</Link>
+        )}
+
         <button type='button' className='flex'>
           <FaMoon className='text-black' />
           <FaSun className='text-white' />
