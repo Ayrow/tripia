@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Alert from '../components/Alert';
 import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
 import { useAppContext } from '../context/appContext';
@@ -12,7 +13,8 @@ const initialState = {
 };
 
 const RegisterForm = () => {
-  const { isLoading, setupUser } = useAppContext();
+  const { isLoading, setupUser, displayAlert, showAlert } = useAppContext();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [values, setValues] = useState(initialState);
@@ -28,10 +30,6 @@ const RegisterForm = () => {
   const onSubmit = (e) => {
     const { email, username, password, confirmPassword, isMember } = values;
     e.preventDefault();
-    console.log(username);
-    console.log(email);
-    console.log(password);
-    console.log(confirmPassword);
 
     if (
       !email ||
@@ -39,21 +37,31 @@ const RegisterForm = () => {
       (!isMember && !username) ||
       (!isMember && !confirmPassword)
     ) {
-      alert('all fields are required');
+      displayAlert({ type: 'danger', msg: 'Please provide all values' });
       return;
     }
 
     if (!isMember && password !== confirmPassword) {
-      alert('Make sure to confirm your password');
+      displayAlert({ type: 'danger', msg: 'The passwords must be the same' });
       return;
     }
 
-    if (isMember) {
-    } else {
-    }
+    const currentUser = { username, email, password };
 
+    if (isMember) {
+      setupUser({
+        currentUser,
+        endPoint: 'login',
+        alertText: 'Login successful! Redirecting...',
+      });
+    } else {
+      setupUser({
+        currentUser,
+        endPoint: 'register',
+        alertText: 'Register successful! Redirecting...',
+      });
+    }
     setupUser();
-    alert('all good');
   };
 
   return (
@@ -62,6 +70,7 @@ const RegisterForm = () => {
         <h1 className='text-3xl font-semibold text-center text-orange-700'>
           {values.isMember ? 'Login' : 'Register'}
         </h1>
+        {showAlert && <Alert />}
         <form onSubmit={onSubmit} className='mt-6'>
           {values.isMember ? (
             <LoginComponent
