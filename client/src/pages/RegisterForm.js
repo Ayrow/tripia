@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Alert from '../components/Alert';
 import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
@@ -13,7 +14,9 @@ const initialState = {
 };
 
 const RegisterForm = () => {
-  const { isLoading, setupUser, displayAlert, showAlert } = useAppContext();
+  const navigate = useNavigate();
+  const { isLoading, setupUser, displayAlert, showAlert, user } =
+    useAppContext();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -64,6 +67,14 @@ const RegisterForm = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+  }, [user]);
 
   return (
     <div className='relative flex flex-col items-center justify-center min-h-screen overflow-hidden mx-5'>

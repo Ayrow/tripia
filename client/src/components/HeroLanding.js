@@ -5,7 +5,7 @@ import bgVector from '../assets/images/hero-vector-bg.svg';
 const HeroLanding = () => {
   return (
     <header
-      className='grid grid-cols-2 relative h-screen w-full'
+      className='grid md:grid-cols-2 relative h-screen w-full'
       style={{
         backgroundImage: `url(${bgVector})`,
         backgroundPosition: 'center',
