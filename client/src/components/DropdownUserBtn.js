@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
 import UnknownUser from '../assets/images/unknown-user.png';
@@ -6,8 +6,19 @@ import userLinks from '../utils/userlinks';
 
 const DropdownUserBtn = ({ username, logoutUser }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const ref = useRef();
+
+  const toggleDropdown = (e) => {
+    if (ref.current && showDropdown && !ref.current.contains(e.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  document.addEventListener('click', toggleDropdown);
+
   return (
-    <div className='relative'>
+    <div ref={ref} className='relative'>
       <button
         className='flex btn gap-2 place-items-center'
         onClick={() => setShowDropdown(!showDropdown)}>
