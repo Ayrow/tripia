@@ -1,11 +1,11 @@
-import { FaHeart, FaSuitcase, FaUser, FaChalkboard } from 'react-icons/fa';
+import { FaHeart, FaSuitcase, FaUserEdit, FaChalkboard } from 'react-icons/fa';
 
 const links = [
   {
     id: 1,
     text: 'manage account',
     path: 'settings',
-    icon: <FaUser />,
+    icon: <FaUserEdit />,
   },
   {
     id: 2,

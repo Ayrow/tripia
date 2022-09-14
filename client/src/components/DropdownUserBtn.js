@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaSignOutAlt } from 'react-icons/fa';
 import UnknownUser from '../assets/images/unknown-user.png';
 import userLinks from '../utils/userlinks';
 
 const DropdownUserBtn = ({ username, logoutUser }) => {
   const [showDropdown, setShowDropdown] = useState(false);
-
   return (
     <div className='relative'>
       <button
@@ -21,17 +21,22 @@ const DropdownUserBtn = ({ username, logoutUser }) => {
         {username}
       </button>
       {showDropdown && (
-        <div className='absolute grid grid-cols-1 gap-2 bg-white text-black w-full'>
+        <div className='absolute grid grid-cols-1 items-center bg-white text-black w-screen'>
           {userLinks.map((link) => {
             const { id, text, path, icon } = link;
             return (
-              <Link key={id} to={path} className='flex capitalize gap-2'>
+              <Link
+                key={id}
+                to={path}
+                className='flex gap-2 capitalize p-3 hover:bg-slate-300'>
                 {icon} {text}
               </Link>
             );
           })}
-          <button onClick={logoutUser} className='text-left'>
-            Sign out
+          <button
+            onClick={logoutUser}
+            className='flex gap-2 p-3 hover:bg-slate-300 items-center'>
+            <FaSignOutAlt /> Sign out
           </button>
         </div>
       )}
