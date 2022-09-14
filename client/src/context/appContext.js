@@ -44,7 +44,7 @@ const AppProvider = ({ children }) => {
     }, 3000);
   };
 
-  const addUserToLocalStorage = () => {
+  const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
   };
@@ -66,8 +66,8 @@ const AppProvider = ({ children }) => {
           token,
         },
       });
-      displayAlert({ type: 'success', msg: alertText });
       addUserToLocalStorage({ user, token });
+      displayAlert({ type: 'success', msg: alertText });
     } catch (error) {
       dispatch({
         type: SETUP_USER_ERROR,

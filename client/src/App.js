@@ -9,6 +9,8 @@ import {
   ProtectedRoute,
 } from './pages';
 
+import { Profile, SharedLayout } from './pages/dashboard';
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -18,7 +20,15 @@ const App = () => {
         <Route path='/register' element={<RegisterForm />} />
         <Route path='/explore' element={<Explore />} />
 
-        <Route path='/' element={<ProtectedRoute></ProtectedRoute>}></Route>
+        <Route
+          path='/dashboard/'
+          element={
+            <ProtectedRoute>
+              <SharedLayout />
+            </ProtectedRoute>
+          }>
+          <Route path='profile' element={<Profile />} />
+        </Route>
 
         <Route path='*' element={<Error />} />
       </Routes>

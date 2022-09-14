@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom';
 import Logo from '../assets/images/logo-tripia.png';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { useAppContext } from '../context/appContext';
+import DropdownUserBtn from './DropdownUserBtn';
 
 const Navbar = () => {
-  const { user } = useAppContext();
-  console.log(user);
+  const { user, logoutUser } = useAppContext();
+  const username = user?.username;
 
   return (
     <nav className='relative z-10 flex place-items-center w-full'>
@@ -17,7 +18,9 @@ const Navbar = () => {
         <Link to='/explore'>Explore</Link>
 
         {user ? (
-          <button className=' btn'>My Account</button>
+          <>
+            <DropdownUserBtn logoutUser={logoutUser} username={username} />
+          </>
         ) : (
           <Link to='/register'>Login / Register</Link>
         )}

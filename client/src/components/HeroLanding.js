@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import Hero from '../assets/images/landing-hero.svg';
 import bgVector from '../assets/images/hero-vector-bg.svg';
+import { useAppContext } from '../context/appContext';
 
 const HeroLanding = () => {
+  const { user } = useAppContext();
   return (
     <header
       className='grid md:grid-cols-2 relative h-screen w-full'
@@ -25,9 +27,15 @@ const HeroLanding = () => {
           <Link to='/explore' className='btn'>
             Explore
           </Link>
-          <Link to='/register' className='btn'>
-            Register
-          </Link>
+          {user ? (
+            <Link to='/dashboard/profile' className='btn'>
+              Dashboard
+            </Link>
+          ) : (
+            <Link to='/register' className='btn'>
+              Register
+            </Link>
+          )}
         </div>
       </div>
       <div className='flex justify-center w-full'>

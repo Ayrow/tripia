@@ -71,7 +71,7 @@ const RegisterForm = () => {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        navigate('/');
+        navigate('/explore');
       }, 3000);
     }
   }, [user]);
