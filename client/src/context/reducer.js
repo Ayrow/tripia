@@ -1,6 +1,7 @@
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
+  HANDLE_CHANGE,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
@@ -22,6 +23,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         showAlert: false,
+      };
+    case HANDLE_CHANGE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
       };
     case SETUP_USER_BEGIN:
       return {

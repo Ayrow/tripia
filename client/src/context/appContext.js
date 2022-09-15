@@ -5,6 +5,7 @@ import axios from 'axios';
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
+  HANDLE_CHANGE,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
@@ -42,6 +43,10 @@ const AppProvider = ({ children }) => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
     }, 3000);
+  };
+
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
 
   const addUserToLocalStorage = ({ user, token }) => {
@@ -85,7 +90,7 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ ...state, setupUser, displayAlert, logoutUser }}>
+      value={{ ...state, setupUser, displayAlert, logoutUser, handleChange }}>
       {children}
     </AppContext.Provider>
   );
