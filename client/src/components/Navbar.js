@@ -10,9 +10,15 @@ const Navbar = () => {
   const username = user?.username;
 
   return (
-    <nav className='relative z-10 flex place-items-center w-full'>
-      <Link to='/' className='flex p-5 w-1/5 place-items-center'>
-        <img src={Logo} alt='logo tripia' width='50px' height='50px' />
+    <nav className='relative z-10 flex place-items-center w-full bg-gray-800'>
+      <Link to='/' className='flex p-5 w-1/5 place-items-center gap-2'>
+        <img
+          src={Logo}
+          alt='logo tripia'
+          width='50px'
+          height='50px'
+          className=' border bg-gray-200 rounded-full'
+        />
         <h1 className='text-sm md:text-xl uppercase font-semibold'>Tripia</h1>
       </Link>
       <div className='flex justify-end place-items-center w-full pr-5 gap-8 sm:gap-10'>

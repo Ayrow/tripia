@@ -11,7 +11,7 @@ const DashboardLeftSidebar = () => {
             <Link
               key={id}
               to={path}
-              className='flex gap-2 capitalize p-3 hover:bg-slate-300'>
+              className='flex gap-2 capitalize p-7 hover:bg-slate-300'>
               {icon} {text}
             </Link>
           );

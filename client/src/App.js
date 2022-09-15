@@ -9,7 +9,13 @@ import {
   ProtectedRoute,
 } from './pages';
 
-import { Profile, SharedLayout } from './pages/dashboard';
+import {
+  ManageAccount,
+  SharedLayout,
+  SavedTrips,
+  Trips,
+  DashboardMain,
+} from './pages/dashboard';
 
 const App = () => {
   return (
@@ -27,7 +33,10 @@ const App = () => {
               <SharedLayout />
             </ProtectedRoute>
           }>
-          <Route path='profile' element={<Profile />} />
+          <Route index element={<DashboardMain />} />
+          <Route path='settings' element={<ManageAccount />} />
+          <Route path='trips' element={<Trips />} />
+          <Route path='saved-trips' element={<SavedTrips />} />
         </Route>
 
         <Route path='*' element={<Error />} />

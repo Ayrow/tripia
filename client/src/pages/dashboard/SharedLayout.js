@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import DashboardLeftSidebar from '../../components/DashboardLeftSidebar';
-import Navbar from '../../components/Navbar';
 
 const SharedLayout = () => {
   return (
@@ -8,8 +7,7 @@ const SharedLayout = () => {
       <main className='dashboard'>
         <DashboardLeftSidebar />
         <div>
-          {/*  <Navbar /> */}
-          <div>
+          <div className='p-7'>
             <Outlet />
           </div>
         </div>

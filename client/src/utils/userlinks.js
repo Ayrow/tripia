@@ -22,7 +22,7 @@ const links = [
   {
     id: 4,
     text: 'saved',
-    path: 'saved',
+    path: 'saved-trips',
     icon: <FaHeart />,
   },
 ];
