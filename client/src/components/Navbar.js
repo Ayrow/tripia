@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav className='relative z-10 flex place-items-center w-full bg-gray-800'>
-      <Link to='/' className='flex p-5 w-1/5 place-items-center gap-2'>
+      <Link to='/' className='flex flex-wra p-5 w-1/5 place-items-center gap-2'>
         <img
           src={Logo}
           alt='logo tripia'
@@ -31,11 +31,11 @@ const Navbar = () => {
         ) : (
           <Link to='/register'>Login / Register</Link>
         )}
-
+        {/* 
         <button type='button' className='flex'>
           <FaMoon className='text-black' />
           <FaSun className='text-white' />
-        </button>
+        </button>*/}
       </div>
     </nav>
   );
