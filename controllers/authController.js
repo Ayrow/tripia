@@ -11,12 +11,12 @@ const register = async (req, res) => {
 
   const userAlreadyExists = await User.findOne({ email });
   if (userAlreadyExists) {
-    throw new BadRequestError('email already in use');
+    throw new BadRequestError('Email already in use');
   }
 
   const usernameTaken = await User.findOne({ username });
   if (usernameTaken) {
-    throw new BadRequestError('this username is taken');
+    throw new BadRequestError('This username is already taken');
   }
 
   const user = await User.create({ username, email, password });

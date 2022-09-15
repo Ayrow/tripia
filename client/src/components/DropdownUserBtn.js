@@ -1,11 +1,17 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
 import UnknownUser from '../assets/images/unknown-user.png';
 import userLinks from '../utils/userlinks';
 
 const DropdownUserBtn = ({ username, logoutUser }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    logoutUser();
+    navigate('/');
+  };
 
   const ref = useRef();
 
@@ -45,7 +51,7 @@ const DropdownUserBtn = ({ username, logoutUser }) => {
             );
           })}
           <button
-            onClick={logoutUser}
+            onClick={logout}
             className='flex gap-2 p-3 hover:bg-slate-300 items-center'>
             <FaSignOutAlt /> Sign out
           </button>

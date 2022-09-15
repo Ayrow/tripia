@@ -74,7 +74,7 @@ const RegisterForm = () => {
         navigate('/explore');
       }, 3000);
     }
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <div className='relative flex flex-col items-center justify-center min-h-screen overflow-hidden mx-5'>

@@ -14,6 +14,7 @@ import authRouter from './routes/authRoutes.js';
 
 //middleware
 import NotFoundMiddleware from './middleware/not-found.js';
+import ErrorHandlerMiddleware from './middleware/error-handler.js';
 
 app.use(express.json());
 
@@ -23,6 +24,7 @@ app.get('/api/v1', (req, res) => {
 
 app.use('/api/v1/auth', authRouter);
 
+app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
 
 const port = process.env.PORT || 5000;

@@ -28,7 +28,7 @@ const HeroLanding = () => {
             Explore
           </Link>
           {user ? (
-            <Link to='/dashboard/profile' className='btn'>
+            <Link to='/dashboard' className='btn'>
               Dashboard
             </Link>
           ) : (

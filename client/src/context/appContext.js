@@ -72,7 +72,8 @@ const AppProvider = ({ children }) => {
       dispatch({
         type: SETUP_USER_ERROR,
       });
-      displayAlert({ type: 'danger', msg: 'Incorrect credentials' });
+      console.log(error);
+      displayAlert({ type: 'danger', msg: error.response.data.msg });
     }
     clearAlert();
   };

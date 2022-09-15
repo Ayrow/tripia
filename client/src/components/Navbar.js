@@ -6,6 +6,7 @@ import DropdownUserBtn from './DropdownUserBtn';
 
 const Navbar = () => {
   const { user, logoutUser } = useAppContext();
+
   const username = user?.username;
 
   return (
