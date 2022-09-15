@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import links from '../utils/userlinks';
 
 const DashboardLeftSidebar = () => {
@@ -8,12 +8,16 @@ const DashboardLeftSidebar = () => {
         {links.map((link) => {
           const { id, text, path, icon } = link;
           return (
-            <Link
+            <NavLink
               key={id}
               to={path}
-              className='flex gap-2 capitalize p-7 hover:bg-slate-300'>
+              className={({ isActive, isPending }) =>
+                isActive
+                  ? 'flex gap-2 capitalize p-7 hover:bg-slate-600 bg-slate-700'
+                  : 'flex gap-2 capitalize p-7 hover:bg-slate-600 '
+              }>
               {icon} {text}
-            </Link>
+            </NavLink>
           );
         })}
       </div>

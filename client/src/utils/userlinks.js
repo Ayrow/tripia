@@ -4,25 +4,25 @@ const links = [
   {
     id: 1,
     text: 'dashboard',
-    path: '/dashboard',
+    path: '/dashboard/',
     icon: <FaChalkboard />,
   },
   {
     id: 2,
     text: 'manage account',
-    path: 'settings',
+    path: '/dashboard/settings',
     icon: <FaUserEdit />,
   },
   {
     id: 3,
     text: 'trips',
-    path: 'trips',
+    path: '/dashboard/trips',
     icon: <FaSuitcase />,
   },
   {
     id: 4,
     text: 'saved',
-    path: 'saved-trips',
+    path: '/dashboard/saved-trips',
     icon: <FaHeart />,
   },
 ];
