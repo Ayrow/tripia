@@ -62,7 +62,7 @@ const ManageAccount = () => {
                     <label className='block text-sm font-medium text-gray-700'>
                       Profile picture
                     </label>
-                    <div className='mt-1 flex items-center'>
+                    <div className='mt-1 flex flex-col sm:flex-row items-start sm:items-center'>
                       <span className='inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100'>
                         <img src={UnknownUser} alt='profile-pic' />
                       </span>
@@ -70,7 +70,7 @@ const ManageAccount = () => {
                         type='file'
                         name=''
                         id=''
-                        className='ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+                        className='sm:ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
                       />
                     </div>
                   </div>

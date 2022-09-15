@@ -5,7 +5,7 @@ import UnknownUser from '../assets/images/unknown-user.png';
 import userLinks from '../utils/userlinks';
 
 const DropdownUserBtn = ({ username, logoutUser }) => {
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -57,7 +57,7 @@ const DropdownUserBtn = ({ username, logoutUser }) => {
                 onClick={() => setShowMenu(false)}
                 className={({ isActive, isPending }) =>
                   isActive
-                    ? 'flex items-center gap-2 capitalize p-3 text-xl sm:text-base hover:bg-slate-600 sm:hover:bg-slate-300  bg-slate-200'
+                    ? 'flex items-center gap-2 capitalize p-3 text-xl sm:text-base hover:bg-slate-600 sm:hover:bg-slate-300  bg-slate-700'
                     : 'flex items-center gap-2 capitalize p-3 text-xl sm:text-base hover:bg-slate-600 sm:hover:bg-slate-300'
                 }>
                 {icon} {text}
