@@ -59,4 +59,8 @@ const updateUser = async (req, res) => {
   res.status(200).send('updateUser');
 };
 
-export { register, login, updateUser };
+const deleteUser = async (req, res) => {
+  res.status(200).send('updateUser');
+};
+
+export { register, login, updateUser, deleteUser };

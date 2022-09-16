@@ -57,7 +57,7 @@ const DropdownUserBtn = ({ username, logoutUser }) => {
                 onClick={() => setShowMenu(false)}
                 className={({ isActive, isPending }) =>
                   isActive
-                    ? 'flex items-center gap-2 capitalize p-3 text-xl sm:text-base hover:bg-slate-600 sm:hover:bg-slate-300  bg-slate-700'
+                    ? 'flex items-center gap-2 capitalize p-3 text-xl sm:text-base hover:bg-slate-600 sm:hover:bg-slate-300 bg-slate-700 sm:bg-slate-200'
                     : 'flex items-center gap-2 capitalize p-3 text-xl sm:text-base hover:bg-slate-600 sm:hover:bg-slate-300'
                 }>
                 {icon} {text}

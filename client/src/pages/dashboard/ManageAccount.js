@@ -6,9 +6,10 @@ const ManageAccount = () => {
   const { user } = useAppContext();
 
   const initialState = {
-    username: user.username,
-    email: user.email,
+    username: user?.username,
+    email: user?.email,
     password: '*********',
+    about: user?.about || '',
   };
 
   const [value, setValue] = useState(initialState);
@@ -27,10 +28,8 @@ const ManageAccount = () => {
         <div className='md:grid md:grid-cols-3 md:gap-6'>
           <div className='md:col-span-1'>
             <div className='px-4 sm:px-0'>
-              <h3 className='text-lg font-medium leading-6 text-gray-900'>
-                Profile
-              </h3>
-              <p className='mt-1 text-sm text-gray-600'>
+              <h3 className='text-lg font-medium leading-6 '>Profile</h3>
+              <p className='mt-1 text-sm '>
                 This information will be displayed publicly so be careful what
                 you share.
               </p>
@@ -52,8 +51,10 @@ const ManageAccount = () => {
                           type='text'
                           name='username'
                           id='username'
+                          value={value.username}
+                          onChange={handleChange}
                           className='block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-black'
-                          placeholder={user.username}
+                          placeholder={value.username}
                         />
                       </div>
                     </div>
@@ -70,7 +71,7 @@ const ManageAccount = () => {
                         type='file'
                         name=''
                         id=''
-                        className='sm:ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+                        className='sm:ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-black shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
                       />
                     </div>
                   </div>
@@ -85,9 +86,10 @@ const ManageAccount = () => {
                         id='about'
                         name='about'
                         rows={3}
-                        className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
+                        className='mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
                         placeholder='Tell a bit about yourself'
-                        defaultValue={''}
+                        value={value.about}
+                        onChange={handleChange}
                       />
                     </div>
                     <p className='mt-2 text-sm text-gray-500'>
@@ -119,10 +121,10 @@ const ManageAccount = () => {
         <div className='md:grid md:grid-cols-3 md:gap-6'>
           <div className='md:col-span-1'>
             <div className='px-4 sm:px-0'>
-              <h3 className='text-lg font-medium leading-6 text-gray-900'>
+              <h3 className='text-lg font-medium leading-6 '>
                 Account Settings
               </h3>
-              <p className='mt-1 text-sm text-gray-600'>
+              <p className='mt-1 text-sm'>
                 Settings related to your account and won't be displayed
                 publicly.
               </p>
@@ -144,8 +146,9 @@ const ManageAccount = () => {
                         name='email'
                         id='email'
                         autoComplete='off'
-                        value={user.email}
-                        className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
+                        value={value.email}
+                        onChange={handleChange}
+                        className='mt-1 block w-full rounded-md border-gray-300 text-black shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
                       />
                     </div>
 
@@ -161,8 +164,21 @@ const ManageAccount = () => {
                         id='password'
                         autoComplete='off'
                         value={value.password}
-                        className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
+                        onChange={handleChange}
+                        className='mt-1 block w-full rounded-md border-gray-300 shadow-sm text-black focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
                       />
+                    </div>
+                    <div className='col-span-6 sm:col-span-4'>
+                      <label
+                        htmlFor='delete-account'
+                        className='block text-sm font-medium text-gray-700'>
+                        Delete Account
+                      </label>
+                      <button
+                        type='button'
+                        className=' mt-1 block justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2'>
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -172,11 +188,6 @@ const ManageAccount = () => {
                     onSubmit={handleSubmit}
                     className='inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
                     Save
-                  </button>
-                  <button
-                    type='submit'
-                    className='inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2'>
-                    Delete Account
                   </button>
                 </div>
               </div>
@@ -195,10 +206,8 @@ const ManageAccount = () => {
         <div className='md:grid md:grid-cols-3 md:gap-6'>
           <div className='md:col-span-1'>
             <div className='px-4 sm:px-0'>
-              <h3 className='text-lg font-medium leading-6 text-gray-900'>
-                Notifications
-              </h3>
-              <p className='mt-1 text-sm text-gray-600'>
+              <h3 className='text-lg font-medium leading-6 '>Notifications</h3>
+              <p className='mt-1 text-sm '>
                 Decide which communications you'd like to receive and how.
               </p>
             </div>
