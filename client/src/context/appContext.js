@@ -22,6 +22,9 @@ const initialState = {
   alertType: '',
   user: user ? JSON.parse(user) : null,
   token: token,
+  trips: [],
+  isEditing: false
+  totalTrips: 0,
 };
 
 const AppContext = createContext();
