@@ -22,8 +22,32 @@ const initialState = {
   alertType: '',
   user: user ? JSON.parse(user) : null,
   token: token,
+  isEditing: false,
+  destination: '',
+  nbTravelers: {
+    adults: 1,
+    children: 0,
+  },
+  likes: 0,
+  duration: 7,
+  theme: '',
+  themeOptions: [
+    'Art, history, cultural',
+    'Romance / honeymoon',
+    'Safari, natural parks',
+    'Adventure and trekking',
+    'Sea and beaches',
+    'Moutain, lakes and rivers',
+    'Religious and spiritual places',
+    'Unusual trips',
+    'Luxury and charme',
+    'Family',
+    'Wellness',
+  ],
+  cost: 0,
+  activities: '',
+  advices: '',
   trips: [],
-  isEditing: false
   totalTrips: 0,
 };
 

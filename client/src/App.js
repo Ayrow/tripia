@@ -35,7 +35,7 @@ const App = () => {
           }>
           <Route index element={<DashboardMain />} />
           <Route path='settings' element={<ManageAccount />} />
-          <Route path='trips' element={<Trips />} />
+          <Route path='my-trips' element={<Trips />} />
           <Route path='saved-trips' element={<SavedTrips />} />
         </Route>
 
