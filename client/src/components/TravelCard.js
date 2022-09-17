@@ -4,7 +4,7 @@ const TravelCard = ({
   image,
   location,
   theme,
-  travellers,
+  travelers,
   duration,
   likes,
   cost,
@@ -23,7 +23,7 @@ const TravelCard = ({
           <h3 className=' flex text-3xl'>{location}</h3>
           <div className='flex flex-col gap-2 place-items-end'>
             <p className='flex gap-2 items-center'>
-              {travellers} <FaUser />
+              {travelers} <FaUser />
             </p>
             <p className='flex gap-2 items-center'>
               {likes} <FaHeart className=' text-red-600' />

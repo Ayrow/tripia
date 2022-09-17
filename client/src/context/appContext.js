@@ -54,7 +54,9 @@ const initialState = {
   cost: 0,
   activities: '',
   advices: '',
-  trips: [],
+  allTrips: [],
+  userTrips: [],
+  savedTrips: [],
   totalUserTrips: 0,
   totalTrips: 0,
 };

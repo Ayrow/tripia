@@ -94,6 +94,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        userTrips: action.payload,
       };
     case GET_TRIPS_ERROR:
       return {

@@ -45,6 +45,9 @@ const TripSchema = new mongoose.Schema(
     },
     activities: { type: String },
     advices: { type: String },
+    mainImage: {
+      type: String,
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
