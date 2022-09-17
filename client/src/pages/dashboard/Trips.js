@@ -22,6 +22,10 @@ const Trips = () => {
         </button>
       </div>
       <CreateTripForm />
+      {trips.map((trip, index) => {
+        const { destination, theme, duration, nbTravelers, cost } = trip;
+        return <div key={index}>{theme}</div>;
+      })}
     </div>
   );
 };

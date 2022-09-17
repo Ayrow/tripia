@@ -38,15 +38,16 @@ const initialState = {
   duration: 7,
   theme: '',
   themeOptions: [
-    'Art, history, cultural',
-    'Romance / honeymoon',
-    'Safari, natural parks',
-    'Adventure and trekking',
-    'Sea and beaches',
-    'Moutain, lakes and rivers',
-    'Religious and spiritual places',
+    'History and Cultural',
+    'Romance and Honeymoon',
+    'Safari, Natural parks',
+    'Adventure and Trekking',
+    'Sea and Beaches',
+    'Mountains',
+    'Safari and Natural Parks',
+    'Religious and Spiritual Places',
     'Unusual trips',
-    'Luxury and charme',
+    'Luxury and Charme',
     'Family',
     'Wellness',
   ],
@@ -67,6 +68,30 @@ const AppProvider = ({ children }) => {
   const authFetch = axios.create({
     baseURL: '/api/v1',
   });
+
+  // request
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.common['Authorization'] = `Bearer ${state.token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  // response
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        logoutUser();
+      }
+      return Promise.reject(error);
+    }
+  );
 
   const displayAlert = ({ type, msg }) => {
     dispatch({ type: DISPLAY_ALERT, payload: { type, msg } });
@@ -123,6 +148,7 @@ const AppProvider = ({ children }) => {
   };
 
   const createTrip = async () => {
+    dispatch({ type: CREATE_TRIP_BEGIN });
     try {
       const {
         theme,
@@ -134,7 +160,7 @@ const AppProvider = ({ children }) => {
         advices,
       } = state;
 
-      await authFetch.post('/trips', {
+      await authFetch.post('/trips/myTrips', {
         theme,
         destination,
         nbTravelers,
@@ -143,18 +169,33 @@ const AppProvider = ({ children }) => {
         activities,
         advices,
       });
+      dispatch({ type: CREATE_TRIP_SUCCESS });
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: CREATE_TRIP_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
     }
-    console.log('create trip');
+    clearAlert();
   };
 
-  const getAllTrips = async () => {
-    console.log('getting trips');
-  };
+  const getAllTrips = async () => {};
 
   const getUserTrips = async () => {
-    console.log('getting trips');
+    let url = `/trips/myTrips`;
+    dispatch({ type: GET_TRIPS_BEGIN });
+    try {
+      const { data } = await authFetch(url);
+      const { trips } = data;
+      dispatch({ type: GET_TRIPS_SUCCESS, payload: trips });
+    } catch (error) {
+      dispatch({
+        type: GET_TRIPS_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    console.log('getting user trips');
+    clearAlert();
   };
 
   return (

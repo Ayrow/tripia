@@ -53,7 +53,6 @@ const CreateTripForm = () => {
               </label>
               <select
                 name='theme'
-                id=''
                 value={theme}
                 onChange={handleTripInput}
                 className='block w-52 py-2 px-3 rounded-md capitalize
@@ -61,7 +60,7 @@ const CreateTripForm = () => {
                 focus:border-primary-500 border bg-white border-black text-black'>
                 {themeOptions.map((item, index) => {
                   return (
-                    <option key={index} value={item} className='capitalize'>
+                    <option key={index} value={item} className=''>
                       {item}
                     </option>
                   );
@@ -94,7 +93,6 @@ const CreateTripForm = () => {
                     type='number'
                     name='nbTravelers'
                     min='1'
-                    id=''
                     onChange={handleTripInput}
                     value={nbTravelers.adults}
                   />
@@ -107,7 +105,6 @@ const CreateTripForm = () => {
                     type='number'
                     name='nbTravelers'
                     min='0'
-                    id=''
                     onChange={handleTripInput}
                     value={nbTravelers.children}
                   />
@@ -137,7 +134,6 @@ const CreateTripForm = () => {
             <textarea
               name='activities'
               value={activities}
-              id=''
               cols='30'
               rows='5'
               onChange={handleTripInput}
@@ -150,7 +146,6 @@ const CreateTripForm = () => {
             <textarea
               name='advices'
               value={advices}
-              id=''
               cols='30'
               rows='5'
               onChange={handleTripInput}

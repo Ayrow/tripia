@@ -74,12 +74,14 @@ const reducer = (state, action) => {
         ...state,
         isLoading: false,
         showAlert: true,
+        alertType: 'success',
+        alertText: 'Successfully created!',
       };
     case CREATE_TRIP_ERROR:
       return {
         ...state,
         showAlert: true,
-        alertType: action.payload.type,
+        alertType: 'danger',
         alertText: action.payload.msg,
       };
     case GET_TRIPS_BEGIN:
@@ -91,16 +93,13 @@ const reducer = (state, action) => {
     case GET_TRIPS_SUCCESS:
       return {
         ...state,
-        showAlert: true,
-        alertType: action.payload.type,
-        alertText: action.payload.msg,
-        trips: action.payload.trips,
+        isLoading: false,
       };
     case GET_TRIPS_ERROR:
       return {
         ...state,
         showAlert: true,
-        alertType: action.payload.type,
+        alertType: 'danger',
         alertText: action.payload.msg,
       };
     default:

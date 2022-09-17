@@ -12,8 +12,20 @@ const addTrip = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ trip });
 };
 
+const getAllTrips = async (req, res) => {
+  let result = Trip.find({});
+  const allTrips = await result;
+
+  res.status(StatusCodes.OK).json({ allTrips });
+};
+
 const getMyTrips = async (req, res) => {
-  res.status(200).json({ msg: 'get all trips' });
+  console.log(req.query);
+
+  let result = Trip.find({ createdBy: req.user.userId });
+  const trips = await result;
+
+  res.status(StatusCodes.OK).json({ trips });
 };
 
 const editTrip = async (req, res) => {
@@ -44,4 +56,5 @@ export {
   saveTrip,
   getAllSavedTrips,
   deleteSavedTrip,
+  getAllTrips,
 };
