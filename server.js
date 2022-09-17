@@ -11,7 +11,7 @@ import connectDB from './db/connect.js';
 
 //routers
 import authRouter from './routes/authRoutes.js';
-import tripsRouter from './routes/travelRoutes.js';
+import userTripsRouter from './routes/userTripsRoutes.js';
 
 //middleware
 import NotFoundMiddleware from './middleware/not-found.js';
@@ -25,7 +25,7 @@ app.get('/api/v1', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/trips', authenticateUser, tripsRouter);
+app.use('/api/v1/trips', authenticateUser, userTripsRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);

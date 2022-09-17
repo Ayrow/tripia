@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import {
-  getAllTrips,
+  getMyTrips,
   addTrip,
   editTrip,
   deleteTrip,
@@ -11,7 +11,7 @@ import {
   deleteSavedTrip,
 } from '../controllers/tripsController.js';
 
-router.route('/').post(addTrip).get(getAllTrips);
+router.route('/myTrips').post(addTrip).get(getMyTrips);
 router.route('/myTrips/:id').patch(editTrip).delete(deleteTrip);
 router.route('/saved').post(saveTrip).get(getAllSavedTrips);
 router.route('/saved/:id').delete(deleteSavedTrip);

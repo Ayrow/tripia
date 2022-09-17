@@ -12,7 +12,7 @@ const addTrip = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ trip });
 };
 
-const getAllTrips = async (req, res) => {
+const getMyTrips = async (req, res) => {
   res.status(200).json({ msg: 'get all trips' });
 };
 
@@ -40,7 +40,7 @@ export {
   addTrip,
   editTrip,
   deleteTrip,
-  getAllTrips,
+  getMyTrips,
   saveTrip,
   getAllSavedTrips,
   deleteSavedTrip,
