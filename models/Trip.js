@@ -36,7 +36,7 @@ const TripSchema = new mongoose.Schema(
         'family',
         'wellness',
       ],
-      default: 'wellness',
+      default: 'art, history, cultural',
     },
     cost: {
       type: Number,

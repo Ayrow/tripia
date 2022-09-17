@@ -16,6 +16,7 @@ import tripsRouter from './routes/travelRoutes.js';
 //middleware
 import NotFoundMiddleware from './middleware/not-found.js';
 import ErrorHandlerMiddleware from './middleware/error-handler.js';
+import authenticateUser from './middleware/auth.js';
 
 app.use(express.json());
 
@@ -24,7 +25,7 @@ app.get('/api/v1', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/trips', tripsRouter);
+app.use('/api/v1/trips', authenticateUser, tripsRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
