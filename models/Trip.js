@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const TripsSchema = new mongoose.Schema(
+const TripSchema = new mongoose.Schema(
   {
     destination: {
       type: String,
@@ -22,6 +22,7 @@ const TripsSchema = new mongoose.Schema(
     },
     likes: { type: Number, default: 0 },
     theme: {
+      type: String,
       enum: [
         'art, history, cultural',
         'romance / honeymoon',
@@ -35,7 +36,7 @@ const TripsSchema = new mongoose.Schema(
         'family',
         'wellness',
       ],
-      default: 'family',
+      default: 'wellness',
     },
     cost: {
       type: Number,
@@ -52,4 +53,4 @@ const TripsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model('Trips', TripsSchema);
+export default mongoose.model('Trip', TripSchema);

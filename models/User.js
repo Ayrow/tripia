@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema(
     saved: [
       {
         type: mongoose.Types.ObjectId,
-        ref: 'Trips',
+        ref: 'Trip',
       },
     ],
     password: {

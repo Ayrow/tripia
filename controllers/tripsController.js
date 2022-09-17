@@ -1,5 +1,15 @@
+import Trip from '../models/Trip.js';
+import { StatusCodes } from 'http-status-codes';
+import { BadRequestError } from '../errors/index.js';
+
 const addTrip = async (req, res) => {
-  res.status(200).json({ msg: 'add Trip' });
+  const { destination, duration, cost } = req.body;
+  if (!destination || !duration || !cost) {
+    throw new BadRequestError('Please provide all values');
+  }
+  req.body.createdBy = req.user.userId;
+  const trip = await Trip.create(req.body);
+  res.status(StatusCodes.CREATED).json({ trip });
 };
 
 const getAllTrips = async (req, res) => {

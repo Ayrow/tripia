@@ -10,6 +10,12 @@ import {
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   LOGOUT_USER,
+  CREATE_TRIP_BEGIN,
+  CREATE_TRIP_SUCCESS,
+  CREATE_TRIP_ERROR,
+  GET_TRIPS_BEGIN,
+  GET_TRIPS_SUCCESS,
+  GET_TRIPS_ERROR,
 } from './actions';
 
 const user = localStorage.getItem('user');
@@ -48,6 +54,7 @@ const initialState = {
   activities: '',
   advices: '',
   trips: [],
+  totalUserTrips: 0,
   totalTrips: 0,
 };
 
@@ -115,9 +122,53 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage();
   };
 
+  const createTrip = async () => {
+    try {
+      const {
+        theme,
+        destination,
+        nbTravelers,
+        duration,
+        cost,
+        activities,
+        advices,
+      } = state;
+
+      await authFetch.post('/trips', {
+        theme,
+        destination,
+        nbTravelers,
+        duration,
+        cost,
+        activities,
+        advices,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('create trip');
+  };
+
+  const getAllTrips = async () => {
+    console.log('getting trips');
+  };
+
+  const getUserTrips = async () => {
+    console.log('getting trips');
+  };
+
   return (
     <AppContext.Provider
-      value={{ ...state, setupUser, displayAlert, logoutUser, handleChange }}>
+      value={{
+        ...state,
+        setupUser,
+        displayAlert,
+        logoutUser,
+        handleChange,
+        createTrip,
+        getUserTrips,
+        getAllTrips,
+      }}>
       {children}
     </AppContext.Provider>
   );

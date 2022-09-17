@@ -6,6 +6,12 @@ import {
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   LOGOUT_USER,
+  CREATE_TRIP_BEGIN,
+  CREATE_TRIP_SUCCESS,
+  CREATE_TRIP_ERROR,
+  GET_TRIPS_BEGIN,
+  GET_TRIPS_SUCCESS,
+  GET_TRIPS_ERROR,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -56,6 +62,46 @@ const reducer = (state, action) => {
         user: null,
         userLocation: '',
         jobLocation: '',
+      };
+    case CREATE_TRIP_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+        showAlert: false,
+      };
+    case CREATE_TRIP_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+      };
+    case CREATE_TRIP_ERROR:
+      return {
+        ...state,
+        showAlert: true,
+        alertType: action.payload.type,
+        alertText: action.payload.msg,
+      };
+    case GET_TRIPS_BEGIN:
+      return {
+        ...state,
+        isLoading: true,
+        showAlert: false,
+      };
+    case GET_TRIPS_SUCCESS:
+      return {
+        ...state,
+        showAlert: true,
+        alertType: action.payload.type,
+        alertText: action.payload.msg,
+        trips: action.payload.trips,
+      };
+    case GET_TRIPS_ERROR:
+      return {
+        ...state,
+        showAlert: true,
+        alertType: action.payload.type,
+        alertText: action.payload.msg,
       };
     default:
       throw new Error(`There is no action: ${action.type}`);
