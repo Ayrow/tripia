@@ -10,6 +10,9 @@ const CreateTripForm = () => {
     nbChildren,
     duration,
     cost,
+    accomodationExpenses,
+    travelExpenses,
+    leisureExpenses,
     activities,
     advices,
     createTrip,
@@ -31,10 +34,10 @@ const CreateTripForm = () => {
     createTrip();
   };
   return (
-    <form className='mt-5'>
+    <form className='mt-5 sm:p-7'>
       <div className='shadow sm:rounded-md'>
         <div className='space-y-6 bg-white px-4 py-5 sm:p-6'>
-          <div className='flex flex-col md:flex-row flex-wrap gap-5'>
+          <div className='flex flex-col md:flex-row flex-wrap justify-around'>
             <div className='flex flex-col gap-2 border rounded-xl p-5'>
               <label htmlFor='' className='text-black'>
                 Destination <span className='text-red-500'>*</span>
@@ -131,42 +134,60 @@ const CreateTripForm = () => {
           </div>
           <div className='flex flex-col gap-2 border rounded-xl p-5'>
             <h3 className='text-black'>Cost details</h3>
-            <div>
-              <div className='flex'>
+            <div className='flex justify-around flex-wrap gap-4'>
+              <div className='flex flex-col'>
                 <label htmlFor='' className='text-black'>
-                  Travel
+                  Travel expenses (car, airplane tickets, train...)
                 </label>
                 <textarea
-                  name='leisure'
-                  value=''
+                  name='travelExpenses'
+                  value={travelExpenses}
                   cols='30'
                   rows='5'
                   onChange={handleTripInput}
-                  className='text-black'></textarea>
+                  className='border border-black text-black list-disc'></textarea>
+                <input
+                  type='number'
+                  name=''
+                  id=''
+                  className='border border-black text-black'
+                />
               </div>
-              <div className='flex'>
+              <div className='flex flex-col'>
                 <label htmlFor='' className='text-black'>
                   Accomodation
                 </label>
                 <textarea
-                  name='leisure'
-                  value=''
+                  name='accomodationExpenses'
+                  value={accomodationExpenses}
                   cols='30'
                   rows='5'
                   onChange={handleTripInput}
-                  className='text-black'></textarea>
+                  className='border border-black text-black list-item'></textarea>
+                <input
+                  type='number'
+                  name=''
+                  id=''
+                  className='border border-black text-black'
+                />
               </div>
-              <div className='flex'>
+              <div className='flex flex-col'>
                 <label htmlFor='' className='text-black'>
                   Leisure
                 </label>
                 <textarea
-                  name='leisure'
-                  value=''
+                  name='leisureExpenses'
+                  value={leisureExpenses}
                   cols='30'
                   rows='5'
                   onChange={handleTripInput}
-                  className='text-black'></textarea>
+                  className='border border-black text-black'></textarea>
+                <input
+                  type='number'
+                  name=''
+                  id=''
+                  className='border border-black text-black'
+                />
               </div>
             </div>
           </div>
@@ -180,7 +201,7 @@ const CreateTripForm = () => {
               cols='30'
               rows='5'
               onChange={handleTripInput}
-              className='text-black'></textarea>
+              className='border border-black text-black'></textarea>
           </div>
           <div className='flex flex-col gap-2 border rounded-xl p-5'>
             <label htmlFor='' className='text-black'>
@@ -192,7 +213,7 @@ const CreateTripForm = () => {
               cols='30'
               rows='5'
               onChange={handleTripInput}
-              className='text-black'></textarea>
+              className='border border-black text-black'></textarea>
           </div>
           <div className='flex gap-2 justify-end'>
             <button

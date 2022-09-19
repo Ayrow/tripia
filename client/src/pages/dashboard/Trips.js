@@ -13,9 +13,9 @@ const Trips = () => {
   }, []);
 
   return (
-    <div className='p-7'>
-      <div>
-        <h2 className='text-center text-2xl mb-10'>My trips</h2>
+    <div className=''>
+      <div className=''>
+        <h2 className='text-center text-2xl mb-10 pt-4'>My trips</h2>
       </div>
       <div className='flex justify-center mt-2'>
         <button
@@ -28,7 +28,7 @@ const Trips = () => {
       {toggleCreateForm && (
         <CreateTripForm setToggleCreateForm={setToggleCreateForm} />
       )}
-      <div className='flex w-full flex-wrap gap-5 mt-5'>
+      <div className='flex w-full flex-wrap gap-5 mt-5 p-3'>
         {userTrips.map((trip, index) => {
           const { destination, theme, duration, cost, nbTravelers, likes } =
             trip;
