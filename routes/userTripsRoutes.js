@@ -9,11 +9,24 @@ import {
   saveTrip,
   getAllSavedTrips,
   deleteSavedTrip,
+  getAllTrips,
 } from '../controllers/tripsController.js';
 
-router.route('/myTrips').post(addTrip).get(getMyTrips);
-router.route('/myTrips/:id').patch(editTrip).delete(deleteTrip);
-router.route('/saved').post(saveTrip).get(getAllSavedTrips);
-router.route('/saved/:id').delete(deleteSavedTrip);
+import authenticateUser from '../middleware/auth.js';
+
+router.route('/').get(getAllTrips);
+router
+  .route('/myTrips')
+  .post(authenticateUser, addTrip)
+  .get(authenticateUser, getMyTrips);
+router
+  .route('/myTrips/:id')
+  .patch(authenticateUser, editTrip)
+  .delete(deleteTrip);
+router
+  .route('/saved')
+  .post(authenticateUser, saveTrip)
+  .get(authenticateUser, getAllSavedTrips);
+router.route('/saved/:id').delete(authenticateUser, deleteSavedTrip);
 
 export default router;

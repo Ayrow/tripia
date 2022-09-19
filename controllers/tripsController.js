@@ -14,9 +14,9 @@ const addTrip = async (req, res) => {
 
 const getAllTrips = async (req, res) => {
   let result = Trip.find({});
-  const allTrips = await result;
+  const everyTrips = await result;
 
-  res.status(StatusCodes.OK).json({ allTrips });
+  res.status(StatusCodes.OK).json({ everyTrips });
 };
 
 const getMyTrips = async (req, res) => {

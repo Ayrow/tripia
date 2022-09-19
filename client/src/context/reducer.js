@@ -10,7 +10,8 @@ import {
   CREATE_TRIP_SUCCESS,
   CREATE_TRIP_ERROR,
   GET_TRIPS_BEGIN,
-  GET_TRIPS_SUCCESS,
+  GET_USER_TRIPS_SUCCESS,
+  GET_ALL_TRIPS_SUCCESS,
   GET_TRIPS_ERROR,
   CLEAR_TRIP_FORM,
 } from './actions';
@@ -91,11 +92,17 @@ const reducer = (state, action) => {
         isLoading: true,
         showAlert: false,
       };
-    case GET_TRIPS_SUCCESS:
+    case GET_USER_TRIPS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         userTrips: action.payload,
+      };
+    case GET_ALL_TRIPS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        allTrips: action.payload,
       };
     case GET_TRIPS_ERROR:
       return {

@@ -16,6 +16,7 @@ import {
   Trips,
   DashboardMain,
 } from './pages/dashboard';
+import SingleTrip from './pages/SingleTrip';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path='/' element={<LandingPage />} />
         <Route path='/register' element={<RegisterForm />} />
         <Route path='/explore' element={<Explore />} />
+        <Route path={`/explore/:id`} element={<SingleTrip />} />
 
         <Route
           path='/dashboard/'

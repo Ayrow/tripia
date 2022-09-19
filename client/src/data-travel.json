@@ -2,9 +2,12 @@
   {
     "id": 1,
     "image": "https://www.parisphoto.com/content/dam/sitebuilder/ref/paris-photo/images/prochaines-%C3%A9ditions/gpe-web.jpg/_jcr_content/renditions/original.image_file.559.699.file/165099428/gpe-web.jpg",
-    "location": "Europe",
+    "destination": "Europe",
     "theme": "Romantic",
-    "travelers": "2",
+    "nbTravelers": {
+      "adults": "3",
+      "children": "1"
+    },
     "duration": "2 weeks",
     "cost": "3000",
     "likes": "42",
@@ -16,9 +19,12 @@
   {
     "id": 2,
     "image": "https://europeupclose.com/wp-content/uploads/2017/04/iceland-1751463_1280.jpg",
-    "location": "Iceland",
-    "theme": "Romantic",
-    "travelers": "2",
+    "destination": "Iceland",
+    "theme": "Family",
+    "nbTravelers": {
+      "adults": "2",
+      "children": "3"
+    },
     "duration": "1 week",
     "cost": "4500",
     "likes": "60",

@@ -1,4 +1,6 @@
+import CardsList from '../components/CardsList';
+
 const Explore = () => {
-  return <div>Explore</div>;
+  return <CardsList />;
 };
 export default Explore;

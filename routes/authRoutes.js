@@ -8,9 +8,11 @@ import {
   deleteUser,
 } from '../controllers/authController.js';
 
+import authenticateUser from '../middleware/auth.js';
+
 router.route('/register').post(register);
 router.route('/login').post(login);
-router.route('/updateUser').patch(updateUser);
-router.route('/deleteUser').delete(deleteUser);
+router.route('/updateUser').patch(authenticateUser, updateUser);
+router.route('/deleteUser').delete(authenticateUser, deleteUser);
 
 export default router;

@@ -14,7 +14,8 @@ import {
   CREATE_TRIP_SUCCESS,
   CREATE_TRIP_ERROR,
   GET_TRIPS_BEGIN,
-  GET_TRIPS_SUCCESS,
+  GET_USER_TRIPS_SUCCESS,
+  GET_ALL_TRIPS_SUCCESS,
   GET_TRIPS_ERROR,
   CLEAR_TRIP_FORM,
 } from './actions';
@@ -196,7 +197,21 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CLEAR_TRIP_FORM });
   };
 
-  const getAllTrips = async () => {};
+  const getAllTrips = async () => {
+    let url = `/trips/`;
+    dispatch({ type: GET_TRIPS_BEGIN });
+    try {
+      const { data } = await authFetch(url);
+      const { everyTrips } = data;
+      dispatch({ type: GET_ALL_TRIPS_SUCCESS, payload: everyTrips });
+    } catch (error) {
+      dispatch({
+        type: GET_TRIPS_ERROR,
+        payload: { msg: error },
+      });
+    }
+    clearAlert();
+  };
 
   const getUserTrips = async () => {
     let url = `/trips/myTrips`;
@@ -204,7 +219,7 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch(url);
       const { trips } = data;
-      dispatch({ type: GET_TRIPS_SUCCESS, payload: trips });
+      dispatch({ type: GET_USER_TRIPS_SUCCESS, payload: trips });
     } catch (error) {
       dispatch({
         type: GET_TRIPS_ERROR,
