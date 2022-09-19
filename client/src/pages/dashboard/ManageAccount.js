@@ -23,7 +23,7 @@ const ManageAccount = () => {
   };
 
   return (
-    <>
+    <div className='p-7'>
       <div>
         <div className='md:grid md:grid-cols-3 md:gap-6'>
           <div className='md:col-span-1'>
@@ -350,7 +350,7 @@ const ManageAccount = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default ManageAccount;

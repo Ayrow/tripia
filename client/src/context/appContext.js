@@ -195,8 +195,8 @@ const AppProvider = ({ children }) => {
         type: GET_TRIPS_ERROR,
         payload: { msg: error.response.data.msg },
       });
+      logoutUser();
     }
-    console.log('getting user trips');
     clearAlert();
   };
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CreateTripForm from '../../components/CreateTripForm';
 import { useAppContext } from '../../context/appContext';
 import { FaUser, FaHeart } from 'react-icons/fa';
@@ -6,33 +6,37 @@ import { FaUser, FaHeart } from 'react-icons/fa';
 const Trips = () => {
   const { userTrips, getUserTrips } = useAppContext();
 
+  const [toggleCreateForm, setToggleCreateForm] = useState(false);
+
   useEffect(() => {
     getUserTrips();
-    console.log(userTrips);
   }, []);
 
   return (
     <div className='p-7'>
       <div>
-        <h2 className='text-center text-2xl'>My trips</h2>
+        <h2 className='text-center text-2xl mb-10'>My trips</h2>
       </div>
       <div className='flex justify-center mt-2'>
         <button
           type='button'
+          onClick={() => setToggleCreateForm(!toggleCreateForm)}
           className='flex btn gap-2 place-items-center bg-orange-500'>
-          Add a new trip
+          {toggleCreateForm ? 'Close Form' : 'Add a new trip'}
         </button>
       </div>
-      <CreateTripForm />
+      {toggleCreateForm && (
+        <CreateTripForm setToggleCreateForm={setToggleCreateForm} />
+      )}
       <div className='flex w-full flex-wrap gap-2 mt-5'>
         {userTrips.map((trip, index) => {
-          const { destination, theme, duration, cost, image, likes } = trip;
+          const { destination, theme, duration, cost, likes } = trip;
           return (
             <div
               key={index}
               className='w-full h-80 rounded-2xl shadow-lg'
               style={{
-                backgroundImage: `url(${image})`,
+                // backgroundImage: `url(${image})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
@@ -54,7 +58,7 @@ const Trips = () => {
                   <p>{duration} Days</p>
                 </div>
                 <div className='text-3xl flex place-items-center justify-center'>
-                  <p className='bg-orange-500 bg-opacity-70 w-1/4 text-center rounded-lg'>
+                  <p className='bg-orange-500 bg-opacity-70 text-center rounded-lg flex justify-center px-3 py-1'>
                     {cost} €
                   </p>
                 </div>
