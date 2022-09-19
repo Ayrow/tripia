@@ -12,6 +12,7 @@ import {
   GET_TRIPS_BEGIN,
   GET_TRIPS_SUCCESS,
   GET_TRIPS_ERROR,
+  CLEAR_TRIP_FORM,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -102,6 +103,22 @@ const reducer = (state, action) => {
         showAlert: true,
         alertType: 'danger',
         alertText: action.payload.msg,
+      };
+    case CLEAR_TRIP_FORM:
+      return {
+        ...state,
+        destination: '',
+        nbAdults: 1,
+        nbChildren: 0,
+        nbTravelers: {
+          adults: 1,
+          children: 0,
+        },
+        duration: 1,
+        theme: '',
+        cost: 0,
+        activities: '',
+        advices: '',
       };
     default:
       throw new Error(`There is no action: ${action.type}`);

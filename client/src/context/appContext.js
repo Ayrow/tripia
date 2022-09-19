@@ -16,6 +16,7 @@ import {
   GET_TRIPS_BEGIN,
   GET_TRIPS_SUCCESS,
   GET_TRIPS_ERROR,
+  CLEAR_TRIP_FORM,
 } from './actions';
 
 const user = localStorage.getItem('user');
@@ -184,7 +185,12 @@ const AppProvider = ({ children }) => {
       });
     }
     clearAlert();
+    clearTripForm();
     getUserTrips();
+  };
+
+  const clearTripForm = () => {
+    dispatch({ type: CLEAR_TRIP_FORM });
   };
 
   const getAllTrips = async () => {};
@@ -217,6 +223,7 @@ const AppProvider = ({ children }) => {
         createTrip,
         getUserTrips,
         getAllTrips,
+        clearTripForm,
       }}>
       {children}
     </AppContext.Provider>

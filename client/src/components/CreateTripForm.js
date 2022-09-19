@@ -13,6 +13,7 @@ const CreateTripForm = () => {
     activities,
     advices,
     createTrip,
+    clearTripForm,
   } = useAppContext();
 
   const handleTripInput = (e) => {
@@ -200,7 +201,10 @@ const CreateTripForm = () => {
               className='btn bg-orange-500'>
               Create Trip
             </button>
-            <button type='button' className='btn btn-danger bg-red-500'>
+            <button
+              type='button'
+              onClick={clearTripForm}
+              className='btn btn-danger bg-red-500'>
               Clear All
             </button>
           </div>
