@@ -6,7 +6,8 @@ const CreateTripForm = () => {
     theme,
     themeOptions,
     destination,
-    nbTravelers,
+    nbAdults,
+    nbChildren,
     duration,
     cost,
     activities,
@@ -83,18 +84,18 @@ const CreateTripForm = () => {
               />
             </div>
             <div className='flex flex-col gap-2 border rounded-xl p-5'>
-              <label htmlFor='' className='text-black'>
+              <h3 htmlFor='' className='text-black'>
                 Travelers
-              </label>
+              </h3>
               <div className='flex gap-4 text-black'>
                 <label htmlFor=''>Adults</label>
                 <div className='flex gap-2'>
                   <input
                     type='number'
-                    name='nbTravelers'
+                    name='nbAdults'
                     min='1'
                     onChange={handleTripInput}
-                    value={nbTravelers.adults}
+                    value={nbAdults}
                   />
                 </div>
               </div>
@@ -103,10 +104,10 @@ const CreateTripForm = () => {
                 <div className='flex gap-2'>
                   <input
                     type='number'
-                    name='nbTravelers'
+                    name='nbChildren'
                     min='0'
                     onChange={handleTripInput}
-                    value={nbTravelers.children}
+                    value={nbChildren}
                   />
                 </div>
               </div>
@@ -125,6 +126,47 @@ const CreateTripForm = () => {
                 shadow-sm focus:outline-none focus:ring-primary-500
                 focus:border-primary-500 border border-black text-black'
               />
+            </div>
+          </div>
+          <div className='flex flex-col gap-2 border rounded-xl p-5'>
+            <h3 className='text-black'>Cost details</h3>
+            <div>
+              <div className='flex'>
+                <label htmlFor='' className='text-black'>
+                  Travel
+                </label>
+                <textarea
+                  name='leisure'
+                  value=''
+                  cols='30'
+                  rows='5'
+                  onChange={handleTripInput}
+                  className='text-black'></textarea>
+              </div>
+              <div className='flex'>
+                <label htmlFor='' className='text-black'>
+                  Accomodation
+                </label>
+                <textarea
+                  name='leisure'
+                  value=''
+                  cols='30'
+                  rows='5'
+                  onChange={handleTripInput}
+                  className='text-black'></textarea>
+              </div>
+              <div className='flex'>
+                <label htmlFor='' className='text-black'>
+                  Leisure
+                </label>
+                <textarea
+                  name='leisure'
+                  value=''
+                  cols='30'
+                  rows='5'
+                  onChange={handleTripInput}
+                  className='text-black'></textarea>
+              </div>
             </div>
           </div>
           <div className='flex flex-col gap-2 border rounded-xl p-5'>

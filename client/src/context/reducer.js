@@ -60,8 +60,8 @@ const reducer = (state, action) => {
         isLoading: false,
         token: null,
         user: null,
-        userLocation: '',
-        jobLocation: '',
+        isEditing: false,
+        showAlert: false,
       };
     case CREATE_TRIP_BEGIN:
       return {

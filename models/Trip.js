@@ -6,7 +6,7 @@ const TripSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide destination'],
     },
-    nbtravelers: {
+    nbTravelers: {
       adults: {
         type: Number,
         default: 1,

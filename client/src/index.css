@@ -47,7 +47,7 @@ html {
   --light-blue: #769abe;
   --dark-blue: #0e2641;
   --orange: #e46f44;
-  --light-orange: #e58461;
+  --light-orange: #e67d58d2;
 
   /* fonts  */
   --headingFont: 'Roboto Condensed', Sans-Serif;
@@ -177,12 +177,12 @@ ul {
   box-shadow: var(--shadow-3);
 }
 .btn-hipster {
-  color: var(--primary-500);
-  background: var(--primary-200);
+  color: var(--primary-200);
+  background: var(--primary-900);
 }
 .btn-hipster:hover {
-  color: var(--primary-200);
-  background: var(--primary-700);
+  color: var(--primary-700);
+  background: var(--primary-200);
 }
 .btn-block {
   width: 100%;
@@ -328,6 +328,45 @@ ul {
   .dashboard-page {
     width: 90%;
   }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  /* border-bottom: 1px dotted black; */
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
 
 @tailwind base;

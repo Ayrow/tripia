@@ -30,6 +30,8 @@ const initialState = {
   token: token,
   isEditing: false,
   destination: '',
+  nbAdults: 1,
+  nbChildren: 0,
   nbTravelers: {
     adults: 1,
     children: 0,
@@ -162,6 +164,9 @@ const AppProvider = ({ children }) => {
         advices,
       } = state;
 
+      nbTravelers.adults = state.nbAdults;
+      nbTravelers.children = state.nbChildren;
+
       await authFetch.post('/trips/myTrips', {
         theme,
         destination,
@@ -179,6 +184,7 @@ const AppProvider = ({ children }) => {
       });
     }
     clearAlert();
+    getUserTrips();
   };
 
   const getAllTrips = async () => {};
