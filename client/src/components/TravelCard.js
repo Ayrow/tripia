@@ -41,9 +41,9 @@ const TravelCard = ({
             </p>
           </div>
         </div>
-        <div className='flex flex-col items-center text-xl pt-3 gap-2'>
+        <div className='flex flex-col items-center text-center text-xl pt-3 gap-7'>
           <p>Theme: {theme}</p>
-          <p>{duration} Days</p>
+          <p>Duration: {duration} Days</p>
         </div>
         <div className='text-2xl flex place-items-center justify-center py-5'>
           <p className='bg-orange-500 bg-opacity-70 text-center rounded-lg flex justify-center px-3 py-1'>

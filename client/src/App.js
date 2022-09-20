@@ -13,7 +13,7 @@ import {
   ManageAccount,
   SharedLayout,
   SavedTrips,
-  Trips,
+  UserTrips,
   DashboardMain,
 } from './pages/dashboard';
 import SingleTrip from './pages/SingleTrip';
@@ -37,7 +37,7 @@ const App = () => {
           }>
           <Route index element={<DashboardMain />} />
           <Route path='settings' element={<ManageAccount />} />
-          <Route path='my-trips' element={<Trips />} />
+          <Route path='my-trips' element={<UserTrips />} />
           <Route path='saved-trips' element={<SavedTrips />} />
         </Route>
 

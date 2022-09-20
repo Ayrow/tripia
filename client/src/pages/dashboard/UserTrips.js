@@ -3,7 +3,7 @@ import CreateTripForm from '../../components/CreateTripForm';
 import { useAppContext } from '../../context/appContext';
 import { FaUser, FaHeart, FaChild } from 'react-icons/fa';
 
-const Trips = () => {
+const UserTrips = () => {
   const { userTrips, getUserTrips } = useAppContext();
 
   const [toggleCreateForm, setToggleCreateForm] = useState(false);
@@ -84,4 +84,4 @@ const Trips = () => {
     </div>
   );
 };
-export default Trips;
+export default UserTrips;

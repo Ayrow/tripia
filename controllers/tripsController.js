@@ -19,7 +19,7 @@ const getAllTrips = async (req, res) => {
   res.status(StatusCodes.OK).json({ everyTrips });
 };
 
-const getMyTrips = async (req, res) => {
+const getUserTrips = async (req, res) => {
   let result = Trip.find({ createdBy: req.user.userId });
   const trips = await result;
 
@@ -56,7 +56,7 @@ export {
   addTrip,
   editTrip,
   deleteTrip,
-  getMyTrips,
+  getUserTrips,
   saveTrip,
   getAllSavedTrips,
   deleteSavedTrip,

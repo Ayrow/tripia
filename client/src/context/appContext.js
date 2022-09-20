@@ -174,7 +174,7 @@ const AppProvider = ({ children }) => {
       nbTravelers.adults = state.nbAdults;
       nbTravelers.children = state.nbChildren;
 
-      await authFetch.post('/trips/myTrips', {
+      await authFetch.post('/trips/usertrips', {
         theme,
         destination,
         nbTravelers,
@@ -200,7 +200,7 @@ const AppProvider = ({ children }) => {
   };
 
   const getAllTrips = async () => {
-    let url = `/trips/`;
+    let url = `/trips`;
     dispatch({ type: GET_TRIPS_BEGIN });
     try {
       const { data } = await authFetch(url);
@@ -216,7 +216,7 @@ const AppProvider = ({ children }) => {
   };
 
   const getUserTrips = async () => {
-    let url = `/trips/myTrips`;
+    let url = `/trips/usertrips`;
     dispatch({ type: GET_TRIPS_BEGIN });
     try {
       const { data } = await authFetch(url);
@@ -227,7 +227,7 @@ const AppProvider = ({ children }) => {
         type: GET_TRIPS_ERROR,
         payload: { msg: error.response.data.msg },
       });
-      logoutUser();
+      // logoutUser();
     }
     clearAlert();
   };

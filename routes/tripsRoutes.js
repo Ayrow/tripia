@@ -2,33 +2,34 @@ import express from 'express';
 const router = express.Router();
 
 import {
-  getMyTrips,
+  getAllTrips,
+  getSingleTrip,
+  getUserTrips,
   addTrip,
   editTrip,
   deleteTrip,
   saveTrip,
   getAllSavedTrips,
   deleteSavedTrip,
-  getAllTrips,
-  getSingleTrip,
 } from '../controllers/tripsController.js';
 
 import authenticateUser from '../middleware/auth.js';
 
 router.route('/').get(getAllTrips);
-router.route('/:id').get(getSingleTrip);
 router
-  .route('/myTrips')
+  .route('/usertrips')
   .post(authenticateUser, addTrip)
-  .get(authenticateUser, getMyTrips);
+  .get(authenticateUser, getUserTrips);
 router
-  .route('/myTrips/:id')
-  .patch(authenticateUser, editTrip)
-  .delete(deleteTrip);
-router
-  .route('/saved')
+  .route('/usertrips/saved')
   .post(authenticateUser, saveTrip)
   .get(authenticateUser, getAllSavedTrips);
-router.route('/saved/:id').delete(authenticateUser, deleteSavedTrip);
+
+router.route('/usertrips/saved/:id').delete(authenticateUser, deleteSavedTrip);
+router
+  .route('/usertrips/:id')
+  .patch(authenticateUser, editTrip)
+  .delete(authenticateUser, deleteTrip);
+router.route('/:id').get(getSingleTrip);
 
 export default router;

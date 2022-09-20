@@ -12,8 +12,8 @@ const CardsList = () => {
   }, []);
 
   return (
-    <div className=''>
-      <div className='my-10 text-center w-full'>
+    <div className='my-10'>
+      <div className='my-10 text-center w-full px-5'>
         <h2 className='text-3xl '>
           Explore trips recommanded by other globetrotters !
         </h2>

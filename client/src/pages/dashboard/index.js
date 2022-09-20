@@ -1,7 +1,7 @@
 import ManageAccount from './ManageAccount';
 import SharedLayout from './SharedLayout';
 import DashboardMain from './DashboardMain';
-import Trips from './Trips';
+import UserTrips from './UserTrips';
 import SavedTrips from './SavedTrips';
 
-export { ManageAccount, SharedLayout, DashboardMain, Trips, SavedTrips };
+export { ManageAccount, SharedLayout, DashboardMain, UserTrips, SavedTrips };
