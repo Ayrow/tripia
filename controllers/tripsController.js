@@ -37,7 +37,9 @@ const editTrip = async (req, res) => {
 };
 
 const deleteTrip = async (req, res) => {
-  res.status(200).json({ msg: 'delete Trip' });
+  const { id: tripId } = req.params;
+  let trip = await Trip.findByIdAndDelete({ _id: tripId });
+  res.status(200).json({ trip });
 };
 
 const saveTrip = async (req, res) => {

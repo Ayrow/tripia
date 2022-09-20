@@ -247,6 +247,13 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const deleteTrip = async (id) => {
+    try {
+      await authFetch.delete(`/trips/usertrips/${id}`);
+      getUserTrips();
+    } catch (error) {}
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -260,6 +267,7 @@ const AppProvider = ({ children }) => {
         getAllTrips,
         clearTripForm,
         getSingleTrip,
+        deleteTrip,
       }}>
       {children}
     </AppContext.Provider>

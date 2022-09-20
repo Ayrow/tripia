@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import CreateTripForm from '../../components/CreateTripForm';
+import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/appContext';
 import { FaUser, FaHeart, FaChild } from 'react-icons/fa';
 
 const UserTrips = () => {
-  const { userTrips, getUserTrips } = useAppContext();
+  const { userTrips, getUserTrips, deleteTrip } = useAppContext();
 
   const [toggleCreateForm, setToggleCreateForm] = useState(false);
 
@@ -30,8 +31,15 @@ const UserTrips = () => {
       )}
       <div className='flex w-full flex-wrap gap-5 mt-5 p-3'>
         {userTrips.map((trip, index) => {
-          const { destination, theme, duration, cost, nbTravelers, likes } =
-            trip;
+          const {
+            destination,
+            theme,
+            duration,
+            cost,
+            nbTravelers,
+            likes,
+            _id,
+          } = trip;
           return (
             <div
               key={index}
@@ -72,9 +80,17 @@ const UserTrips = () => {
                   </p>
                 </div>
                 <div className='flex gap-5 justify-end pr-5 py-5 text-xl'>
-                  <button className='btn btn-hipster px-6'>See</button>
+                  <Link
+                    to={`/explore/${_id}`}
+                    className='btn btn-hipster flex items-center px-6'>
+                    See
+                  </Link>
                   <button className='btn btn-success px-6'>Edit</button>
-                  <button className='btn btn-danger bg-red-500'>Delete</button>
+                  <button
+                    onClick={() => deleteTrip(_id)}
+                    className='btn btn-danger bg-red-500'>
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>

@@ -47,6 +47,7 @@ const CreateTripForm = () => {
                 name='destination'
                 value={destination}
                 onChange={handleTripInput}
+                placeholder='Europe, South America, Spain...'
                 className='block w-52 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500
                 focus:border-primary-500 border border-black text-black'
