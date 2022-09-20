@@ -10,11 +10,13 @@ import {
   getAllSavedTrips,
   deleteSavedTrip,
   getAllTrips,
+  getSingleTrip,
 } from '../controllers/tripsController.js';
 
 import authenticateUser from '../middleware/auth.js';
 
 router.route('/').get(getAllTrips);
+router.route('/:id').get(getSingleTrip);
 router
   .route('/myTrips')
   .post(authenticateUser, addTrip)

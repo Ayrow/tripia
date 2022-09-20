@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppContext } from '../context/appContext';
 import TravelCard from './TravelCard';
 
 const CardsList = () => {
   const { allTrips, getAllTrips } = useAppContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllTrips();
@@ -11,10 +13,14 @@ const CardsList = () => {
 
   return (
     <div className=''>
-      <div>
-        <h2 className='text-center text-3xl my-10'>
+      <div className='my-10 text-center w-full'>
+        <h2 className='text-3xl '>
           Explore trips recommanded by other globetrotters !
         </h2>
+        <p className='pt-5 text-xl'>
+          Browse trips, check out the details and save them to keep being
+          inspired
+        </p>
       </div>
 
       <div className='grid grid-cols-1 md:grid-cols-2 mx-5 gap-10 place-items-center'>

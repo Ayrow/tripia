@@ -24,9 +24,9 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='/register' element={<RegisterForm />} />
-        <Route path='/explore' element={<Explore />} />
-        <Route path={`/explore/:id`} element={<SingleTrip />} />
+        <Route path='register' element={<RegisterForm />} />
+        <Route path='explore' element={<Explore />} />
+        <Route path={`explore/:id`} element={<SingleTrip />} />
 
         <Route
           path='/dashboard/'

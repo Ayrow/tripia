@@ -1,4 +1,5 @@
 import { FaHeart, FaUser, FaChild } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const TravelCard = ({
   image,
@@ -8,9 +9,11 @@ const TravelCard = ({
   duration,
   likes,
   cost,
+  _id,
 }) => {
   return (
-    <div
+    <Link
+      to={`/explore/${_id}`}
       className='w-full h-80 rounded-2xl shadow-lg'
       style={{
         // backgroundImage: `url(${image})`,
@@ -48,7 +51,7 @@ const TravelCard = ({
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 export default TravelCard;

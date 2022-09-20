@@ -17,6 +17,7 @@ import {
   GET_USER_TRIPS_SUCCESS,
   GET_ALL_TRIPS_SUCCESS,
   GET_TRIPS_ERROR,
+  GET_SINGLE_TRIP_SUCCESS,
   CLEAR_TRIP_FORM,
 } from './actions';
 
@@ -60,6 +61,7 @@ const initialState = {
   accomodationExpenses: '',
   leisureExpenses: '',
   activities: '',
+  singleTrip: {},
   advices: '',
   allTrips: [],
   userTrips: [],
@@ -230,6 +232,21 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const getSingleTrip = async (id) => {
+    let url = `/trips/${id}`;
+    dispatch({ type: GET_TRIPS_BEGIN });
+    try {
+      const { data } = await authFetch(url);
+      const { trip } = data;
+      dispatch({ type: GET_SINGLE_TRIP_SUCCESS, payload: trip });
+    } catch (error) {
+      dispatch({
+        type: GET_TRIPS_ERROR,
+        payload: { msg: 'Error fetching the trip' },
+      });
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -242,6 +259,7 @@ const AppProvider = ({ children }) => {
         getUserTrips,
         getAllTrips,
         clearTripForm,
+        getSingleTrip,
       }}>
       {children}
     </AppContext.Provider>
