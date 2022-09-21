@@ -95,6 +95,7 @@ const UserTrips = () => {
                       openModalConfirm({
                         id: _id,
                         text: 'Are you sure you want to delete this trip?',
+                        title: 'Remove Trip',
                       })
                     }>
                     Delete

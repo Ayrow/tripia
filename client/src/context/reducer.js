@@ -42,12 +42,14 @@ const reducer = (state, action) => {
         isConfirmationModalOpen: true,
         tripID: action.payload.id,
         modalConfirmText: action.payload.text,
+        modalConfirmTitle: action.payload.title,
       };
     case CLOSE_MODAL_CONFIRM:
       return {
         ...state,
         isConfirmationModalOpen: false,
         modalConfirmText: '',
+
         tripID: null,
       };
     case HANDLE_CHANGE:

@@ -32,6 +32,7 @@ const initialState = {
   showAlert: false,
   isConfirmationModalOpen: false,
   modalConfirmText: '',
+  modalConfirmTitle: '',
   alertText: '',
   alertType: '',
   user: user ? JSON.parse(user) : null,
@@ -121,8 +122,8 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const openModalConfirm = ({ id, text }) => {
-    dispatch({ type: OPEN_MODAL_CONFIRM, payload: { id, text } });
+  const openModalConfirm = ({ id, text, title }) => {
+    dispatch({ type: OPEN_MODAL_CONFIRM, payload: { id, text, title } });
   };
 
   const closeModalConfirm = () => {
