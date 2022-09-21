@@ -173,6 +173,15 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage();
   };
 
+  const deleteUser = (userEmail) => {
+    console.log(userEmail);
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+    // logoutUser();
+  };
+
   const createTrip = async () => {
     dispatch({ type: CREATE_TRIP_BEGIN });
     try {
@@ -291,6 +300,7 @@ const AppProvider = ({ children }) => {
         deleteTrip,
         openModalConfirm,
         closeModalConfirm,
+        deleteUser,
       }}>
       {children}
     </AppContext.Provider>
