@@ -1,6 +1,8 @@
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
+  OPEN_MODAL_CONFIRM,
+  CLOSE_MODAL_CONFIRM,
   HANDLE_CHANGE,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
@@ -14,6 +16,7 @@ import {
   GET_ALL_TRIPS_SUCCESS,
   GET_SINGLE_TRIP_SUCCESS,
   GET_TRIPS_ERROR,
+  DELETE_TRIP_BEGIN,
   CLEAR_TRIP_FORM,
 } from './actions';
 
@@ -32,6 +35,20 @@ const reducer = (state, action) => {
       return {
         ...state,
         showAlert: false,
+      };
+    case OPEN_MODAL_CONFIRM:
+      return {
+        ...state,
+        isConfirmationModalOpen: true,
+        tripID: action.payload.id,
+        modalConfirmText: action.payload.text,
+      };
+    case CLOSE_MODAL_CONFIRM:
+      return {
+        ...state,
+        isConfirmationModalOpen: false,
+        modalConfirmText: '',
+        tripID: null,
       };
     case HANDLE_CHANGE:
       return {
@@ -117,6 +134,13 @@ const reducer = (state, action) => {
         showAlert: true,
         alertType: 'danger',
         alertText: action.payload.msg,
+      };
+    case DELETE_TRIP_BEGIN:
+      return {
+        ...state,
+        showAlert: true,
+        alertType: 'success',
+        alertText: 'Trip deleted successfully!',
       };
     case CLEAR_TRIP_FORM:
       return {

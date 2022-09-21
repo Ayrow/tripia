@@ -3,9 +3,11 @@ import CreateTripForm from '../../components/CreateTripForm';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/appContext';
 import { FaUser, FaHeart, FaChild } from 'react-icons/fa';
+import ConfirmationModal from '../../components/ConfirmationModal';
 
 const UserTrips = () => {
-  const { userTrips, getUserTrips, deleteTrip } = useAppContext();
+  const { userTrips, getUserTrips, isConfirmationModalOpen, openModalConfirm } =
+    useAppContext();
 
   const [toggleCreateForm, setToggleCreateForm] = useState(false);
 
@@ -14,7 +16,8 @@ const UserTrips = () => {
   }, []);
 
   return (
-    <div className=''>
+    <div className='relative'>
+      {isConfirmationModalOpen && <ConfirmationModal />}
       <div className=''>
         <h2 className='text-center text-2xl mb-10 pt-4'>My trips</h2>
       </div>
@@ -87,8 +90,13 @@ const UserTrips = () => {
                   </Link>
                   <button className='btn btn-success px-6'>Edit</button>
                   <button
-                    onClick={() => deleteTrip(_id)}
-                    className='btn btn-danger bg-red-500'>
+                    className='btn btn-danger bg-red-500'
+                    onClick={() =>
+                      openModalConfirm({
+                        id: _id,
+                        text: 'Are you sure you want to delete this trip?',
+                      })
+                    }>
                     Delete
                   </button>
                 </div>

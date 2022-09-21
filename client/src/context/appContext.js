@@ -5,6 +5,8 @@ import axios from 'axios';
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
+  OPEN_MODAL_CONFIRM,
+  CLOSE_MODAL_CONFIRM,
   HANDLE_CHANGE,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
@@ -19,6 +21,7 @@ import {
   GET_TRIPS_ERROR,
   GET_SINGLE_TRIP_SUCCESS,
   CLEAR_TRIP_FORM,
+  DELETE_TRIP_BEGIN,
 } from './actions';
 
 const user = localStorage.getItem('user');
@@ -27,11 +30,14 @@ const token = localStorage.getItem('token');
 const initialState = {
   isLoading: false,
   showAlert: false,
+  isConfirmationModalOpen: false,
+  modalConfirmText: '',
   alertText: '',
   alertType: '',
   user: user ? JSON.parse(user) : null,
   token: token,
   isEditing: false,
+  tripID: null,
   destination: '',
   nbAdults: 1,
   nbChildren: 0,
@@ -113,6 +119,14 @@ const AppProvider = ({ children }) => {
   const displayAlert = ({ type, msg }) => {
     dispatch({ type: DISPLAY_ALERT, payload: { type, msg } });
     clearAlert();
+  };
+
+  const openModalConfirm = ({ id, text }) => {
+    dispatch({ type: OPEN_MODAL_CONFIRM, payload: { id, text } });
+  };
+
+  const closeModalConfirm = () => {
+    dispatch({ type: CLOSE_MODAL_CONFIRM });
   };
 
   const handleChange = ({ name, value }) => {
@@ -244,18 +258,20 @@ const AppProvider = ({ children }) => {
       const { trip } = data;
       dispatch({ type: GET_SINGLE_TRIP_SUCCESS, payload: trip });
     } catch (error) {
-      dispatch({
-        type: GET_TRIPS_ERROR,
-        payload: { msg: 'Error fetching the trip' },
-      });
+      logoutUser();
     }
   };
 
   const deleteTrip = async (id) => {
+    dispatch({ type: DELETE_TRIP_BEGIN });
     try {
       await authFetch.delete(`/trips/usertrips/${id}`);
       getUserTrips();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      // logoutUser();
+    }
+    closeModalConfirm();
   };
 
   return (
@@ -272,6 +288,8 @@ const AppProvider = ({ children }) => {
         clearTripForm,
         getSingleTrip,
         deleteTrip,
+        openModalConfirm,
+        closeModalConfirm,
       }}>
       {children}
     </AppContext.Provider>
