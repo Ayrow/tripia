@@ -1,4 +1,5 @@
 import { useAppContext } from '../context/appContext';
+import Alert from './Alert';
 
 const CreateTripForm = () => {
   const {
@@ -17,6 +18,8 @@ const CreateTripForm = () => {
     advices,
     createTrip,
     clearTripForm,
+    showAlert,
+    displayAlert,
   } = useAppContext();
 
   const handleTripInput = (e) => {
@@ -28,7 +31,10 @@ const CreateTripForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!destination || !duration || !cost) {
-      alert('missing values');
+      displayAlert({
+        type: 'danger',
+        msg: 'Please fill in the missing fields',
+      });
       return;
     }
     createTrip();
@@ -37,6 +43,7 @@ const CreateTripForm = () => {
     <form className='mt-5 sm:p-7'>
       <div className='shadow sm:rounded-md'>
         <div className='space-y-6 bg-white px-4 py-5 sm:p-6'>
+          {showAlert && <Alert />}
           <div className='flex flex-col md:flex-row flex-wrap justify-around'>
             <div className='flex flex-col gap-2 border rounded-xl p-5'>
               <label htmlFor='' className='text-black'>

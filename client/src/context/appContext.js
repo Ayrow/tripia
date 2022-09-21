@@ -104,15 +104,15 @@ const AppProvider = ({ children }) => {
     }
   );
 
-  const displayAlert = ({ type, msg }) => {
-    dispatch({ type: DISPLAY_ALERT, payload: { type, msg } });
-    clearAlert();
-  };
-
   const clearAlert = () => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
-    }, 3000);
+    }, 4000);
+  };
+
+  const displayAlert = ({ type, msg }) => {
+    dispatch({ type: DISPLAY_ALERT, payload: { type, msg } });
+    clearAlert();
   };
 
   const handleChange = ({ name, value }) => {
@@ -184,6 +184,10 @@ const AppProvider = ({ children }) => {
         advices,
       });
       dispatch({ type: CREATE_TRIP_SUCCESS });
+      displayAlert({
+        type: 'success',
+        msg: 'Trip created successfully !',
+      });
     } catch (error) {
       dispatch({
         type: CREATE_TRIP_ERROR,
