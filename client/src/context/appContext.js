@@ -147,8 +147,8 @@ const AppProvider = ({ children }) => {
       dispatch({
         type: SETUP_USER_ERROR,
       });
-      console.log(error);
       displayAlert({ type: 'danger', msg: error.response.data.msg });
+      logoutUser();
     }
     clearAlert();
   };
@@ -227,7 +227,7 @@ const AppProvider = ({ children }) => {
         type: GET_TRIPS_ERROR,
         payload: { msg: error.response.data.msg },
       });
-      // logoutUser();
+      logoutUser();
     }
     clearAlert();
   };
