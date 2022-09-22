@@ -14,8 +14,8 @@ const ConfirmationModal = ({ deleteItem }) => {
   };
 
   return (
-    <div className='z-20 absolute w-screen h-full bg-gray-500 bg-opacity-50'>
-      <div className='fixed top-1/4 left-1/2 shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800 w-64'>
+    <div className='z-20 fixed flex place-items-center justify-center w-full inset-0 h-screen bg-gray-500 bg-opacity-50'>
+      <div className='flex shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800 w-80'>
         <div className='w-full h-full text-center'>
           <div className='flex h-full flex-col justify-between'>
             <svg
