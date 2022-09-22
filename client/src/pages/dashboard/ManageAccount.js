@@ -2,26 +2,74 @@ import { useState } from 'react';
 import { useAppContext } from '../../context/appContext';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import UnknownUser from '../../assets/images/unknown-user.png';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const ManageAccount = () => {
-  const { user, openModalConfirm, isConfirmationModalOpen, deleteUser } =
-    useAppContext();
+  const {
+    user,
+    openModalConfirm,
+    isConfirmationModalOpen,
+    deleteUser,
+    updateUser,
+  } = useAppContext();
 
   const initialState = {
     username: user?.username,
     email: user?.email,
-    password: '*********',
+    password: '',
     about: user?.about || '',
   };
 
   const [value, setValue] = useState(initialState);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
-    setValue({ [e.target.name]: e.target.value });
+    setValue({ ...value, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const saveProfile = (e) => {
     e.preventDefault();
+  };
+
+  const saveSettings = (e) => {
+    const { email, password } = value;
+    e.preventDefault();
+    if (!email || (user.email === email && !password)) {
+      //both empty fields, display alert that fiels are empty
+      alert('the fields are empty');
+      return;
+    } else if (!email || (user.email === email && password)) {
+      openModalConfirm({
+        id: user.email,
+        text: 'Are you sure you want to change your password?',
+        title: 'Update Password',
+        editType: 'Update',
+        passwordValidation: true,
+      });
+      //Means that password is filled in
+      // Display confirmation modal to enter old password
+      //Will then update password only
+    } else if (!password && user.email !== email) {
+      openModalConfirm({
+        id: user.email,
+        text: 'Are you sure you want to update your email address?',
+        title: 'Update email address',
+        editType: 'Update',
+        passwordValidation: true,
+      });
+      //Only email to be changed
+      // Display confirmation modal to enter old password
+      //Will then update password only
+    } else {
+      openModalConfirm({
+        id: user.email,
+        text: 'Are you sure you want to update your email address and password?',
+        title: 'Update account',
+        editType: 'Update',
+        passwordValidation: true,
+      });
+      //update both email and password
+    }
   };
 
   return (
@@ -29,9 +77,8 @@ const ManageAccount = () => {
       {isConfirmationModalOpen && (
         <ConfirmationModal
           deleteItem={deleteUser}
-          itemID={user._id}
-          setToggleCreateForm
-          className=''
+          updateItem={updateUser}
+          itemID={user.email}
         />
       )}
       <div className='p-7'>
@@ -57,14 +104,14 @@ const ManageAccount = () => {
                           className='block text-sm font-medium text-gray-700'>
                           Username
                         </label>
-                        <div className='mt-1 flex rounded-md shadow-sm'>
+                        <div className='mt-1 flex rounded-md shadow-sm '>
                           <input
                             type='text'
                             name='username'
                             id='username'
                             value={value.username}
                             onChange={handleChange}
-                            className='block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm text-black'
+                            className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
                             placeholder={value.username}
                           />
                         </div>
@@ -97,7 +144,7 @@ const ManageAccount = () => {
                           id='about'
                           name='about'
                           rows={3}
-                          className='mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
+                          className='relative block w-full px-4 py-2 mt-2 text-gray-800 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
                           placeholder='Tell a bit about yourself'
                           value={value.about}
                           onChange={handleChange}
@@ -111,8 +158,8 @@ const ManageAccount = () => {
                   </div>
                   <div className='bg-gray-50 px-4 py-3 text-right sm:px-6'>
                     <button
-                      type='submit'
-                      onSubmit={handleSubmit}
+                      type='button'
+                      onSubmit={saveProfile}
                       className='inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
                       Save
                     </button>
@@ -160,7 +207,7 @@ const ManageAccount = () => {
                           autoComplete='off'
                           value={value.email}
                           onChange={handleChange}
-                          className='mt-1 block w-full rounded-md border-gray-300 text-black shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
+                          className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
                         />
                       </div>
 
@@ -170,14 +217,25 @@ const ManageAccount = () => {
                           className='block text-sm font-medium text-gray-700'>
                           New Password
                         </label>
-                        <input
-                          type='password'
-                          name='password'
-                          id='password'
-                          autoComplete='off'
-                          onChange={handleChange}
-                          className='mt-1 block w-full rounded-md border-gray-300 shadow-sm text-black focus:border-blue-500 focus:ring-blue-500 sm:text-sm'
-                        />
+                        <div className='flex relative '>
+                          <input
+                            required
+                            type={showPassword ? 'text' : 'password'}
+                            id='password'
+                            onChange={handleChange}
+                            value={value.password}
+                            className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
+                            name='password'
+                          />
+                          <div className='absolute inset-y-0 right-0 flex items-center'>
+                            <button
+                              type='button'
+                              onClick={() => setShowPassword(!showPassword)}
+                              className=' pr-4 text-black text-xl'>
+                              {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </button>
+                          </div>
+                        </div>
                       </div>
                       <div className='col-span-6 sm:col-span-4'>
                         <label
@@ -192,6 +250,8 @@ const ManageAccount = () => {
                               id: user.email,
                               text: 'Are you sure you want to delete your account and trips?',
                               title: 'Delete acccount',
+                              editType: 'Delete',
+                              passwordValidation: true,
                             })
                           }
                           className=' mt-1 block justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2'>
@@ -203,7 +263,7 @@ const ManageAccount = () => {
                   <div className='bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-end gap-2'>
                     <button
                       type='submit'
-                      onSubmit={handleSubmit}
+                      onClick={saveSettings}
                       className='inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
                       Save
                     </button>
@@ -361,7 +421,7 @@ const ManageAccount = () => {
                   <div className='bg-gray-50 px-4 py-3 text-right sm:px-6'>
                     <button
                       type='submit'
-                      onSubmit={handleSubmit}
+                      onClick={() => {}}
                       className='inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
                       Save
                     </button>

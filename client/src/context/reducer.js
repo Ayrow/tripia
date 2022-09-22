@@ -44,13 +44,17 @@ const reducer = (state, action) => {
         itemID: action.payload.id,
         modalConfirmText: action.payload.text,
         modalConfirmTitle: action.payload.title,
+        modalConfirmType: action.payload.editType,
+        needPasswordValidation: action.payload.passwordValidation,
       };
     case CLOSE_MODAL_CONFIRM:
       return {
         ...state,
         isConfirmationModalOpen: false,
         modalConfirmText: '',
-
+        modalConfirmTitle: '',
+        modalConfirmType: '',
+        needPasswordValidation: '',
         itemID: null,
       };
     case HANDLE_CHANGE:

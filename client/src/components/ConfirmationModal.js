@@ -2,9 +2,15 @@ import { useAppContext } from '../context/appContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState } from 'react';
 
-const ConfirmationModal = ({ deleteItem }) => {
-  const { modalConfirmText, modalConfirmTitle, closeModalConfirm, itemID } =
-    useAppContext();
+const ConfirmationModal = ({ deleteItem, updateItem }) => {
+  const {
+    modalConfirmText,
+    modalConfirmTitle,
+    closeModalConfirm,
+    itemID,
+    modalConfirmType,
+    needPasswordValidation,
+  } = useAppContext();
 
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
@@ -21,7 +27,7 @@ const ConfirmationModal = ({ deleteItem }) => {
             <svg
               width='40'
               height='40'
-              className='mt-4 w-12 h-12 m-auto text-indigo-500'
+              className='mt-4 w-12 h-12 m-auto text-orange-500'
               fill='currentColor'
               viewBox='0 0 1792 1792'
               xmlns='http://www.w3.org/2000/svg'>
@@ -33,40 +39,55 @@ const ConfirmationModal = ({ deleteItem }) => {
             <p className='text-gray-600 dark:text-gray-400 text-md py-2 px-6'>
               {modalConfirmText}
             </p>
-            <div className='flex flex-col my-2'>
-              <label className='block text-sm font-semibold text-white'>
-                Verify Password
-              </label>
-              <div className='flex relative '>
-                <input
-                  required
-                  type={showPassword ? 'text' : 'password'}
-                  onChange={handleChange}
-                  value={password}
-                  className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40 '
-                  name='password'
-                />
-                <div className='absolute inset-y-0 right-0 flex items-center'>
-                  <button
-                    type='button'
-                    onClick={() => setShowPassword(!showPassword)}
-                    className=' pr-4 text-black text-xl'>
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </button>
+
+            {needPasswordValidation && (
+              <div className='flex flex-col mt-4 mb-2'>
+                <label className='block text-sm font-semibold text-white'>
+                  Verify Your Password
+                </label>
+                <div className='flex relative '>
+                  <input
+                    required
+                    type={showPassword ? 'text' : 'password'}
+                    onChange={handleChange}
+                    value={password}
+                    autoComplete='new-password'
+                    className=' relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40 '
+                    name='password'
+                  />
+                  <div className='absolute inset-y-0 right-0 flex items-center'>
+                    <button
+                      type='button'
+                      onClick={() => setShowPassword(!showPassword)}
+                      className=' pr-4 text-black text-xl'>
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+
             <div className='flex items-center justify-between gap-4 w-full mt-8'>
-              <button
-                type='button'
-                onClick={() => deleteItem({ itemID, password })}
-                className='py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '>
-                Delete
-              </button>
+              {modalConfirmType === 'Update' && (
+                <button
+                  type='button'
+                  onClick={() => updateItem({ itemID, password })}
+                  className='py-2 px-4  bg-orange-600 hover:bg-orange-700 focus:ring-orange-500 focus:ring-offset-orange-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '>
+                  Update
+                </button>
+              )}
+              {modalConfirmType === 'Delete' && (
+                <button
+                  type='button'
+                  onClick={() => deleteItem({ itemID, password })}
+                  className='py-2 px-4  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-orange-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '>
+                  Delete
+                </button>
+              )}
               <button
                 type='button'
                 onClick={closeModalConfirm}
-                className='py-2 px-4  bg-white hover:bg-gray-100 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-indigo-500  w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '>
+                className='py-2 px-4  bg-white hover:bg-gray-100 focus:ring-orange-500 focus:ring-offset-orange-200 text-orange-500  w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '>
                 Cancel
               </button>
             </div>

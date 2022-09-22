@@ -108,6 +108,8 @@ const UserTrips = () => {
                         id: _id,
                         text: 'Are you sure you want to delete this trip?',
                         title: 'Remove Trip',
+                        editType: 'Delete',
+                        passwordValidation: false,
                       })
                     }>
                     Delete

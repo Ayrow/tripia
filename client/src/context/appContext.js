@@ -31,11 +31,14 @@ const token = localStorage.getItem('token');
 const initialState = {
   isLoading: false,
   showAlert: false,
-  isConfirmationModalOpen: false,
+  isConfirmationModalOpen: '',
   modalConfirmText: '',
   modalConfirmTitle: '',
+  modalConfirmType: '',
+  needPasswordValidation: false,
   alertText: '',
   alertType: '',
+  editType: '',
   user: user ? JSON.parse(user) : null,
   token: token,
   isEditing: false,
@@ -123,8 +126,18 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const openModalConfirm = ({ id, text, title }) => {
-    dispatch({ type: OPEN_MODAL_CONFIRM, payload: { id, text, title } });
+  const openModalConfirm = ({
+    id,
+    text,
+    title,
+    editType,
+    passwordValidation,
+  }) => {
+    dispatch({
+      type: OPEN_MODAL_CONFIRM,
+      payload: { id, text, title, editType, passwordValidation },
+    });
+    console.log(passwordValidation);
   };
 
   const closeModalConfirm = () => {
@@ -298,6 +311,8 @@ const AppProvider = ({ children }) => {
     logoutUser();
   };
 
+  const updateUser = async () => {};
+
   return (
     <AppContext.Provider
       value={{
@@ -315,6 +330,7 @@ const AppProvider = ({ children }) => {
         openModalConfirm,
         closeModalConfirm,
         deleteUser,
+        updateUser,
       }}>
       {children}
     </AppContext.Provider>
