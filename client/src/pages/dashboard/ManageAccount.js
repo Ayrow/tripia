@@ -46,6 +46,7 @@ const ManageAccount = () => {
       alert('the fields are empty');
       return;
     } else if (!email || (user.email === email && password)) {
+      //Will then update password only
       openModalConfirm({
         id: user.email,
         text: 'Are you sure you want to change your password?',
@@ -53,10 +54,8 @@ const ManageAccount = () => {
         editType: 'Update',
         passwordValidation: true,
       });
-      //Means that password is filled in
-      // Display confirmation modal to enter old password
-      //Will then update password only
     } else if (!password && user.email !== email) {
+      //Will then update password only
       openModalConfirm({
         id: user.email,
         text: 'Are you sure you want to update your email address?',
@@ -64,10 +63,8 @@ const ManageAccount = () => {
         editType: 'Update',
         passwordValidation: true,
       });
-      //Only email to be changed
-      // Display confirmation modal to enter old password
-      //Will then update password only
     } else {
+      //update both email and password
       openModalConfirm({
         id: user.email,
         text: 'Are you sure you want to update your email address and password?',
@@ -75,7 +72,6 @@ const ManageAccount = () => {
         editType: 'Update',
         passwordValidation: true,
       });
-      //update both email and password
     }
   };
 

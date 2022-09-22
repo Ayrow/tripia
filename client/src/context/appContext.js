@@ -138,7 +138,6 @@ const AppProvider = ({ children }) => {
       type: OPEN_MODAL_CONFIRM,
       payload: { id, text, title, editType, passwordValidation },
     });
-    console.log(passwordValidation);
   };
 
   const closeModalConfirm = () => {
