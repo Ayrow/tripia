@@ -17,7 +17,7 @@ const RegisterComponent = ({
         <input
           type='text'
           name='username'
-          // required
+          required
           onChange={handleChange}
           value={values.username}
           className='block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
@@ -31,7 +31,7 @@ const RegisterComponent = ({
           type='email'
           name='email'
           value={values.email}
-          // required
+          required
           onChange={handleChange}
           className='block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
         />
@@ -43,7 +43,7 @@ const RegisterComponent = ({
         </label>
         <div className='flex relative '>
           <input
-            // required
+            required
             type={showPassword ? 'text' : 'password'}
             id='password'
             onChange={handleChange}
@@ -68,7 +68,7 @@ const RegisterComponent = ({
         </label>
         <div className='flex relative'>
           <input
-            // required
+            required
             type={showConfirmPassword ? 'text' : 'password'}
             id='confirmPassword'
             onChange={handleChange}

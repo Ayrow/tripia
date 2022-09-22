@@ -1,6 +1,7 @@
 import Trip from '../models/Trip.js';
+import checkPermission from '../utils/checkPermission.js';
 import { StatusCodes } from 'http-status-codes';
-import { BadRequestError } from '../errors/index.js';
+import { BadRequestError, NotFoundError } from '../errors/index.js';
 
 const addTrip = async (req, res) => {
   const { destination, duration, cost } = req.body;
@@ -38,8 +39,15 @@ const editTrip = async (req, res) => {
 
 const deleteTrip = async (req, res) => {
   const { id: tripId } = req.params;
-  let trip = await Trip.findByIdAndDelete({ _id: tripId });
-  res.status(200).json({ trip });
+  console.log(id);
+  const trip = await Trip.findOne({ _id: tripId });
+  if (!trip) {
+    throw new NotFoundError(`No job with id : ${jobId}`);
+  }
+  // checkPermission(req.user, trip.createdBy);
+  await trip.remove();
+
+  res.status(200).json({ msg: 'Successful! The trip has been removed.' });
 };
 
 const saveTrip = async (req, res) => {

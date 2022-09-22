@@ -18,6 +18,7 @@ import {
   GET_TRIPS_ERROR,
   DELETE_TRIP_BEGIN,
   CLEAR_TRIP_FORM,
+  DELETE_USER_BEGIN,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -40,7 +41,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isConfirmationModalOpen: true,
-        tripID: action.payload.id,
+        itemID: action.payload.id,
         modalConfirmText: action.payload.text,
         modalConfirmTitle: action.payload.title,
       };
@@ -50,7 +51,7 @@ const reducer = (state, action) => {
         isConfirmationModalOpen: false,
         modalConfirmText: '',
 
-        tripID: null,
+        itemID: null,
       };
     case HANDLE_CHANGE:
       return {
@@ -143,6 +144,11 @@ const reducer = (state, action) => {
         showAlert: true,
         alertType: 'success',
         alertText: 'Trip deleted successfully!',
+      };
+    case DELETE_USER_BEGIN:
+      return {
+        ...state,
+        // itemID: action.payload,
       };
     case CLEAR_TRIP_FORM:
       return {

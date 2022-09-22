@@ -22,6 +22,7 @@ import {
   GET_SINGLE_TRIP_SUCCESS,
   CLEAR_TRIP_FORM,
   DELETE_TRIP_BEGIN,
+  DELETE_USER_BEGIN,
 } from './actions';
 
 const user = localStorage.getItem('user');
@@ -38,7 +39,7 @@ const initialState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   isEditing: false,
-  tripID: null,
+  itemID: null,
   destination: '',
   nbAdults: 1,
   nbChildren: 0,
@@ -163,7 +164,6 @@ const AppProvider = ({ children }) => {
         type: SETUP_USER_ERROR,
       });
       displayAlert({ type: 'danger', msg: error.response.data.msg });
-      logoutUser();
     }
     clearAlert();
   };
@@ -171,15 +171,6 @@ const AppProvider = ({ children }) => {
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
     removeUserFromLocalStorage();
-  };
-
-  const deleteUser = (id) => {
-    console.log(id);
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-    // logoutUser();
   };
 
   const createTrip = async () => {
@@ -272,16 +263,39 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const deleteTrip = async (id) => {
+  const deleteTrip = async ({ itemID }) => {
     dispatch({ type: DELETE_TRIP_BEGIN });
     try {
-      await authFetch.delete(`/trips/usertrips/${id}`);
+      await authFetch.delete(`/trips/usertrips/${itemID}`);
       getUserTrips();
     } catch (error) {
       console.log(error);
       // logoutUser();
     }
+  };
+
+  const verifyAccount = async (currentUser) => {
+    try {
+      const { data } = await authFetch.post(`/auth/login`, currentUser);
+      return data;
+    } catch (error) {
+      console.log('error verifying account');
+      return;
+    }
+  };
+
+  const deleteUser = async ({ itemID: email, password }) => {
+    dispatch({ type: DELETE_USER_BEGIN });
+    const currentUser = { email, password };
+    try {
+      const { verified } = await verifyAccount(currentUser);
+      await authFetch.delete('/auth/deleteUser');
+    } catch (error) {
+      alert('cannot delete user');
+    }
     closeModalConfirm();
+    removeUserFromLocalStorage();
+    logoutUser();
   };
 
   return (

@@ -1,11 +1,20 @@
 import { useAppContext } from '../context/appContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useState } from 'react';
 
 const ConfirmationModal = ({ deleteItem }) => {
-  const { modalConfirmText, modalConfirmTitle, closeModalConfirm, tripID } =
+  const { modalConfirmText, modalConfirmTitle, closeModalConfirm, itemID } =
     useAppContext();
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState('');
+
+  const handleChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   return (
-    <div className='absolute w-screen h-full bg-gray-500 bg-opacity-50'>
+    <div className='z-20 absolute w-screen h-full bg-gray-500 bg-opacity-50'>
       <div className='fixed top-1/4 left-1/2 shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-800 w-64'>
         <div className='w-full h-full text-center'>
           <div className='flex h-full flex-col justify-between'>
@@ -24,10 +33,33 @@ const ConfirmationModal = ({ deleteItem }) => {
             <p className='text-gray-600 dark:text-gray-400 text-md py-2 px-6'>
               {modalConfirmText}
             </p>
+            <div className='flex flex-col my-2'>
+              <label className='block text-sm font-semibold text-white'>
+                Verify Password
+              </label>
+              <div className='flex relative '>
+                <input
+                  required
+                  type={showPassword ? 'text' : 'password'}
+                  onChange={handleChange}
+                  value={password}
+                  className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40 '
+                  name='password'
+                />
+                <div className='absolute inset-y-0 right-0 flex items-center'>
+                  <button
+                    type='button'
+                    onClick={() => setShowPassword(!showPassword)}
+                    className=' pr-4 text-black text-xl'>
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </div>
+            </div>
             <div className='flex items-center justify-between gap-4 w-full mt-8'>
               <button
                 type='button'
-                onClick={() => deleteItem(tripID)}
+                onClick={() => deleteItem({ itemID, password })}
                 className='py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '>
                 Delete
               </button>

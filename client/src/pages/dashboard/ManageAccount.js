@@ -186,9 +186,9 @@ const ManageAccount = () => {
                         type='button'
                         onClick={() =>
                           openModalConfirm({
-                            id: user._id,
+                            id: user.email,
                             text: 'Are you sure you want to delete your account and trips?',
-                            title: 'Delete account',
+                            title: 'Delete acccount',
                           })
                         }
                         className=' mt-1 block justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2'>

@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import Trip from '../models/Trip.js';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, UnAuthenticatedError } from '../errors/index.js';
 
@@ -60,7 +61,13 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  res.status(200).send('updateUser');
+  const id = req.user.userId;
+  await User.findOneAndDelete({ _id: id });
+  await Trip.findOneAndDelete({ createdBy: id });
+
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: 'Success! Account and trips have been deleted' });
 };
 
 export { register, login, updateUser, deleteUser };
