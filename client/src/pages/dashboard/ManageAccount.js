@@ -86,7 +86,6 @@ const ManageAccount = () => {
           deleteItem={deleteUser}
           updateItem={updateUser}
           itemID={user.email}
-          newEmail={value.email}
           newUserDetails={value}
         />
       )}

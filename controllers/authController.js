@@ -28,7 +28,6 @@ const register = async (req, res) => {
     user: {
       username: user.username,
       email: user.email,
-      password: user.password,
     },
     token,
   });
@@ -58,36 +57,37 @@ const login = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { username, email, password, about } = req.body;
+  const user = await User.findOne({ _id: req.user.userId }).select('+password');
+  const usernameTaken = await User.findOne({ username });
+  const emailTaken = await User.findOne({ email });
 
-  const user = await User.findOne({ _id: req.user.userId });
-  if (user.email !== email || email) {
-    user.email = email;
+  if (usernameTaken && usernameTaken?._id.toString() !== user._id.toString()) {
+    throw new BadRequestError('This username is already taken');
   }
 
-  if (user.password !== password || !password) {
-    user.password = password;
-  }
-
-  if (user.username !== username || !username) {
+  if (
+    !username ||
+    !usernameTaken ||
+    usernameTaken?._id.toString() === user._id.toString()
+  ) {
     user.username = username;
+  }
+
+  if (emailTaken && emailTaken?._id.toString() !== user._id.toString()) {
+    throw new BadRequestError('This username is already taken');
+  }
+  if (
+    !email ||
+    !emailTaken ||
+    emailTaken?._id.toString() === user._id.toString()
+  ) {
+    user.email = email;
   }
 
   user.about = about;
 
-  // const userAlreadyExists = await User.findOne({ email });
-  // if (userAlreadyExists) {
-  //   throw new BadRequestError('Email already in use');
-  // }
-
-  // const usernameTaken = await User.findOne({ username });
-  // if (usernameTaken) {
-  //   throw new BadRequestError('This username is already taken');
-  // }
-
-  // user.username = username;
-  // user.email = email;
-  // user.password = password;
-  // user.about = about;
+  Object.assign(user, req.body);
+  await user.save();
 
   const token = await user.createJWT();
 

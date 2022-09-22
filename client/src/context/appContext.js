@@ -324,8 +324,9 @@ const AppProvider = ({ children }) => {
       const { user, token } = data;
       dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } });
       addUserToLocalStorage({ user, token });
-      console.log(data);
+      closeModalConfirm();
     } catch (error) {
+      console.log(error);
       alert('cannot update user');
     }
   };
