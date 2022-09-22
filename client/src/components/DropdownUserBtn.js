@@ -33,7 +33,7 @@ const DropdownUserBtn = ({ username, logoutUser }) => {
       </button>
 
       {showMenu && (
-        <div className='grid fixed inset-0 sm:inset-y-auto sm:absolute grid-cols-1 sm:items-center bg-gray-800 sm:bg-white sm:text-black overflow-y-hidden'>
+        <div className='grid fixed inset-0 sm:inset-auto sm:absolute w-full sm:w-52 sm:right-0 grid-cols-1 sm:items-center bg-gray-800 sm:bg-white sm:text-black'>
           <div className='sm:hidden flex justify-end pr-10 bg-transparent border border-transparent'>
             <button className='' onClick={() => setShowMenu(false)}>
               <svg

@@ -44,7 +44,7 @@ const deleteTrip = async (req, res) => {
   if (!trip) {
     throw new NotFoundError(`No job with id : ${jobId}`);
   }
-  // checkPermission(req.user, trip.createdBy);
+  checkPermission(req.user, trip.createdBy);
   await trip.remove();
 
   res.status(200).json({ msg: 'Successful! The trip has been removed.' });
