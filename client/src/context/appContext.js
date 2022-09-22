@@ -173,8 +173,8 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage();
   };
 
-  const deleteUser = (userEmail) => {
-    console.log(userEmail);
+  const deleteUser = (id) => {
+    console.log(id);
     try {
     } catch (error) {
       console.log(error);

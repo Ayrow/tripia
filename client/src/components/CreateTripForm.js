@@ -1,7 +1,7 @@
 import { useAppContext } from '../context/appContext';
 import Alert from './Alert';
 
-const CreateTripForm = () => {
+const CreateTripForm = ({ setToggleCreateForm }) => {
   const {
     handleChange,
     theme,
@@ -38,6 +38,7 @@ const CreateTripForm = () => {
       return;
     }
     createTrip();
+    setToggleCreateForm(false);
   };
   return (
     <form className='mt-5 sm:p-7'>

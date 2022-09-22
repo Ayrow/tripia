@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useAppContext } from '../../context/appContext';
+import ConfirmationModal from '../../components/ConfirmationModal';
 import UnknownUser from '../../assets/images/unknown-user.png';
 
 const ManageAccount = () => {
-  const { user, deleteUser } = useAppContext();
+  const { user, openModalConfirm, isConfirmationModalOpen, deleteUser } =
+    useAppContext();
 
   const initialState = {
     username: user?.username,
@@ -24,6 +26,13 @@ const ManageAccount = () => {
 
   return (
     <div className='p-7'>
+      {isConfirmationModalOpen && (
+        <ConfirmationModal
+          deleteItem={deleteUser}
+          itemID={user._id}
+          setToggleCreateForm
+        />
+      )}
       <div>
         <div className='md:grid md:grid-cols-3 md:gap-6'>
           <div className='md:col-span-1'>
@@ -175,7 +184,13 @@ const ManageAccount = () => {
                       </label>
                       <button
                         type='button'
-                        onClick={() => deleteUser({ userEmail: user.email })}
+                        onClick={() =>
+                          openModalConfirm({
+                            id: user._id,
+                            text: 'Are you sure you want to delete your account and trips?',
+                            title: 'Delete account',
+                          })
+                        }
                         className=' mt-1 block justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2'>
                         Delete
                       </button>

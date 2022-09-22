@@ -6,8 +6,14 @@ import { FaUser, FaHeart, FaChild } from 'react-icons/fa';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
 const UserTrips = () => {
-  const { userTrips, getUserTrips, isConfirmationModalOpen, openModalConfirm } =
-    useAppContext();
+  const {
+    userTrips,
+    getUserTrips,
+    isConfirmationModalOpen,
+    openModalConfirm,
+    deleteTrip,
+    tripID,
+  } = useAppContext();
 
   const [toggleCreateForm, setToggleCreateForm] = useState(false);
 
@@ -17,7 +23,13 @@ const UserTrips = () => {
 
   return (
     <div className='relative'>
-      {isConfirmationModalOpen && <ConfirmationModal />}
+      {isConfirmationModalOpen && (
+        <ConfirmationModal
+          deleteItem={deleteTrip}
+          itemID={tripID}
+          setToggleCreateForm
+        />
+      )}
       <div className=''>
         <h2 className='text-center text-2xl mb-10 pt-4'>My trips</h2>
       </div>
