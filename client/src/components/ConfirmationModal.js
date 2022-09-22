@@ -2,7 +2,7 @@ import { useAppContext } from '../context/appContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState } from 'react';
 
-const ConfirmationModal = ({ deleteItem, updateItem }) => {
+const ConfirmationModal = ({ deleteItem, updateItem, newUserDetails }) => {
   const {
     modalConfirmText,
     modalConfirmTitle,
@@ -43,7 +43,7 @@ const ConfirmationModal = ({ deleteItem, updateItem }) => {
             {needPasswordValidation && (
               <div className='flex flex-col mt-4 mb-2'>
                 <label className='block text-sm font-semibold text-white'>
-                  Verify Your Password
+                  Please Verify Your Password
                 </label>
                 <div className='flex relative '>
                   <input
@@ -71,7 +71,9 @@ const ConfirmationModal = ({ deleteItem, updateItem }) => {
               {modalConfirmType === 'Update' && (
                 <button
                   type='button'
-                  onClick={() => updateItem({ itemID, password })}
+                  onClick={() =>
+                    updateItem({ itemID, password, newUserDetails })
+                  }
                   className='py-2 px-4  bg-orange-600 hover:bg-orange-700 focus:ring-orange-500 focus:ring-offset-orange-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '>
                   Update
                 </button>

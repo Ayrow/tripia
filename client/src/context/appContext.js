@@ -23,6 +23,7 @@ import {
   CLEAR_TRIP_FORM,
   DELETE_TRIP_BEGIN,
   DELETE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
 } from './actions';
 
 const user = localStorage.getItem('user');
@@ -311,7 +312,23 @@ const AppProvider = ({ children }) => {
     logoutUser();
   };
 
-  const updateUser = async () => {};
+  const updateUser = async ({ itemID: email, password, newUserDetails }) => {
+    dispatch({ type: DELETE_USER_BEGIN });
+    const currentUser = { email, password };
+    try {
+      const { verified } = await verifyAccount(currentUser);
+      const { data } = await authFetch.patch(
+        '/auth/updateUser',
+        newUserDetails
+      );
+      const { user, token } = data;
+      dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } });
+      addUserToLocalStorage({ user, token });
+      console.log(data);
+    } catch (error) {
+      alert('cannot update user');
+    }
+  };
 
   return (
     <AppContext.Provider

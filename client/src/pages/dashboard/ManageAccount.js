@@ -29,6 +29,13 @@ const ManageAccount = () => {
 
   const saveProfile = (e) => {
     e.preventDefault();
+    openModalConfirm({
+      id: user.email,
+      text: 'Are you sure you want to update your profile?',
+      title: 'Update Profile',
+      editType: 'Update',
+      passwordValidation: false,
+    });
   };
 
   const saveSettings = (e) => {
@@ -79,6 +86,8 @@ const ManageAccount = () => {
           deleteItem={deleteUser}
           updateItem={updateUser}
           itemID={user.email}
+          newEmail={value.email}
+          newUserDetails={value}
         />
       )}
       <div className='p-7'>
@@ -158,8 +167,8 @@ const ManageAccount = () => {
                   </div>
                   <div className='bg-gray-50 px-4 py-3 text-right sm:px-6'>
                     <button
-                      type='button'
-                      onSubmit={saveProfile}
+                      type='submit'
+                      onClick={saveProfile}
                       className='inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
                       Save
                     </button>

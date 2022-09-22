@@ -57,8 +57,41 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  console.log(req.body);
-  res.status(200).send('updateUser');
+  const { username, email, password, about } = req.body;
+
+  const user = await User.findOne({ _id: req.user.userId });
+  if (user.email !== email || email) {
+    user.email = email;
+  }
+
+  if (user.password !== password || !password) {
+    user.password = password;
+  }
+
+  if (user.username !== username || !username) {
+    user.username = username;
+  }
+
+  user.about = about;
+
+  // const userAlreadyExists = await User.findOne({ email });
+  // if (userAlreadyExists) {
+  //   throw new BadRequestError('Email already in use');
+  // }
+
+  // const usernameTaken = await User.findOne({ username });
+  // if (usernameTaken) {
+  //   throw new BadRequestError('This username is already taken');
+  // }
+
+  // user.username = username;
+  // user.email = email;
+  // user.password = password;
+  // user.about = about;
+
+  const token = await user.createJWT();
+
+  res.status(StatusCodes.CREATED).json({ user, token });
 };
 
 const deleteUser = async (req, res) => {

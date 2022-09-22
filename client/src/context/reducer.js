@@ -19,6 +19,7 @@ import {
   DELETE_TRIP_BEGIN,
   CLEAR_TRIP_FORM,
   DELETE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -153,6 +154,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         // itemID: action.payload,
+      };
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+        token: action.payload.token,
       };
     case CLEAR_TRIP_FORM:
       return {
