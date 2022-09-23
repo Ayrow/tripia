@@ -316,7 +316,6 @@ const AppProvider = ({ children }) => {
     try {
       const currentUser = { email, password };
       if (password) {
-        console.log(currentUser);
         const { verified } = await verifyAccount(currentUser);
       }
       const { data } = await authFetch.patch(

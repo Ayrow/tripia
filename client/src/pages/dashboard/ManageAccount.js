@@ -35,6 +35,7 @@ const ManageAccount = () => {
     const { username, about } = value;
     const newUserDetails = { username, about, email: user.email };
     updateUser({ newUserDetails });
+    setValue(initialState);
   };
 
   const saveSettings = (e) => {
@@ -79,6 +80,7 @@ const ManageAccount = () => {
         passwordValidation: true,
       });
     }
+    setValue(initialState);
   };
 
   return (
@@ -233,6 +235,7 @@ const ManageAccount = () => {
                             required
                             type={showPassword ? 'text' : 'password'}
                             id='password'
+                            autoComplete='new-password'
                             onChange={handleChange}
                             value={value.password}
                             className='relative block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
