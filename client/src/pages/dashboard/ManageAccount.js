@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Alert from '../../components/Alert';
 import { useAppContext } from '../../context/appContext';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import UnknownUser from '../../assets/images/unknown-user.png';
@@ -11,6 +12,7 @@ const ManageAccount = () => {
     isConfirmationModalOpen,
     deleteUser,
     updateUser,
+    showAlert,
   } = useAppContext();
 
   const initialState = {
@@ -29,24 +31,22 @@ const ManageAccount = () => {
 
   const saveProfile = (e) => {
     e.preventDefault();
-    openModalConfirm({
-      id: user.email,
-      text: 'Are you sure you want to update your profile?',
-      title: 'Update Profile',
-      editType: 'Update',
-      passwordValidation: false,
-    });
+    const { username, about } = value;
+    const newUserDetails = { username, about, email: user.email };
+    updateUser({ newUserDetails });
   };
 
   const saveSettings = (e) => {
     const { email, password } = value;
+    console.log(email);
     e.preventDefault();
+    // missing new email or new password so display alert
     if (!email || (user.email === email && !password)) {
-      //both empty fields, display alert that fiels are empty
       alert('the fields are empty');
       return;
-    } else if (!email || (user.email === email && password)) {
-      //Will then update password only
+    }
+    //email is empty, email not changed and new password given so update password
+    else if (!email || (user.email === email && password)) {
       openModalConfirm({
         id: user.email,
         text: 'Are you sure you want to change your password?',
@@ -54,7 +54,9 @@ const ManageAccount = () => {
         editType: 'Update',
         passwordValidation: true,
       });
-    } else if (!password && user.email !== email) {
+    }
+    // new password is missing and new email given so update email
+    else if (!password && user.email !== email && !email) {
       //Will then update password only
       openModalConfirm({
         id: user.email,
@@ -63,8 +65,9 @@ const ManageAccount = () => {
         editType: 'Update',
         passwordValidation: true,
       });
-    } else {
-      //update both email and password
+    }
+    // update both email address and password
+    else {
       openModalConfirm({
         id: user.email,
         text: 'Are you sure you want to update your email address and password?',
@@ -85,6 +88,7 @@ const ManageAccount = () => {
           newUserDetails={value}
         />
       )}
+      {showAlert && <Alert />}
       <div className='p-7'>
         <div>
           <div className='md:grid md:grid-cols-3 md:gap-6'>

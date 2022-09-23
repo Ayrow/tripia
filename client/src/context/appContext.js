@@ -24,6 +24,7 @@ import {
   DELETE_TRIP_BEGIN,
   DELETE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
+  ERROR,
 } from './actions';
 
 const user = localStorage.getItem('user');
@@ -304,7 +305,10 @@ const AppProvider = ({ children }) => {
       const { verified } = await verifyAccount(currentUser);
       await authFetch.delete('/auth/deleteUser');
     } catch (error) {
-      alert('cannot delete user');
+      dispatch({
+        type: ERROR,
+        payload: { type: 'danger', msg: error.response.data.msg },
+      });
     }
     closeModalConfirm();
     removeUserFromLocalStorage();
@@ -312,10 +316,12 @@ const AppProvider = ({ children }) => {
   };
 
   const updateUser = async ({ itemID: email, password, newUserDetails }) => {
-    dispatch({ type: DELETE_USER_BEGIN });
+    // dispatch({ type: DELETE_USER_BEGIN });
     const currentUser = { email, password };
     try {
-      const { verified } = await verifyAccount(currentUser);
+      if (password) {
+        const { verified } = await verifyAccount(currentUser);
+      }
       const { data } = await authFetch.patch(
         '/auth/updateUser',
         newUserDetails
@@ -325,9 +331,14 @@ const AppProvider = ({ children }) => {
       addUserToLocalStorage({ user, token });
       closeModalConfirm();
     } catch (error) {
-      console.log(error);
-      alert('cannot update user');
+      closeModalConfirm();
+      displayAlert({ type: 'danger', msg: error.response.data.msg });
+      // dispatch({
+      //   type: ERROR,
+      //   payload: { type: 'danger', msg: error.response.data.msg },
+      // });
     }
+    clearAlert();
   };
 
   return (

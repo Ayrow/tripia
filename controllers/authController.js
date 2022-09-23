@@ -56,7 +56,7 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { username, email, password, about } = req.body;
+  const { username, email, about } = req.body;
   const user = await User.findOne({ _id: req.user.userId }).select('+password');
   const usernameTaken = await User.findOne({ username });
   const emailTaken = await User.findOne({ email });

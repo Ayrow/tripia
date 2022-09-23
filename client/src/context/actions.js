@@ -29,3 +29,5 @@ export const DELETE_TRIP_BEGIN = 'DELETE_TRIP_BEGIN';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 
 export const CLEAR_TRIP_FORM = 'CLEAR_TRIP_FORM';
+
+export const ERROR = 'ERROR';
