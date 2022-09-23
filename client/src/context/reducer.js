@@ -20,7 +20,6 @@ import {
   CLEAR_TRIP_FORM,
   DELETE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
-  ERROR,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -177,13 +176,6 @@ const reducer = (state, action) => {
         cost: 0,
         activities: '',
         advices: '',
-      };
-    case ERROR:
-      return {
-        ...state,
-        showAlert: true,
-        alertType: action.payload.type,
-        alertText: action.payload.msg,
       };
     default:
       throw new Error(`There is no action: ${action.type}`);

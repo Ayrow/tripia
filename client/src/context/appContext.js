@@ -24,7 +24,6 @@ import {
   DELETE_TRIP_BEGIN,
   DELETE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
-  ERROR,
 } from './actions';
 
 const user = localStorage.getItem('user');
@@ -283,7 +282,7 @@ const AppProvider = ({ children }) => {
       await authFetch.delete(`/trips/usertrips/${itemID}`);
       getUserTrips();
     } catch (error) {
-      console.log(error);
+      displayAlert({ type: 'danger', msg: error.response.data.msg });
       // logoutUser();
     }
   };
@@ -293,7 +292,7 @@ const AppProvider = ({ children }) => {
       const { data } = await authFetch.post(`/auth/login`, currentUser);
       return data;
     } catch (error) {
-      console.log('error verifying account');
+      displayAlert({ type: 'danger', msg: error.response.data.msg });
       return;
     }
   };
@@ -305,10 +304,7 @@ const AppProvider = ({ children }) => {
       const { verified } = await verifyAccount(currentUser);
       await authFetch.delete('/auth/deleteUser');
     } catch (error) {
-      dispatch({
-        type: ERROR,
-        payload: { type: 'danger', msg: error.response.data.msg },
-      });
+      displayAlert({ type: 'danger', msg: error.response.data.msg });
     }
     closeModalConfirm();
     removeUserFromLocalStorage();
@@ -317,9 +313,10 @@ const AppProvider = ({ children }) => {
 
   const updateUser = async ({ itemID: email, password, newUserDetails }) => {
     // dispatch({ type: DELETE_USER_BEGIN });
-    const currentUser = { email, password };
     try {
+      const currentUser = { email, password };
       if (password) {
+        console.log(currentUser);
         const { verified } = await verifyAccount(currentUser);
       }
       const { data } = await authFetch.patch(
@@ -330,13 +327,10 @@ const AppProvider = ({ children }) => {
       dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } });
       addUserToLocalStorage({ user, token });
       closeModalConfirm();
+      displayAlert({ type: 'success', msg: 'Account updated successfully' });
     } catch (error) {
       closeModalConfirm();
       displayAlert({ type: 'danger', msg: error.response.data.msg });
-      // dispatch({
-      //   type: ERROR,
-      //   payload: { type: 'danger', msg: error.response.data.msg },
-      // });
     }
     clearAlert();
   };

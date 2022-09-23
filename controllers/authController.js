@@ -56,8 +56,8 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { username, email, about } = req.body;
-  const user = await User.findOne({ _id: req.user.userId }).select('+password');
+  const { username, email, about, password } = req.body;
+  const user = await User.findOne({ _id: req.user.userId });
   const usernameTaken = await User.findOne({ username });
   const emailTaken = await User.findOne({ email });
 
@@ -85,8 +85,10 @@ const updateUser = async (req, res) => {
   }
 
   user.about = about;
+  if (password) {
+    Object.assign(user, req.body);
+  }
 
-  Object.assign(user, req.body);
   await user.save();
 
   const token = await user.createJWT();

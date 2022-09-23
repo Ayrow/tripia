@@ -13,6 +13,7 @@ const ManageAccount = () => {
     deleteUser,
     updateUser,
     showAlert,
+    displayAlert,
   } = useAppContext();
 
   const initialState = {
@@ -38,11 +39,13 @@ const ManageAccount = () => {
 
   const saveSettings = (e) => {
     const { email, password } = value;
-    console.log(email);
     e.preventDefault();
     // missing new email or new password so display alert
     if (!email || (user.email === email && !password)) {
-      alert('the fields are empty');
+      displayAlert({
+        type: 'danger',
+        msg: 'Please update password or email before saving',
+      });
       return;
     }
     //email is empty, email not changed and new password given so update password
