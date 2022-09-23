@@ -85,6 +85,7 @@ const updateUser = async (req, res) => {
   }
 
   user.about = about;
+
   if (password) {
     Object.assign(user, req.body);
   }
