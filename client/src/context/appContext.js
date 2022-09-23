@@ -53,7 +53,7 @@ const initialState = {
   },
   likes: 0,
   duration: 7,
-  theme: '',
+  theme: 'History and Cultural',
   themeOptions: [
     'History and Cultural',
     'Romance and Honeymoon',
