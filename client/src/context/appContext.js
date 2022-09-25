@@ -309,6 +309,11 @@ const AppProvider = ({ children }) => {
     try {
       await authFetch.delete(`/trips/usertrips/${itemID}`);
       getUserTrips();
+      closeModalConfirm();
+      displayAlert({
+        type: 'success',
+        msg: 'The trip has been successfully deleted!',
+      });
     } catch (error) {
       displayAlert({ type: 'danger', msg: error.response.data.msg });
       // logoutUser();

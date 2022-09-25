@@ -39,7 +39,6 @@ const editTrip = async (req, res) => {
 
 const deleteTrip = async (req, res) => {
   const { id: tripId } = req.params;
-  console.log(id);
   const trip = await Trip.findOne({ _id: tripId });
   if (!trip) {
     throw new NotFoundError(`No job with id : ${jobId}`);

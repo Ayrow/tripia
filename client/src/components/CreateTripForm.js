@@ -13,7 +13,6 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
     cost,
     activities,
     advices,
-    costDetails,
     travelDetail,
     travelCost,
     accomodationDetail,
