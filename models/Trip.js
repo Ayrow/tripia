@@ -44,6 +44,20 @@ const TripSchema = new mongoose.Schema(
       required: [true, 'Please provide cost'],
     },
     activities: { type: String },
+    costDetails: {
+      travel: {
+        detail: String,
+        cost: Number,
+      },
+      accomodation: {
+        detail: String,
+        cost: Number,
+      },
+      leisure: {
+        detail: String,
+        cost: Number,
+      },
+    },
     advices: { type: String },
     mainImage: {
       type: String,

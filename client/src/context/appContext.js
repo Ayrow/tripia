@@ -75,6 +75,26 @@ const initialState = {
   activities: '',
   singleTrip: {},
   advices: '',
+  costDetails: {
+    travel: {
+      detail: '',
+      cost: 0,
+    },
+    accomodation: {
+      detail: '',
+      cost: 0,
+    },
+    leisure: {
+      detail: '',
+      cost: 0,
+    },
+  },
+  travelDetail: '',
+  travelCost: 0,
+  accomodationDetail: '',
+  accomodationCost: 0,
+  leisureDetail: '',
+  leisureCost: 0,
   allTrips: [],
   userTrips: [],
   savedTrips: [],
@@ -197,10 +217,17 @@ const AppProvider = ({ children }) => {
         cost,
         activities,
         advices,
+        costDetails,
       } = state;
 
       nbTravelers.adults = state.nbAdults;
       nbTravelers.children = state.nbChildren;
+      costDetails.travel.detail = state.travelDetail;
+      costDetails.travel.cost = state.travelCost;
+      costDetails.accomodation.detail = state.accomodationDetail;
+      costDetails.accomodation.cost = state.accomodationCost;
+      costDetails.leisure.detail = state.leisureDetail;
+      costDetails.leisure.cost = state.leisureCost;
 
       await authFetch.post('/trips/usertrips', {
         theme,
@@ -210,6 +237,7 @@ const AppProvider = ({ children }) => {
         cost,
         activities,
         advices,
+        costDetails,
       });
       dispatch({ type: CREATE_TRIP_SUCCESS });
       displayAlert({

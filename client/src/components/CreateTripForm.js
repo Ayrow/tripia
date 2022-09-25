@@ -11,11 +11,15 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
     nbChildren,
     duration,
     cost,
-    accomodationExpenses,
-    travelExpenses,
-    leisureExpenses,
     activities,
     advices,
+    costDetails,
+    travelDetail,
+    travelCost,
+    accomodationDetail,
+    accomodationCost,
+    leisureDetail,
+    leisureCost,
     createTrip,
     clearTripForm,
     showAlert,
@@ -149,16 +153,18 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                   Travel expenses (car, airplane tickets, train...)
                 </label>
                 <textarea
-                  name='travelExpenses'
-                  value={travelExpenses}
+                  name='travelDetail'
+                  value={travelDetail}
                   cols='30'
                   rows='5'
                   onChange={handleTripInput}
                   className='border border-black text-black list-disc'></textarea>
                 <input
                   type='number'
-                  name=''
+                  name='travelCost'
+                  value={travelCost}
                   id=''
+                  onChange={handleTripInput}
                   className='border border-black text-black'
                 />
               </div>
@@ -167,16 +173,18 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                   Accomodation
                 </label>
                 <textarea
-                  name='accomodationExpenses'
-                  value={accomodationExpenses}
+                  name='accomodationDetail'
+                  value={accomodationDetail}
                   cols='30'
                   rows='5'
                   onChange={handleTripInput}
                   className='border border-black text-black list-item'></textarea>
                 <input
                   type='number'
-                  name=''
+                  name='accomodationCost'
+                  value={accomodationCost}
                   id=''
+                  onChange={handleTripInput}
                   className='border border-black text-black'
                 />
               </div>
@@ -185,16 +193,18 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                   Leisure
                 </label>
                 <textarea
-                  name='leisureExpenses'
-                  value={leisureExpenses}
+                  name='leisureDetail'
+                  value={leisureDetail}
                   cols='30'
                   rows='5'
                   onChange={handleTripInput}
                   className='border border-black text-black'></textarea>
                 <input
                   type='number'
-                  name=''
+                  name='leisureCost'
+                  value={leisureCost}
                   id=''
+                  onChange={handleTripInput}
                   className='border border-black text-black'
                 />
               </div>
