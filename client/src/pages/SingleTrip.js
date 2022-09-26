@@ -26,10 +26,15 @@ const SingleTrip = () => {
     destination,
     theme,
     duration,
-    cost,
+    cost: totalCost,
     activities,
     advices,
     nbTravelers: { adults, children } = {},
+    costDetails: {
+      travel: { travelDetail, travelCost } = {},
+      accomodation: { accomodationDetail, accomodationCost } = {},
+      leisure: { leisureDetail, leisureCost } = {},
+    } = {},
   } = singleTrip;
 
   useEffect(() => {
@@ -116,12 +121,27 @@ const SingleTrip = () => {
                   <p>{adults} adults</p>
                   <p>{children} children</p>
                 </div>
-                <p>Total cost: {cost}€</p>
+                <p>Total cost: {totalCost}€</p>
               </>
             )}
 
             {toggleTab.activities && <p>{activities}</p>}
-            {toggleTab.costDetails && <p>{cost}</p>}
+            {toggleTab.costDetails && (
+              <div>
+                <div>
+                  <p>Travel Details : {travelDetail}</p>
+                  <p>Travel Cost: {travelCost}</p>
+                </div>
+                <div>
+                  <p>Accomodation Details : {accomodationDetail}</p>
+                  <p>Accomodation Cost: {accomodationCost}</p>
+                </div>
+                <div>
+                  <p>Leisure Details : {leisureDetail}</p>
+                  <p>Leisure Cost: {leisureCost}</p>
+                </div>
+              </div>
+            )}
             {toggleTab.advices && <p>{advices}</p>}
           </div>
           <div className='absolute z-10 bottom-5 left-5'>

@@ -46,16 +46,16 @@ const TripSchema = new mongoose.Schema(
     activities: { type: String },
     costDetails: {
       travel: {
-        detail: String,
-        cost: Number,
+        travelDetail: String,
+        travelCost: Number,
       },
       accomodation: {
-        detail: String,
-        cost: Number,
+        accomodationDetail: String,
+        accomodationCost: Number,
       },
       leisure: {
-        detail: String,
-        cost: Number,
+        leisureDetail: String,
+        leisureCost: Number,
       },
     },
     advices: { type: String },

@@ -77,16 +77,16 @@ const initialState = {
   advices: '',
   costDetails: {
     travel: {
-      detail: '',
-      cost: 0,
+      travelDetail: '',
+      travelCost: 0,
     },
     accomodation: {
-      detail: '',
-      cost: 0,
+      accomodationDetail: '',
+      accomodationCost: 0,
     },
     leisure: {
-      detail: '',
-      cost: 0,
+      leisureDetail: '',
+      leisureCost: 0,
     },
   },
   travelDetail: '',
@@ -222,12 +222,12 @@ const AppProvider = ({ children }) => {
 
       nbTravelers.adults = state.nbAdults;
       nbTravelers.children = state.nbChildren;
-      costDetails.travel.detail = state.travelDetail;
-      costDetails.travel.cost = state.travelCost;
-      costDetails.accomodation.detail = state.accomodationDetail;
-      costDetails.accomodation.cost = state.accomodationCost;
-      costDetails.leisure.detail = state.leisureDetail;
-      costDetails.leisure.cost = state.leisureCost;
+      costDetails.travel.travelDetail = state.travelDetail;
+      costDetails.travel.travelCost = state.travelCost;
+      costDetails.accomodation.accomodationDetail = state.accomodationDetail;
+      costDetails.accomodation.accomodationCost = state.accomodationCost;
+      costDetails.leisure.leisureDetail = state.leisureDetail;
+      costDetails.leisure.leisureCost = state.leisureCost;
 
       await authFetch.post('/trips/usertrips', {
         theme,
