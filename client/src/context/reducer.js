@@ -17,6 +17,9 @@ import {
   GET_SINGLE_TRIP_SUCCESS,
   GET_TRIPS_ERROR,
   DELETE_TRIP_BEGIN,
+  EDIT_TRIP_BEGIN,
+  EDIT_TRIP_SUCCESS,
+  EDIT_TRIP_ERROR,
   CLEAR_TRIP_FORM,
   DELETE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
@@ -176,6 +179,11 @@ const reducer = (state, action) => {
         cost: 0,
         activities: '',
         advices: '',
+      };
+    case EDIT_TRIP_BEGIN:
+      return {
+        ...state,
+        isEditing: true,
       };
     default:
       throw new Error(`There is no action: ${action.type}`);

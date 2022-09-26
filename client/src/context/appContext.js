@@ -19,6 +19,9 @@ import {
   GET_USER_TRIPS_SUCCESS,
   GET_ALL_TRIPS_SUCCESS,
   GET_TRIPS_ERROR,
+  EDIT_TRIP_BEGIN,
+  EDIT_TRIP_SUCCESS,
+  EDIT_TRIP_ERROR,
   GET_SINGLE_TRIP_SUCCESS,
   CLEAR_TRIP_FORM,
   DELETE_TRIP_BEGIN,
@@ -367,6 +370,13 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const editTrip = (tripID) => {
+    dispatch({ type: EDIT_TRIP_BEGIN, payload: tripID });
+    console.log(tripID);
+  };
+
+  const updateTrip = () => {};
+
   return (
     <AppContext.Provider
       value={{
@@ -385,6 +395,8 @@ const AppProvider = ({ children }) => {
         closeModalConfirm,
         deleteUser,
         updateUser,
+        editTrip,
+        updateTrip,
       }}>
       {children}
     </AppContext.Provider>

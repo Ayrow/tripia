@@ -20,7 +20,8 @@ const SingleTrip = () => {
     setToggleTab({ [e.target.name]: true });
   };
 
-  const { getSingleTrip, singleTrip } = useAppContext();
+  const { getSingleTrip, singleTrip, isEditing, editTrip, user } =
+    useAppContext();
 
   const {
     destination,
@@ -43,12 +44,22 @@ const SingleTrip = () => {
 
   return (
     <div className='my-5 mx-2'>
-      <button
-        type='button'
-        onClick={() => navigate(-1)}
-        className='btn bg-orange-600 flex items-center gap-2 mb-3'>
-        <FaArrowLeft /> Go Back
-      </button>
+      {isEditing ? (
+        <button
+          type='button'
+          onClick={() => {}}
+          className='btn bg-red-600 hover:bg-red-500 flex items-center gap-2 mb-3'>
+          Cancel
+        </button>
+      ) : (
+        <button
+          type='button'
+          onClick={() => navigate(-1)}
+          className='btn bg-orange-600 flex items-center gap-2 mb-3'>
+          <FaArrowLeft /> Go Back
+        </button>
+      )}
+
       <div className='grid grid-cols-1 sm:grid-cols-2  gap-5'>
         <div className=''>
           <img
@@ -81,9 +92,21 @@ const SingleTrip = () => {
         <div className='relative flex flex-col bg-white'>
           <div className=' bg-blue-700 flex justify-between p-5 text-xl'>
             <h3 className='text-2xl'>{destination}</h3>
-            <button className='flex items-center gap-2 btn border'>
-              <FaHeart /> Save
-            </button>
+            <div className='flex gap-5'>
+              {singleTrip.createdBy === user._id ? (
+                <button
+                  className='flex items-center gap-2 btn border'
+                  onClick={() => editTrip(singleTrip._id)}>
+                  Edit
+                </button>
+              ) : (
+                <button
+                  className='flex items-center gap-2 btn border'
+                  onClick={() => {}}>
+                  <FaHeart /> Save
+                </button>
+              )}
+            </div>
           </div>
           <div className=' bg-slate-600 flex justify-around '>
             <button
