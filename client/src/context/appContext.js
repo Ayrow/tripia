@@ -370,7 +370,7 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const editTrip = (tripID) => {
+  const editTrip = ({ tripID }) => {
     dispatch({ type: EDIT_TRIP_BEGIN, payload: tripID });
     console.log(tripID);
   };

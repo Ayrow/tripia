@@ -20,8 +20,15 @@ const SingleTrip = () => {
     setToggleTab({ [e.target.name]: true });
   };
 
-  const { getSingleTrip, singleTrip, isEditing, editTrip, user } =
-    useAppContext();
+  const {
+    getSingleTrip,
+    singleTrip,
+    isEditing,
+    editTrip,
+    user,
+    handleChange,
+    themeOptions,
+  } = useAppContext();
 
   const {
     destination,
@@ -41,6 +48,12 @@ const SingleTrip = () => {
   useEffect(() => {
     getSingleTrip(id);
   }, [id]);
+
+  const handleTripInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    handleChange({ name, value });
+  };
 
   return (
     <div className='my-5 mx-2'>
@@ -141,6 +154,7 @@ const SingleTrip = () => {
                   <h4 className=' font-bold border-b-2 w-fit border-orange-500 '>
                     Theme:
                   </h4>
+
                   <p>{theme}</p>
                 </div>
                 <div className='block' aria-hidden='true'>
@@ -233,8 +247,8 @@ const SingleTrip = () => {
             {toggleTab.advices && <p>{advices}</p>}
           </div>
           <div className='h-full w-full flex items-end'>
-            <button type='button' className='btn bg-orange-600 mb-5 ml-5 flex'>
-              Share By Email
+            <button type='button' className='btn bg-orange-600 my-5 ml-5 flex'>
+              Share
             </button>
           </div>
         </div>

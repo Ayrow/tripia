@@ -54,6 +54,7 @@ const reducer = (state, action) => {
     case CLOSE_MODAL_CONFIRM:
       return {
         ...state,
+        isEditing: false,
         isConfirmationModalOpen: false,
         modalConfirmText: '',
         modalConfirmTitle: '',
@@ -69,12 +70,14 @@ const reducer = (state, action) => {
     case SETUP_USER_BEGIN:
       return {
         ...state,
+        isEditing: false,
         isLoading: true,
       };
     case SETUP_USER_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        isEditing: false,
         alertType: action.payload.type,
         alertText: action.payload.msg,
         user: action.payload.user,
@@ -84,6 +87,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        isEditing: false,
       };
     case LOGOUT_USER:
       return {
@@ -99,27 +103,32 @@ const reducer = (state, action) => {
         ...state,
         isLoading: true,
         showAlert: false,
+        isEditing: false,
       };
     case CREATE_TRIP_SUCCESS:
       return {
         ...state,
         isLoading: false,
         showAlert: true,
+        isEditing: false,
         alertType: 'success',
         alertText: 'Successfully created!',
       };
     case CREATE_TRIP_ERROR:
       return {
         ...state,
+        isLoading: false,
         showAlert: true,
         alertType: 'danger',
         alertText: action.payload.msg,
+        isEditing: false,
       };
     case GET_TRIPS_BEGIN:
       return {
         ...state,
         isLoading: true,
         showAlert: false,
+        isEditing: false,
       };
     case GET_USER_TRIPS_SUCCESS:
       return {
@@ -132,12 +141,14 @@ const reducer = (state, action) => {
         ...state,
         isLoading: false,
         allTrips: action.payload,
+        isEditing: false,
       };
     case GET_SINGLE_TRIP_SUCCESS:
       return {
         ...state,
         isLoading: false,
         singleTrip: action.payload,
+        isEditing: false,
       };
     case GET_TRIPS_ERROR:
       return {
@@ -145,6 +156,7 @@ const reducer = (state, action) => {
         showAlert: true,
         alertType: 'danger',
         alertText: action.payload.msg,
+        isEditing: false,
       };
     case DELETE_TRIP_BEGIN:
       return {
@@ -152,6 +164,7 @@ const reducer = (state, action) => {
         showAlert: true,
         alertType: 'success',
         alertText: 'Trip deleted successfully!',
+        isEditing: false,
       };
     case DELETE_USER_BEGIN:
       return {
@@ -163,6 +176,7 @@ const reducer = (state, action) => {
         ...state,
         user: action.payload.user,
         token: action.payload.token,
+        isEditing: false,
       };
     case CLEAR_TRIP_FORM:
       return {
@@ -179,6 +193,7 @@ const reducer = (state, action) => {
         cost: 0,
         activities: '',
         advices: '',
+        isEditing: false,
       };
     case EDIT_TRIP_BEGIN:
       return {
