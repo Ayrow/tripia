@@ -4,6 +4,9 @@ import { useAppContext } from '../context/appContext';
 import { FaHeart, FaArrowLeft } from 'react-icons/fa';
 import GalerieImages from '../components/singleTrip/GalerieImages';
 import ButtonTab from '../components/ButtonTab';
+import LineBreak from '../components/LineBreak';
+import SummaryTab from '../components/singleTrip/SummaryTab';
+import CostDetailsTab from '../components/singleTrip/CostDetailsTab';
 
 const SingleTrip = () => {
   let { id } = useParams();
@@ -75,6 +78,7 @@ const SingleTrip = () => {
 
       <div className='grid grid-cols-1 sm:grid-cols-2  gap-5'>
         <GalerieImages />
+
         <div className='relative flex flex-col bg-white'>
           <div className=' bg-blue-700 flex justify-between p-5 text-xl'>
             <h3 className='text-2xl'>{destination}</h3>
@@ -114,102 +118,29 @@ const SingleTrip = () => {
             />
             <ButtonTab name='advices' toggling={toggling} />
           </div>
+
           <div className='relative text-black flex flex-col gap-7 p-5 text-lg'>
             {toggleTab.summary && (
-              <>
-                <div className='flex gap-2 items-center'>
-                  <h4 className=' font-bold border-b-2 w-fit border-orange-500 '>
-                    Theme:
-                  </h4>
-
-                  <p>{theme}</p>
-                </div>
-                <div className='block' aria-hidden='true'>
-                  <div className=' '>
-                    <div className='border-t border-gray-200' />
-                  </div>
-                </div>
-                <div className='flex gap-2 items-center'>
-                  <h4 className=' font-bold border-b-2 w-fit border-orange-500'>
-                    Duration:{' '}
-                  </h4>
-                  <p>{duration} days</p>
-                </div>
-                <div className='block' aria-hidden='true'>
-                  <div className=''>
-                    <div className='border-t border-gray-200' />
-                  </div>
-                </div>
-                <div>
-                  <h4 className=' font-bold border-b-2 w-fit border-orange-500 mb-2'>
-                    Travelers:
-                  </h4>
-                  <div>
-                    <p>
-                      - {adults} {adults > 1 ? 'adults' : 'adult'}
-                    </p>
-                    <p>
-                      - {children} {children > 1 ? 'children' : 'child'}
-                    </p>
-                  </div>
-                </div>
-                <div className='block' aria-hidden='true'>
-                  <div className=''>
-                    <div className='border-t border-gray-200' />
-                  </div>
-                </div>
-                <div className='flex gap-2'>
-                  <h4 className=' font-bold text-xl uh4percase'>
-                    Total cost:{' '}
-                  </h4>
-                  <p>{totalCost}€</p>
-                </div>
-              </>
+              <SummaryTab
+                theme={theme}
+                duration={duration}
+                adults={adults}
+                children={children}
+                totalCost={totalCost}
+              />
             )}
 
             {toggleTab.activities && <p>{activities}</p>}
+
             {toggleTab.costDetails && (
-              <div className='flex flex-col gap-5'>
-                <div>
-                  <h4 className='  text-xl font-bold border-b-2 w-fit border-orange-500 mb-2'>
-                    Travel
-                  </h4>
-                  <p>Details : {travelDetail}</p>
-                  <p>Cost: {travelCost}€</p>
-                </div>
-                <div className='block' aria-hidden='true'>
-                  <div className=''>
-                    <div className='border-t border-gray-200' />
-                  </div>
-                </div>
-                <div>
-                  <h4 className=' text-xl font-bold border-b-2 w-fit border-orange-500 mb-2'>
-                    Accomodation
-                  </h4>
-                  <p>Details : {accomodationDetail}</p>
-                  <p>Cost: {accomodationCost}€</p>
-                </div>
-                <div className='block' aria-hidden='true'>
-                  <div className=''>
-                    <div className='border-t border-gray-200' />
-                  </div>
-                </div>
-                <div>
-                  <h4 className=' text-xl font-bold border-b-2 w-fit border-orange-500 mb-2'>
-                    Leisure
-                  </h4>
-                  <p>Details : {leisureDetail}</p>
-                  <p>Cost: {leisureCost}€</p>
-                </div>
-                <div className='block' aria-hidden='true'>
-                  <div className=''>
-                    <div className='border-t border-gray-200' />
-                  </div>
-                </div>
-                <p className=' font-bold uppercase text-xl'>
-                  Total: {travelCost + accomodationCost + leisureCost}€
-                </p>
-              </div>
+              <CostDetailsTab
+                travelDetail={travelDetail}
+                travelCost={travelCost}
+                accomodationDetail={accomodationDetail}
+                accomodationCost={accomodationCost}
+                leisureCost={leisureCost}
+                leisureDetail={leisureDetail}
+              />
             )}
             {toggleTab.advices && <p>{advices}</p>}
           </div>
