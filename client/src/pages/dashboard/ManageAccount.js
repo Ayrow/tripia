@@ -4,17 +4,13 @@ import { useAppContext } from '../../context/appContext';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import UnknownUser from '../../assets/images/unknown-user.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useUserContext } from '../../context/userContext';
 
 const ManageAccount = () => {
-  const {
-    user,
-    openModalConfirm,
-    isConfirmationModalOpen,
-    deleteUser,
-    updateUser,
-    showAlert,
-    displayAlert,
-  } = useAppContext();
+  const { openModalConfirm, isConfirmationModalOpen, showAlert, displayAlert } =
+    useAppContext();
+
+  const { user, deleteUser, updateUser } = useUserContext();
 
   const initialState = {
     username: user?.username,
@@ -35,7 +31,7 @@ const ManageAccount = () => {
     const { username, about } = value;
     const newUserDetails = { username, about, email: user.email };
     updateUser({ newUserDetails });
-    setValue(initialState);
+    setValue(newUserDetails);
   };
 
   const saveSettings = (e) => {

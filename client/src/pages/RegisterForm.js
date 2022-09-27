@@ -4,6 +4,7 @@ import Alert from '../components/Alert';
 import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
 import { useAppContext } from '../context/appContext';
+import { useUserContext } from '../context/userContext';
 
 const initialState = {
   username: '',
@@ -15,8 +16,8 @@ const initialState = {
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  const { isLoading, setupUser, displayAlert, showAlert, user } =
-    useAppContext();
+  const { isLoading, displayAlert, showAlert } = useAppContext();
+  const { user, setupUser } = useUserContext();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -50,7 +51,6 @@ const RegisterForm = () => {
     }
 
     const currentUser = { username, email, password };
-
     if (isMember) {
       setupUser({
         currentUser,

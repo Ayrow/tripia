@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import Logo from '../assets/images/logo-tripia.png';
 import { FaMoon, FaSun } from 'react-icons/fa';
-import { useAppContext } from '../context/appContext';
+import { useUserContext } from '../context/userContext';
 import DropdownUserBtn from './DropdownUserBtn';
 
 const Navbar = () => {
-  const { user, logoutUser } = useAppContext();
+  const { user, logoutUser } = useUserContext();
 
   const username = user?.username;
 

@@ -3,28 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import CreateTripForm from '../../components/CreateTripForm';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/appContext';
+import { useTripContext } from '../../context/tripContext';
 import { FaUser, FaHeart, FaChild } from 'react-icons/fa';
 import ConfirmationModal from '../../components/ConfirmationModal';
+import { CANCEL_TRIP_EDITION } from '../../context/actions';
 
 const UserTrips = () => {
   const navigate = useNavigate();
 
+  const { isConfirmationModalOpen, openModalConfirm, isEditing } =
+    useAppContext();
+
   const {
     userTrips,
     getUserTrips,
-    isConfirmationModalOpen,
-    openModalConfirm,
     deleteTrip,
     tripID,
     editUserTrip,
-    isEditing,
-  } = useAppContext();
+    cancelTripEdition,
+  } = useTripContext();
 
   const [toggleCreateForm, setToggleCreateForm] = useState(false);
 
+  const seeTrip = (id) => {
+    cancelTripEdition();
+    navigate(`/explore/${id}`);
+  };
+
   const editTrip = (id) => {
     editUserTrip(id);
-
     navigate(`/explore/${id}`);
   };
 
@@ -106,11 +113,11 @@ const UserTrips = () => {
                   </p>
                 </div>
                 <div className='flex gap-5 justify-end pr-5 py-5 text-xl'>
-                  <Link
-                    to={`/explore/${_id}`}
-                    className='btn btn-hipster flex items-center px-6'>
+                  <button
+                    className='btn btn-hipster flex items-center px-6'
+                    onClick={() => seeTrip(_id)}>
                     See
-                  </Link>
+                  </button>
                   <button
                     className='btn btn-success px-6'
                     onClick={() => editTrip(_id)}>

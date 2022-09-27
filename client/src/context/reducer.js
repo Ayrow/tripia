@@ -8,6 +8,8 @@ import {
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   LOGOUT_USER,
+  DELETE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
   CREATE_TRIP_BEGIN,
   CREATE_TRIP_SUCCESS,
   CREATE_TRIP_ERROR,
@@ -21,8 +23,6 @@ import {
   EDIT_TRIP_SUCCESS,
   EDIT_TRIP_ERROR,
   CLEAR_TRIP_FORM,
-  DELETE_USER_BEGIN,
-  UPDATE_USER_SUCCESS,
   CANCEL_TRIP_EDITION,
 } from './actions';
 
@@ -186,6 +186,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isEditing: true,
+        itemID: action.payload,
       };
     case CANCEL_TRIP_EDITION:
       return {

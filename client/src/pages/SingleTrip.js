@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAppContext } from '../context/appContext';
+import { useTripContext } from '../context/tripContext';
 import { FaHeart, FaArrowLeft } from 'react-icons/fa';
 import GalerieImages from '../components/singleTrip/GalerieImages';
 import ButtonTab from '../components/ButtonTab';
-import LineBreak from '../components/LineBreak';
 import SummaryTab from '../components/singleTrip/SummaryTab';
 import CostDetailsTab from '../components/singleTrip/CostDetailsTab';
+import { useUserContext } from '../context/userContext';
 
 const SingleTrip = () => {
   let { id } = useParams();
@@ -25,16 +25,17 @@ const SingleTrip = () => {
     setToggleTab({ [e.target.name]: true });
   };
 
+  const { user } = useUserContext();
+
   const {
     getSingleTrip,
     singleTrip,
     isEditing,
     editUserTrip,
-    user,
     handleChange,
     themeOptions,
     cancelTripEdition,
-  } = useAppContext();
+  } = useTripContext();
 
   const {
     destination,
@@ -53,7 +54,6 @@ const SingleTrip = () => {
 
   useEffect(() => {
     getSingleTrip(id);
-    console.log(isEditing);
   }, [id]);
 
   const handleTripInput = (e) => {

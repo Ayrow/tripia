@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAppContext } from '../context/appContext';
 import TravelCard from './TravelCard';
+import { useTripContext } from '../context/tripContext';
 
 const CardsList = () => {
-  const { allTrips, getAllTrips } = useAppContext();
+  const { allTrips, getAllTrips } = useTripContext();
+
   const navigate = useNavigate();
 
   useEffect(() => {
