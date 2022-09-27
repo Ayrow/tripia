@@ -27,6 +27,7 @@ import {
   DELETE_TRIP_BEGIN,
   DELETE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
+  CANCEL_TRIP_EDITION,
 } from './actions';
 
 const user = localStorage.getItem('user');
@@ -370,12 +371,17 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const editTrip = ({ tripID }) => {
+  const editUserTrip = (tripID) => {
     dispatch({ type: EDIT_TRIP_BEGIN, payload: tripID });
     console.log(tripID);
+    console.log(state.isEditing);
   };
 
   const updateTrip = () => {};
+
+  const cancelTripEdition = () => {
+    dispatch({ type: CANCEL_TRIP_EDITION });
+  };
 
   return (
     <AppContext.Provider
@@ -395,8 +401,9 @@ const AppProvider = ({ children }) => {
         closeModalConfirm,
         deleteUser,
         updateUser,
-        editTrip,
+        editUserTrip,
         updateTrip,
+        cancelTripEdition,
       }}>
       {children}
     </AppContext.Provider>

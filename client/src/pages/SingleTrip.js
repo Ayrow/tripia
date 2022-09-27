@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/appContext';
 import { FaHeart, FaArrowLeft } from 'react-icons/fa';
+import GalerieImages from '../components/singleTrip/GalerieImages';
 
 const SingleTrip = () => {
   let { id } = useParams();
@@ -24,10 +25,11 @@ const SingleTrip = () => {
     getSingleTrip,
     singleTrip,
     isEditing,
-    editTrip,
+    editUserTrip,
     user,
     handleChange,
     themeOptions,
+    cancelTripEdition,
   } = useAppContext();
 
   const {
@@ -47,6 +49,7 @@ const SingleTrip = () => {
 
   useEffect(() => {
     getSingleTrip(id);
+    console.log(isEditing);
   }, [id]);
 
   const handleTripInput = (e) => {
@@ -55,63 +58,42 @@ const SingleTrip = () => {
     handleChange({ name, value });
   };
 
+  const navigateBack = () => {
+    cancelTripEdition();
+    navigate(-1);
+  };
+
   return (
     <div className='my-5 mx-2'>
-      {isEditing ? (
-        <button
-          type='button'
-          onClick={() => {}}
-          className='btn bg-red-600 hover:bg-red-500 flex items-center gap-2 mb-3'>
-          Cancel
-        </button>
-      ) : (
-        <button
-          type='button'
-          onClick={() => navigate(-1)}
-          className='btn bg-orange-600 flex items-center gap-2 mb-3'>
-          <FaArrowLeft /> Go Back
-        </button>
-      )}
+      <button
+        type='button'
+        onClick={navigateBack}
+        className='btn bg-orange-600 flex items-center gap-2 mb-3'>
+        <FaArrowLeft /> Go Back
+      </button>
 
       <div className='grid grid-cols-1 sm:grid-cols-2  gap-5'>
-        <div className=''>
-          <img
-            src='https://europeupclose.com/wp-content/uploads/2017/04/iceland-1751463_1280.jpg'
-            alt=''
-          />
-          <div className='flex gap-2 flex-wrap justify-between pt-4'>
-            <img
-              src='https://europeupclose.com/wp-content/uploads/2017/04/iceland-1751463_1280.jpg'
-              alt=''
-              className=' w-1/5 lg:w-52'
-            />
-            <img
-              src='https://europeupclose.com/wp-content/uploads/2017/04/iceland-1751463_1280.jpg'
-              alt=''
-              className='w-1/5'
-            />
-            <img
-              src='https://europeupclose.com/wp-content/uploads/2017/04/iceland-1751463_1280.jpg'
-              alt=''
-              className='w-1/5'
-            />
-            <img
-              src='https://europeupclose.com/wp-content/uploads/2017/04/iceland-1751463_1280.jpg'
-              alt=''
-              className='w-1/5'
-            />
-          </div>
-        </div>
+        <GalerieImages />
         <div className='relative flex flex-col bg-white'>
           <div className=' bg-blue-700 flex justify-between p-5 text-xl'>
             <h3 className='text-2xl'>{destination}</h3>
             <div className='flex gap-5'>
               {singleTrip.createdBy === user._id ? (
-                <button
-                  className='flex items-center gap-2 btn border'
-                  onClick={() => editTrip(singleTrip._id)}>
-                  Edit
-                </button>
+                <div>
+                  {isEditing ? (
+                    <button
+                      className='flex items-center gap-2 btn border bg-red-500 hover:bg-red-400'
+                      onClick={cancelTripEdition}>
+                      Cancel
+                    </button>
+                  ) : (
+                    <button
+                      className='flex items-center gap-2 btn border'
+                      onClick={() => editUserTrip(singleTrip._id)}>
+                      Edit
+                    </button>
+                  )}
+                </div>
               ) : (
                 <button
                   className='flex items-center gap-2 btn border'

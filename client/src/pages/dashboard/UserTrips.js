@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CreateTripForm from '../../components/CreateTripForm';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/appContext';
@@ -6,6 +7,8 @@ import { FaUser, FaHeart, FaChild } from 'react-icons/fa';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
 const UserTrips = () => {
+  const navigate = useNavigate();
+
   const {
     userTrips,
     getUserTrips,
@@ -13,9 +16,17 @@ const UserTrips = () => {
     openModalConfirm,
     deleteTrip,
     tripID,
+    editUserTrip,
+    isEditing,
   } = useAppContext();
 
   const [toggleCreateForm, setToggleCreateForm] = useState(false);
+
+  const editTrip = (id) => {
+    editUserTrip(id);
+
+    navigate(`/explore/${id}`);
+  };
 
   useEffect(() => {
     getUserTrips();
@@ -100,7 +111,11 @@ const UserTrips = () => {
                     className='btn btn-hipster flex items-center px-6'>
                     See
                   </Link>
-                  <button className='btn btn-success px-6'>Edit</button>
+                  <button
+                    className='btn btn-success px-6'
+                    onClick={() => editTrip(_id)}>
+                    Edit
+                  </button>
                   <button
                     className='btn btn-danger bg-red-500'
                     onClick={() =>

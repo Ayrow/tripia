@@ -158,6 +158,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                   rows='5'
                   onChange={handleTripInput}
                   className='border border-black text-black list-disc'></textarea>
+
                 <input
                   type='number'
                   name='travelCost'
@@ -167,6 +168,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                   className='border border-black text-black'
                 />
               </div>
+
               <div className='flex flex-col'>
                 <label htmlFor='' className='text-black'>
                   Accomodation
