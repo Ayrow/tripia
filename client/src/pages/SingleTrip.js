@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/appContext';
 import { FaHeart, FaArrowLeft } from 'react-icons/fa';
 import GalerieImages from '../components/singleTrip/GalerieImages';
+import ButtonTab from '../components/ButtonTab';
 
 const SingleTrip = () => {
   let { id } = useParams();
@@ -104,30 +105,14 @@ const SingleTrip = () => {
             </div>
           </div>
           <div className=' bg-slate-600 flex justify-around '>
-            <button
-              name='summary'
-              className='w-full border border-slate-200 active:bg-slate-900'
-              onClick={toggling}>
-              Summary
-            </button>
-            <button
-              name='activities'
-              className='w-full border border-slate-200 active:bg-slate-900'
-              onClick={toggling}>
-              Activities
-            </button>
-            <button
+            <ButtonTab name='summary' toggling={toggling} />
+            <ButtonTab name='activities' toggling={toggling} />
+            <ButtonTab
               name='costDetails'
-              className='w-full border border-slate-200 active:bg-slate-900'
-              onClick={toggling}>
-              Cost Details
-            </button>
-            <button
-              name='advices'
-              className='w-full border border-slate-200 active:bg-slate-900'
-              onClick={toggling}>
-              Advices
-            </button>
+              btnText='cost details'
+              toggling={toggling}
+            />
+            <ButtonTab name='advices' toggling={toggling} />
           </div>
           <div className='relative text-black flex flex-col gap-7 p-5 text-lg'>
             {toggleTab.summary && (
