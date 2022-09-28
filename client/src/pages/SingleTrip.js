@@ -7,10 +7,31 @@ import ButtonTab from '../components/ButtonTab';
 import SummaryTab from '../components/singleTrip/SummaryTab';
 import CostDetailsTab from '../components/singleTrip/CostDetailsTab';
 import { useUserContext } from '../context/userContext';
+import { useAppContext } from '../context/appContext';
 
 const SingleTrip = () => {
   let { id } = useParams();
   const navigate = useNavigate();
+
+  // const { handleChange } = useAppContext();
+
+  const {
+    nbAdults,
+    nbChildren,
+    cost,
+    showAlert,
+    displayAlert,
+    itemID,
+    theme,
+    getSingleTrip,
+    singleTrip,
+    isEditing,
+    editUserTrip,
+    themeOptions,
+    cancelTripEdition,
+    updateTrip,
+    handleChange,
+  } = useTripContext();
 
   const initialState = {
     summary: true,
@@ -28,18 +49,7 @@ const SingleTrip = () => {
   const { user } = useUserContext();
 
   const {
-    getSingleTrip,
-    singleTrip,
-    isEditing,
-    editUserTrip,
-    handleChange,
-    themeOptions,
-    cancelTripEdition,
-  } = useTripContext();
-
-  const {
     destination,
-    theme,
     duration,
     cost: totalCost,
     activities,
@@ -67,6 +77,11 @@ const SingleTrip = () => {
     navigate(-1);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateTrip();
+  };
+
   return (
     <div className='my-5 mx-2'>
       <button
@@ -79,21 +94,37 @@ const SingleTrip = () => {
       <div className='grid grid-cols-1 sm:grid-cols-2  gap-5'>
         <GalerieImages />
 
-        <div className='relative flex flex-col bg-white'>
+        <form className='relative flex flex-col bg-white'>
           <div className=' bg-blue-700 flex justify-between p-5 text-xl'>
-            <h3 className='text-2xl'>{destination}</h3>
+            <h3 className='text-2xl'>
+              {isEditing ? (
+                <input
+                  type='text'
+                  name='destination'
+                  onChange={handleTripInput}
+                  placeholder='Europe, South America, Spain...'
+                  className='block w-52 py-2 px-3 rounded-md
+                shadow-sm focus:outline-none focus:ring-primary-500
+                focus:border-primary-500 border border-black text-black'
+                />
+              ) : (
+                destination
+              )}
+            </h3>
             <div className='flex gap-5'>
               {singleTrip.createdBy === user._id ? (
                 <div>
                   {isEditing ? (
                     <button
+                      type='button'
                       className='flex items-center gap-2 btn border bg-red-500 hover:bg-red-400'
                       onClick={cancelTripEdition}>
                       Cancel
                     </button>
                   ) : (
                     <button
-                      className='flex items-center gap-2 btn border'
+                      type='button'
+                      className='flex items-center gap-2 btn border bg-orange-500 hover:bg-orange-400'
                       onClick={() => editUserTrip(singleTrip._id)}>
                       Edit
                     </button>
@@ -123,10 +154,14 @@ const SingleTrip = () => {
             {toggleTab.summary && (
               <SummaryTab
                 theme={theme}
+                themeOptions={themeOptions}
                 duration={duration}
                 adults={adults}
                 children={children}
                 totalCost={totalCost}
+                isEditing={isEditing}
+                handleTripInput={handleTripInput}
+                {...singleTrip}
               />
             )}
 
@@ -145,11 +180,22 @@ const SingleTrip = () => {
             {toggleTab.advices && <p>{advices}</p>}
           </div>
           <div className='h-full w-full flex items-end'>
-            <button type='button' className='btn bg-orange-600 my-5 ml-5 flex'>
-              Share
-            </button>
+            {isEditing ? (
+              <button
+                type='submit'
+                className='btn bg-green-600 hover:bg-green-400 my-5 ml-5 flex'
+                onClick={handleSubmit}>
+                save
+              </button>
+            ) : (
+              <button
+                type='button'
+                className='btn bg-orange-600 my-5 ml-5 flex'>
+                Share
+              </button>
+            )}
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

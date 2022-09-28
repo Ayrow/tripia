@@ -1,6 +1,16 @@
 import LineBreak from '../LineBreak';
 
-const SummaryTab = ({ theme, duration, adults, children, totalCost }) => {
+const SummaryTab = ({
+  theme,
+  duration,
+  adults,
+  children,
+  totalCost,
+  isEditing,
+  handleTripInput,
+  themeOptions,
+  inputTheme,
+}) => {
   return (
     <>
       <div className='flex gap-2 items-center'>
@@ -8,13 +18,31 @@ const SummaryTab = ({ theme, duration, adults, children, totalCost }) => {
           Theme:
         </h4>
 
-        <p>{theme}</p>
+        {isEditing ? (
+          <select
+            name='theme'
+            onChange={handleTripInput}
+            className='block w-52 py-2 px-3 rounded-md capitalize
+                shadow-sm focus:outline-none focus:ring-primary-500
+                focus:border-primary-500 border bg-white border-black text-black'>
+            {themeOptions.map((item, index) => {
+              return (
+                <option key={index} value={item} className=''>
+                  {item}
+                </option>
+              );
+            })}
+          </select>
+        ) : (
+          <p>{theme}</p>
+        )}
       </div>
       <LineBreak />
       <div className='flex gap-2 items-center'>
         <h4 className=' font-bold border-b-2 w-fit border-orange-500'>
           Duration:{' '}
         </h4>
+
         <p>{duration} days</p>
       </div>
       <LineBreak />

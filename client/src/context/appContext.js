@@ -89,6 +89,7 @@ const AppProvider = ({ children }) => {
   };
 
   const handleChange = ({ name, value }) => {
+    console.log({ name, value });
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
 

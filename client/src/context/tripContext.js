@@ -15,6 +15,7 @@ import {
   CLEAR_TRIP_FORM,
   DELETE_TRIP_BEGIN,
   CANCEL_TRIP_EDITION,
+  HANDLE_CHANGE,
 } from './actions';
 import { useAppContext } from './appContext';
 import { useUserContext } from './userContext';
@@ -117,6 +118,11 @@ const TripProvider = ({ children }) => {
       return Promise.reject(error);
     }
   );
+
+  const handleChange = ({ name, value }) => {
+    console.log({ name, value });
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
 
   const createTrip = async () => {
     dispatch({ type: CREATE_TRIP_BEGIN });
@@ -236,7 +242,9 @@ const TripProvider = ({ children }) => {
     dispatch({ type: EDIT_TRIP_BEGIN, payload: id });
   };
 
-  const updateTrip = () => {};
+  const updateTrip = async () => {
+    console.log('destination', state.destination);
+  };
 
   const cancelTripEdition = () => {
     dispatch({ type: CANCEL_TRIP_EDITION });
@@ -256,6 +264,7 @@ const TripProvider = ({ children }) => {
         updateTrip,
         cancelTripEdition,
         authFetch,
+        handleChange,
       }}>
       {children}
     </TripContext.Provider>
