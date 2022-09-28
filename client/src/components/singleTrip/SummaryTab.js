@@ -2,6 +2,7 @@ import LineBreak from '../LineBreak';
 
 const SummaryTab = ({
   theme,
+  cost,
   duration,
   adults,
   children,
@@ -9,6 +10,8 @@ const SummaryTab = ({
   isEditing,
   handleTripInput,
   themeOptions,
+  nbAdults,
+  nbChildren,
   inputTheme,
 }) => {
   return (
@@ -42,27 +45,85 @@ const SummaryTab = ({
         <h4 className=' font-bold border-b-2 w-fit border-orange-500'>
           Duration:{' '}
         </h4>
-
-        <p>{duration} days</p>
+        {isEditing ? (
+          <p className='flex gap-5 items-center'>
+            <input
+              type='number'
+              min='0'
+              name='duration'
+              onChange={handleTripInput}
+              className=' block w-20 py-2 px-3 rounded-md
+                shadow-sm focus:outline-none focus:ring-primary-500
+                focus:border-primary-500 border border-black text-black'
+            />{' '}
+            days
+          </p>
+        ) : (
+          <p>{duration} days</p>
+        )}
       </div>
       <LineBreak />
       <div>
         <h4 className=' font-bold border-b-2 w-fit border-orange-500 mb-2'>
           Travelers:
         </h4>
-        <div>
-          <p>
-            - {adults} {adults > 1 ? 'adults' : 'adult'}
-          </p>
-          <p>
-            - {children} {children > 1 ? 'children' : 'child'}
-          </p>
-        </div>
+        {isEditing ? (
+          <div>
+            <p className='flex gap-5'>
+              {' '}
+              <input
+                className='w-20'
+                type='number'
+                name='nbAdults'
+                min='1'
+                onChange={handleTripInput}
+                value={nbAdults}
+              />{' '}
+              adults
+            </p>
+            <p className='flex gap-5'>
+              <input
+                className='w-20'
+                type='number'
+                name='nbChildren'
+                min='1'
+                onChange={handleTripInput}
+                value={nbChildren}
+              />
+              children
+            </p>
+          </div>
+        ) : (
+          <div>
+            <p>
+              - {adults} {adults > 1 ? 'adults' : 'adult'}
+            </p>
+            <p>
+              - {children} {children > 1 ? 'children' : 'child'}
+            </p>
+          </div>
+        )}
       </div>
       <LineBreak />
-      <div className='flex gap-2'>
-        <h4 className=' font-bold text-xl uh4percase'>Total cost: </h4>
-        <p>{totalCost}€</p>
+      <div className='flex items-center gap-2'>
+        <h4 className=' font-bold text-xl uh4percase '>Total cost: </h4>
+        {isEditing ? (
+          <p className='flex items-center gap-5'>
+            {' '}
+            <input
+              type='number'
+              min='0'
+              name='cost'
+              onChange={handleTripInput}
+              className=' block w-28 py-2 px-3 rounded-md
+                shadow-sm focus:outline-none focus:ring-primary-500
+                focus:border-primary-500 border border-black text-black'
+            />
+            €
+          </p>
+        ) : (
+          <p>{totalCost}€</p>
+        )}
       </div>
     </>
   );

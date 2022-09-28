@@ -95,7 +95,7 @@ const SingleTrip = () => {
         <GalerieImages />
 
         <form className='relative flex flex-col bg-white'>
-          <div className=' bg-blue-700 flex justify-between p-5 text-xl'>
+          <div className=' bg-blue-700 flex flex-wrap gap-5 justify-between p-5 text-xl'>
             <h3 className='text-2xl'>
               {isEditing ? (
                 <input
@@ -115,12 +115,20 @@ const SingleTrip = () => {
               {singleTrip.createdBy === user._id ? (
                 <div>
                   {isEditing ? (
-                    <button
-                      type='button'
-                      className='flex items-center gap-2 btn border bg-red-500 hover:bg-red-400'
-                      onClick={cancelTripEdition}>
-                      Cancel
-                    </button>
+                    <div className='flex gap-5'>
+                      <button
+                        type='submit'
+                        className='btn bg-green-600 hover:bg-green-400 flex'
+                        onClick={handleSubmit}>
+                        save
+                      </button>
+                      <button
+                        type='button'
+                        className='btn border bg-red-500 hover:bg-red-400'
+                        onClick={cancelTripEdition}>
+                        Cancel
+                      </button>
+                    </div>
                   ) : (
                     <button
                       type='button'
@@ -154,6 +162,7 @@ const SingleTrip = () => {
             {toggleTab.summary && (
               <SummaryTab
                 theme={theme}
+                cost={cost}
                 themeOptions={themeOptions}
                 duration={duration}
                 adults={adults}
@@ -161,11 +170,21 @@ const SingleTrip = () => {
                 totalCost={totalCost}
                 isEditing={isEditing}
                 handleTripInput={handleTripInput}
-                {...singleTrip}
+                nbAdults={nbAdults}
+                nbChildren={nbChildren}
               />
             )}
 
-            {toggleTab.activities && <p>{activities}</p>}
+            {toggleTab.activities && isEditing ? (
+              <textarea
+                name='activities'
+                cols='30'
+                rows='5'
+                onChange={handleTripInput}
+                className='border border-black text-black'></textarea>
+            ) : (
+              <p>{activities}</p>
+            )}
 
             {toggleTab.costDetails && (
               <CostDetailsTab
@@ -175,19 +194,23 @@ const SingleTrip = () => {
                 accomodationCost={accomodationCost}
                 leisureCost={leisureCost}
                 leisureDetail={leisureDetail}
+                isEditing={isEditing}
+                handleTripInput={handleTripInput}
               />
             )}
-            {toggleTab.advices && <p>{advices}</p>}
+            {toggleTab.advices && isEditing ? (
+              <textarea
+                name='advices'
+                cols='30'
+                rows='5'
+                onChange={handleTripInput}
+                className='border border-black text-black'></textarea>
+            ) : (
+              <p>{advices}</p>
+            )}
           </div>
           <div className='h-full w-full flex items-end'>
-            {isEditing ? (
-              <button
-                type='submit'
-                className='btn bg-green-600 hover:bg-green-400 my-5 ml-5 flex'
-                onClick={handleSubmit}>
-                save
-              </button>
-            ) : (
+            {!isEditing && (
               <button
                 type='button'
                 className='btn bg-orange-600 my-5 ml-5 flex'>
