@@ -23,6 +23,7 @@ const getAllTrips = async (req, res) => {
 const getUserTrips = async (req, res) => {
   let result = Trip.find({ createdBy: req.user.userId });
   const trips = await result;
+  console.log(req.user);
 
   res.status(StatusCodes.OK).json({ trips });
 };
@@ -35,34 +36,28 @@ const getSingleTrip = async (req, res) => {
 
 const updateTrip = async (req, res) => {
   const { id: tripId } = req.params;
-  const { destination, duration, costDetails, activities, advices } = req.body;
-  const trip = await Trip.find({ _id: tripId });
+  const { destination, duration, cost } = req.body;
 
-  if (!duration) {
-    return;
-  } else {
-    trip.duration = duration;
+  const trip = await Trip.findOne({ _id: tripId });
+  if (!trip) {
+    throw new NotFoundError(`No trip with id : ${tripId}`);
   }
-
-  if (!destination || trip.destination === destination) {
-    return;
-  } else {
-    trip.destination = destination;
-  }
-
-  trip.theme = theme;
 
   checkPermission(req.user, trip.createdBy);
-  // await trip.save();
 
-  res.status(200).json({ msg: 'edit Trip' });
+  const updatedTrip = await Trip.findOneAndUpdate({ _id: tripId }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(StatusCodes.OK).json({ updatedTrip });
 };
 
 const deleteTrip = async (req, res) => {
   const { id: tripId } = req.params;
   const trip = await Trip.findOne({ _id: tripId });
   if (!trip) {
-    throw new NotFoundError(`No job with id : ${jobId}`);
+    throw new NotFoundError(`No trip with id : ${tripId}`);
   }
   checkPermission(req.user, trip.createdBy);
   await trip.remove();

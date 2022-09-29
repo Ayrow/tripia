@@ -188,6 +188,12 @@ const reducer = (state, action) => {
         isEditing: true,
         itemID: action.payload,
       };
+    case EDIT_TRIP_SUCCESS:
+      return {
+        ...state,
+        isEditing: false,
+        itemID: null,
+      };
     case CANCEL_TRIP_EDITION:
       return {
         ...state,

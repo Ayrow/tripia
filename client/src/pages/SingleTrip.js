@@ -7,13 +7,10 @@ import ButtonTab from '../components/ButtonTab';
 import SummaryTab from '../components/singleTrip/SummaryTab';
 import CostDetailsTab from '../components/singleTrip/CostDetailsTab';
 import { useUserContext } from '../context/userContext';
-import { useAppContext } from '../context/appContext';
 
 const SingleTrip = () => {
   let { id } = useParams();
   const navigate = useNavigate();
-
-  // const { handleChange } = useAppContext();
 
   const {
     nbAdults,
@@ -67,9 +64,17 @@ const SingleTrip = () => {
   }, [id]);
 
   const handleTripInput = (e) => {
-    e.preventDefault();
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    if (name === 'destination' && value === '') {
+      value = destination;
+    }
+    if (name === 'duration' && value === '') {
+      value = duration;
+    }
+    if (name === 'totaCost' && value === '') {
+      value = totalCost;
+    }
     handleChange({ name, value });
   };
 
@@ -80,7 +85,7 @@ const SingleTrip = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateTrip();
+    updateTrip({ itemID });
   };
 
   return (

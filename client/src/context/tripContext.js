@@ -120,7 +120,6 @@ const TripProvider = ({ children }) => {
   );
 
   const handleChange = ({ name, value }) => {
-    console.log({ name, value });
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
 
@@ -218,7 +217,7 @@ const TripProvider = ({ children }) => {
       const { trip } = data;
       dispatch({ type: GET_SINGLE_TRIP_SUCCESS, payload: trip });
     } catch (error) {
-      logoutUser();
+      // logoutUser();
     }
   };
 
@@ -242,7 +241,7 @@ const TripProvider = ({ children }) => {
     dispatch({ type: EDIT_TRIP_BEGIN, payload: id });
   };
 
-  const updateTrip = async () => {
+  const updateTrip = async ({ itemID }) => {
     const {
       theme,
       destination,
@@ -252,7 +251,6 @@ const TripProvider = ({ children }) => {
       activities,
       advices,
       costDetails,
-      itemID,
     } = state;
 
     nbTravelers.adults = state.nbAdults;
@@ -263,7 +261,7 @@ const TripProvider = ({ children }) => {
     costDetails.accomodation.accomodationCost = state.accomodationCost;
     costDetails.leisure.leisureDetail = state.leisureDetail;
     costDetails.leisure.leisureCost = state.leisureCost;
-    console.log('destination', state.destination);
+
     try {
       await authFetch.patch(`/trips/usertrips/${itemID}`, {
         theme,
@@ -275,9 +273,11 @@ const TripProvider = ({ children }) => {
         advices,
         costDetails,
       });
+      dispatch({ type: EDIT_TRIP_SUCCESS });
     } catch (error) {
       console.log(error);
     }
+    getSingleTrip(itemID);
   };
 
   const cancelTripEdition = () => {
