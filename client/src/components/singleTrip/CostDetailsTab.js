@@ -25,6 +25,7 @@ const CostDetailsTab = ({
                 name='travelDetail'
                 cols='30'
                 rows='5'
+                defaultValue={travelDetail}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             </div>
@@ -36,6 +37,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='travelCost'
                   id=''
+                  defaultValue={travelCost}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -61,7 +63,7 @@ const CostDetailsTab = ({
               Detail:{' '}
               <textarea
                 name='accomodationDetail'
-                value={accomodationDetail}
+                defaultValue={accomodationDetail}
                 cols='30'
                 rows='5'
                 onChange={handleTripInput}
@@ -75,6 +77,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='accomodationCost'
                   id=''
+                  defaultValue={accomodationCost}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -102,6 +105,7 @@ const CostDetailsTab = ({
                 name='leisureDetail'
                 cols='30'
                 rows='5'
+                defaultValue={leisureDetail}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             </div>
@@ -113,6 +117,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='leisureCost'
                   id=''
+                  defaultValue={leisureCost}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />

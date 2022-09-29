@@ -205,7 +205,7 @@ const TripProvider = ({ children }) => {
         type: GET_TRIPS_ERROR,
         payload: { msg: error.response.data.msg },
       });
-      // logoutUser();
+      logoutUser();
     }
     clearAlert();
   };
@@ -243,7 +243,41 @@ const TripProvider = ({ children }) => {
   };
 
   const updateTrip = async () => {
+    const {
+      theme,
+      destination,
+      nbTravelers,
+      duration,
+      cost,
+      activities,
+      advices,
+      costDetails,
+      itemID,
+    } = state;
+
+    nbTravelers.adults = state.nbAdults;
+    nbTravelers.children = state.nbChildren;
+    costDetails.travel.travelDetail = state.travelDetail;
+    costDetails.travel.travelCost = state.travelCost;
+    costDetails.accomodation.accomodationDetail = state.accomodationDetail;
+    costDetails.accomodation.accomodationCost = state.accomodationCost;
+    costDetails.leisure.leisureDetail = state.leisureDetail;
+    costDetails.leisure.leisureCost = state.leisureCost;
     console.log('destination', state.destination);
+    try {
+      await authFetch.patch(`/trips/usertrips/${itemID}`, {
+        theme,
+        destination,
+        nbTravelers,
+        duration,
+        cost,
+        activities,
+        advices,
+        costDetails,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const cancelTripEdition = () => {

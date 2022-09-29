@@ -67,6 +67,7 @@ const SingleTrip = () => {
   }, [id]);
 
   const handleTripInput = (e) => {
+    e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
     handleChange({ name, value });
@@ -101,6 +102,7 @@ const SingleTrip = () => {
                 <input
                   type='text'
                   name='destination'
+                  defaultValue={destination}
                   onChange={handleTripInput}
                   placeholder='Europe, South America, Spain...'
                   className='block w-52 py-2 px-3 rounded-md
@@ -180,6 +182,7 @@ const SingleTrip = () => {
                 name='activities'
                 cols='30'
                 rows='5'
+                defaultValue={activities}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             ) : (
@@ -201,6 +204,7 @@ const SingleTrip = () => {
             {toggleTab.advices && isEditing ? (
               <textarea
                 name='advices'
+                defaultValue={advices}
                 cols='30'
                 rows='5'
                 onChange={handleTripInput}

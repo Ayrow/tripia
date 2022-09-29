@@ -33,7 +33,28 @@ const getSingleTrip = async (req, res) => {
   res.status(StatusCodes.OK).json({ trip });
 };
 
-const editTrip = async (req, res) => {
+const updateTrip = async (req, res) => {
+  const { id: tripId } = req.params;
+  const { destination, duration, costDetails, activities, advices } = req.body;
+  const trip = await Trip.find({ _id: tripId });
+
+  if (!duration) {
+    return;
+  } else {
+    trip.duration = duration;
+  }
+
+  if (!destination || trip.destination === destination) {
+    return;
+  } else {
+    trip.destination = destination;
+  }
+
+  trip.theme = theme;
+
+  checkPermission(req.user, trip.createdBy);
+  // await trip.save();
+
   res.status(200).json({ msg: 'edit Trip' });
 };
 
@@ -63,7 +84,7 @@ const deleteSavedTrip = async (req, res) => {
 
 export {
   addTrip,
-  editTrip,
+  updateTrip,
   deleteTrip,
   getUserTrips,
   saveTrip,

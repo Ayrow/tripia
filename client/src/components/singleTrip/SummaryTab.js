@@ -51,6 +51,7 @@ const SummaryTab = ({
               type='number'
               min='0'
               name='duration'
+              defaultValue={duration}
               onChange={handleTripInput}
               className=' block w-20 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500
@@ -77,7 +78,7 @@ const SummaryTab = ({
                 name='nbAdults'
                 min='1'
                 onChange={handleTripInput}
-                value={nbAdults}
+                defaultValue={nbAdults}
               />{' '}
               adults
             </p>
@@ -88,7 +89,7 @@ const SummaryTab = ({
                 name='nbChildren'
                 min='1'
                 onChange={handleTripInput}
-                value={nbChildren}
+                defaultValue={nbChildren}
               />
               children
             </p>
@@ -114,6 +115,7 @@ const SummaryTab = ({
               type='number'
               min='0'
               name='cost'
+              defaultValue={totalCost}
               onChange={handleTripInput}
               className=' block w-28 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500

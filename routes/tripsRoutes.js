@@ -6,7 +6,7 @@ import {
   getSingleTrip,
   getUserTrips,
   addTrip,
-  editTrip,
+  updateTrip,
   deleteTrip,
   saveTrip,
   getAllSavedTrips,
@@ -28,7 +28,7 @@ router
 router.route('/usertrips/saved/:id').delete(authenticateUser, deleteSavedTrip);
 router
   .route('/usertrips/:id')
-  .patch(authenticateUser, editTrip)
+  .patch(authenticateUser, updateTrip)
   .delete(authenticateUser, deleteTrip);
 router.route('/:id').get(getSingleTrip);
 
