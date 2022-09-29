@@ -6,13 +6,11 @@ const SummaryTab = ({
   duration,
   adults,
   children,
-  totalCost,
   isEditing,
   handleTripInput,
   themeOptions,
   nbAdults,
   nbChildren,
-  inputTheme,
 }) => {
   return (
     <>
@@ -24,6 +22,7 @@ const SummaryTab = ({
         {isEditing ? (
           <select
             name='theme'
+            defaultValue={theme}
             onChange={handleTripInput}
             className='block w-52 py-2 px-3 rounded-md capitalize
                 shadow-sm focus:outline-none focus:ring-primary-500
@@ -115,7 +114,7 @@ const SummaryTab = ({
               type='number'
               min='0'
               name='cost'
-              defaultValue={totalCost}
+              defaultValue={cost}
               onChange={handleTripInput}
               className=' block w-28 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500
@@ -124,7 +123,7 @@ const SummaryTab = ({
             €
           </p>
         ) : (
-          <p>{totalCost}€</p>
+          <p>{cost}€</p>
         )}
       </div>
     </>

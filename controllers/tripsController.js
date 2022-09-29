@@ -36,12 +36,27 @@ const getSingleTrip = async (req, res) => {
 
 const updateTrip = async (req, res) => {
   const { id: tripId } = req.params;
-  const { destination, duration, cost } = req.body;
 
   const trip = await Trip.findOne({ _id: tripId });
   if (!trip) {
     throw new NotFoundError(`No trip with id : ${tripId}`);
   }
+
+  console.log('destination', req.body.destination);
+
+  if (!req.body.destination) {
+    req.body.destination = trip.destination;
+  }
+
+  // if (
+  //   !req.body.duration ||
+  //   req.body.duration === 0 ||
+  //   req.body.duration === trip.duration
+  // ) {
+  //   req.body.duration = trip.duration;
+  // }
+
+  // console.log(req.body);
 
   checkPermission(req.user, trip.createdBy);
 

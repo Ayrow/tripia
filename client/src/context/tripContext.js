@@ -11,6 +11,7 @@ import {
   EDIT_TRIP_BEGIN,
   EDIT_TRIP_SUCCESS,
   EDIT_TRIP_ERROR,
+  UPDATE_TRIP_BEGIN,
   GET_SINGLE_TRIP_SUCCESS,
   CLEAR_TRIP_FORM,
   DELETE_TRIP_BEGIN,
@@ -32,7 +33,7 @@ const initialTripState = {
     children: 0,
   },
   likes: 0,
-  duration: 7,
+  duration: 0,
   theme: 'History and Cultural',
   themeOptions: [
     'History and Cultural',
@@ -49,9 +50,6 @@ const initialTripState = {
     'Wellness',
   ],
   cost: 0,
-  TravelExpenses: '',
-  accomodationExpenses: '',
-  leisureExpenses: '',
   activities: '',
   singleTrip: {},
   advices: '',
@@ -215,6 +213,7 @@ const TripProvider = ({ children }) => {
     try {
       const { data } = await authFetch(url);
       const { trip } = data;
+      console.log(trip);
       dispatch({ type: GET_SINGLE_TRIP_SUCCESS, payload: trip });
     } catch (error) {
       // logoutUser();
@@ -241,9 +240,10 @@ const TripProvider = ({ children }) => {
     dispatch({ type: EDIT_TRIP_BEGIN, payload: id });
   };
 
-  const updateTrip = async ({ itemID }) => {
+  const updateTrip = async ({ singleTrip }) => {
     const {
       theme,
+      itemID,
       destination,
       nbTravelers,
       duration,
@@ -252,6 +252,9 @@ const TripProvider = ({ children }) => {
       advices,
       costDetails,
     } = state;
+
+    console.log('destination', destination);
+    console.log('singleTrip', singleTrip.destination);
 
     nbTravelers.adults = state.nbAdults;
     nbTravelers.children = state.nbChildren;
@@ -262,7 +265,30 @@ const TripProvider = ({ children }) => {
     costDetails.leisure.leisureDetail = state.leisureDetail;
     costDetails.leisure.leisureCost = state.leisureCost;
 
+    console.log('trip', state.singleTrip);
+
     try {
+      if (!destination) {
+        dispatch({
+          type: UPDATE_TRIP_BEGIN,
+          payload: {
+            destination: singleTrip.destination,
+            theme: singleTrip.theme,
+            duration: singleTrip.duration,
+          },
+        });
+      }
+
+      if (duration === 0 || !duration) {
+        dispatch({
+          type: UPDATE_TRIP_BEGIN,
+          payload: {
+            destination: singleTrip.destination,
+            theme: singleTrip.theme,
+            duration: singleTrip.duration,
+          },
+        });
+      }
       await authFetch.patch(`/trips/usertrips/${itemID}`, {
         theme,
         destination,

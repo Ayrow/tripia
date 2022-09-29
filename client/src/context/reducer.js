@@ -24,6 +24,7 @@ import {
   EDIT_TRIP_ERROR,
   CLEAR_TRIP_FORM,
   CANCEL_TRIP_EDITION,
+  UPDATE_TRIP_BEGIN,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -198,6 +199,13 @@ const reducer = (state, action) => {
       return {
         ...state,
         isEditing: false,
+      };
+    case UPDATE_TRIP_BEGIN:
+      return {
+        ...state,
+        theme: action.payload.theme,
+        destination: action.payload.destination,
+        duration: action.payload.duration,
       };
     default:
       throw new Error(`There is no action: ${action.type}`);

@@ -15,11 +15,9 @@ const SingleTrip = () => {
   const {
     nbAdults,
     nbChildren,
-    cost,
     showAlert,
     displayAlert,
     itemID,
-    theme,
     getSingleTrip,
     singleTrip,
     isEditing,
@@ -46,9 +44,10 @@ const SingleTrip = () => {
   const { user } = useUserContext();
 
   const {
+    theme,
     destination,
     duration,
-    cost: totalCost,
+    cost,
     activities,
     advices,
     nbTravelers: { adults, children } = {},
@@ -72,8 +71,8 @@ const SingleTrip = () => {
     if (name === 'duration' && value === '') {
       value = duration;
     }
-    if (name === 'totaCost' && value === '') {
-      value = totalCost;
+    if (name === 'cost' && value === '') {
+      value = cost;
     }
     handleChange({ name, value });
   };
@@ -85,7 +84,8 @@ const SingleTrip = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateTrip({ itemID });
+    console.log(singleTrip);
+    updateTrip({ singleTrip });
   };
 
   return (
@@ -169,12 +169,11 @@ const SingleTrip = () => {
             {toggleTab.summary && (
               <SummaryTab
                 theme={theme}
-                cost={cost}
                 themeOptions={themeOptions}
                 duration={duration}
                 adults={adults}
                 children={children}
-                totalCost={totalCost}
+                cost={cost}
                 isEditing={isEditing}
                 handleTripInput={handleTripInput}
                 nbAdults={nbAdults}
@@ -182,16 +181,20 @@ const SingleTrip = () => {
               />
             )}
 
-            {toggleTab.activities && isEditing ? (
-              <textarea
-                name='activities'
-                cols='30'
-                rows='5'
-                defaultValue={activities}
-                onChange={handleTripInput}
-                className='border border-black text-black'></textarea>
-            ) : (
-              <p>{activities}</p>
+            {toggleTab.activities && (
+              <div>
+                {isEditing ? (
+                  <textarea
+                    name='activities'
+                    cols='30'
+                    rows='5'
+                    defaultValue={activities}
+                    onChange={handleTripInput}
+                    className='border border-black text-black'></textarea>
+                ) : (
+                  <p>{activities}</p>
+                )}
+              </div>
             )}
 
             {toggleTab.costDetails && (
@@ -206,16 +209,20 @@ const SingleTrip = () => {
                 handleTripInput={handleTripInput}
               />
             )}
-            {toggleTab.advices && isEditing ? (
-              <textarea
-                name='advices'
-                defaultValue={advices}
-                cols='30'
-                rows='5'
-                onChange={handleTripInput}
-                className='border border-black text-black'></textarea>
-            ) : (
-              <p>{advices}</p>
+            {toggleTab.advices && (
+              <div>
+                {isEditing ? (
+                  <textarea
+                    name='advices'
+                    defaultValue={advices}
+                    cols='30'
+                    rows='5'
+                    onChange={handleTripInput}
+                    className='border border-black text-black'></textarea>
+                ) : (
+                  <p>{advices}</p>
+                )}
+              </div>
             )}
           </div>
           <div className='h-full w-full flex items-end'>
