@@ -18,7 +18,7 @@ const UserTrips = () => {
     userTrips,
     getUserTrips,
     deleteTrip,
-    tripID,
+    itemID,
     editUserTrip,
     cancelTripEdition,
   } = useTripContext();
@@ -44,7 +44,7 @@ const UserTrips = () => {
       {isConfirmationModalOpen && (
         <ConfirmationModal
           deleteItem={deleteTrip}
-          itemID={tripID}
+          itemID={itemID}
           setToggleCreateForm
         />
       )}

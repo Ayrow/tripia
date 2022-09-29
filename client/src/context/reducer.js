@@ -28,6 +28,7 @@ import {
 } from './actions';
 
 import { initialState } from './appContext';
+import { initialTripState } from './tripContext';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -140,7 +141,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
-        singleTrip: action.payload,
+        singleTrip: action.payload.trip,
+        itemID: action.payload.itemID,
       };
     case GET_TRIPS_ERROR:
       return {
@@ -192,6 +194,7 @@ const reducer = (state, action) => {
     case EDIT_TRIP_SUCCESS:
       return {
         ...state,
+        ...initialTripState,
         isEditing: false,
         itemID: null,
       };
@@ -199,6 +202,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isEditing: false,
+        itemID: null,
       };
     case UPDATE_TRIP_BEGIN:
       return {

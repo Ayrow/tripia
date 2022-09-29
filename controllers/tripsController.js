@@ -42,21 +42,9 @@ const updateTrip = async (req, res) => {
     throw new NotFoundError(`No trip with id : ${tripId}`);
   }
 
-  console.log('destination', req.body.destination);
-
   if (!req.body.destination) {
     req.body.destination = trip.destination;
   }
-
-  // if (
-  //   !req.body.duration ||
-  //   req.body.duration === 0 ||
-  //   req.body.duration === trip.duration
-  // ) {
-  //   req.body.duration = trip.duration;
-  // }
-
-  // console.log(req.body);
 
   checkPermission(req.user, trip.createdBy);
 

@@ -213,8 +213,10 @@ const TripProvider = ({ children }) => {
     try {
       const { data } = await authFetch(url);
       const { trip } = data;
-      console.log(trip);
-      dispatch({ type: GET_SINGLE_TRIP_SUCCESS, payload: trip });
+      dispatch({
+        type: GET_SINGLE_TRIP_SUCCESS,
+        payload: { trip: trip, itemID: id },
+      });
     } catch (error) {
       // logoutUser();
     }
@@ -253,9 +255,6 @@ const TripProvider = ({ children }) => {
       costDetails,
     } = state;
 
-    console.log('destination', destination);
-    console.log('singleTrip', singleTrip.destination);
-
     nbTravelers.adults = state.nbAdults;
     nbTravelers.children = state.nbChildren;
     costDetails.travel.travelDetail = state.travelDetail;
@@ -264,8 +263,6 @@ const TripProvider = ({ children }) => {
     costDetails.accomodation.accomodationCost = state.accomodationCost;
     costDetails.leisure.leisureDetail = state.leisureDetail;
     costDetails.leisure.leisureCost = state.leisureCost;
-
-    console.log('trip', state.singleTrip);
 
     try {
       if (!destination) {
@@ -335,4 +332,4 @@ const useTripContext = () => {
   return useContext(TripContext);
 };
 
-export { TripProvider, useTripContext };
+export { TripProvider, useTripContext, initialTripState };

@@ -1,4 +1,4 @@
-import { useAppContext } from '../context/appContext';
+import { useTripContext } from '../context/tripContext';
 import Alert from './Alert';
 
 const CreateTripForm = ({ setToggleCreateForm }) => {
@@ -23,7 +23,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
     clearTripForm,
     showAlert,
     displayAlert,
-  } = useAppContext();
+  } = useTripContext();
 
   const handleTripInput = (e) => {
     const name = e.target.name;

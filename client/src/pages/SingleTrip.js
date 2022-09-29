@@ -84,7 +84,6 @@ const SingleTrip = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(singleTrip);
     updateTrip({ singleTrip });
   };
 
