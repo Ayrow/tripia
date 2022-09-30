@@ -189,12 +189,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         isEditing: true,
-        itemID: action.payload,
+        itemID: action.payload.id,
+        singleTrip: action.payload.singleTrip,
       };
     case EDIT_TRIP_SUCCESS:
       return {
         ...state,
-        ...initialTripState,
         isEditing: false,
         itemID: null,
       };

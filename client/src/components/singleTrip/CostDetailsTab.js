@@ -10,6 +10,8 @@ const CostDetailsTab = ({
   isEditing,
   handleTripInput,
 }) => {
+  const totalCost = travelCost + accomodationCost + leisureCost;
+
   return (
     <div className='flex flex-col gap-5'>
       <div>
@@ -37,7 +39,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='travelCost'
                   id=''
-                  defaultValue={travelCost}
+                  defaultValue={travelCost || 0}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -48,7 +50,7 @@ const CostDetailsTab = ({
         ) : (
           <div>
             <p>Details : {travelDetail}</p>
-            <p>Cost: {travelCost}€</p>
+            <p>Cost: {travelCost || 0}€</p>
           </div>
         )}
       </div>
@@ -77,7 +79,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='accomodationCost'
                   id=''
-                  defaultValue={accomodationCost}
+                  defaultValue={accomodationCost || 0}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -88,7 +90,7 @@ const CostDetailsTab = ({
         ) : (
           <div>
             <p>Details : {accomodationDetail}</p>
-            <p>Cost: {accomodationCost}€</p>
+            <p>Cost: {accomodationCost || 0}€</p>
           </div>
         )}
       </div>
@@ -105,7 +107,7 @@ const CostDetailsTab = ({
                 name='leisureDetail'
                 cols='30'
                 rows='5'
-                defaultValue={leisureDetail}
+                defaultValue={leisureDetail || 0}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             </div>
@@ -117,7 +119,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='leisureCost'
                   id=''
-                  defaultValue={leisureCost}
+                  defaultValue={leisureCost || 0}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -134,7 +136,8 @@ const CostDetailsTab = ({
       </div>
       <LineBreak />
       <p className=' font-bold uppercase text-xl'>
-        Total: {travelCost + accomodationCost + leisureCost}€
+        Total:
+        {totalCost ? totalCost : 0}€
       </p>
     </div>
   );

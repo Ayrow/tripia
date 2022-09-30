@@ -43,7 +43,10 @@ const SingleTrip = () => {
 
   useEffect(() => {
     getSingleTrip(id);
-  }, [id, singleTrip]);
+    if (isEditing) {
+      editUserTrip(id);
+    }
+  }, [id]);
 
   const {
     theme,

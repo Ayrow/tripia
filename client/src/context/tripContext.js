@@ -213,6 +213,7 @@ const TripProvider = ({ children }) => {
     try {
       const { data } = await authFetch(url);
       const { trip } = data;
+      console.log('trip', trip);
       dispatch({
         type: GET_SINGLE_TRIP_SUCCESS,
         payload: { trip: trip, itemID: id },
@@ -238,8 +239,12 @@ const TripProvider = ({ children }) => {
     }
   };
 
-  const editUserTrip = (id) => {
-    dispatch({ type: EDIT_TRIP_BEGIN, payload: id });
+  const editUserTrip = async (id) => {
+    await getSingleTrip(id);
+    dispatch({
+      type: EDIT_TRIP_BEGIN,
+      payload: { id: id, singleTrip: state.singleTrip },
+    });
   };
 
   const pushToSingleTrip = () => {
@@ -313,23 +318,10 @@ const TripProvider = ({ children }) => {
       singleTrip.costDetails.accomodation.accomodationCost =
         costDetails.accomodation.accomodationCost;
     }
-
-    // singleTrip.nbTravelers = nbTravelers;
-    // singleTrip.costDetails = costDetails;
   };
 
   const updateTrip = async (singleTrip) => {
-    const {
-      theme,
-      itemID,
-      destination,
-      nbTravelers,
-      duration,
-      cost,
-      activities,
-      advices,
-      costDetails,
-    } = state;
+    const { itemID, nbTravelers, costDetails } = state;
 
     nbTravelers.adults = state.nbAdults;
     nbTravelers.children = state.nbChildren;
@@ -343,7 +335,6 @@ const TripProvider = ({ children }) => {
     try {
       pushToSingleTrip();
       await authFetch.patch(`/trips/usertrips/${itemID}`, state.singleTrip);
-      getSingleTrip(itemID);
       dispatch({ type: EDIT_TRIP_SUCCESS });
     } catch (error) {
       console.log(error);
