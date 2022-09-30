@@ -305,8 +305,9 @@ const TripProvider = ({ children }) => {
         costDetails.leisure.leisureDetail;
     }
 
-    if (costDetails.leisureCost) {
-      singleTrip.costDetails.leisureCost = costDetails.leisureCost;
+    if (costDetails.leisure.leisureCost) {
+      singleTrip.costDetails.leisure.leisureCost =
+        costDetails.leisure.leisureCost;
     }
 
     if (costDetails.accomodation.accomodationDetail) {

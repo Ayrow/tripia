@@ -10,7 +10,8 @@ const CostDetailsTab = ({
   isEditing,
   handleTripInput,
 }) => {
-  const totalCost = travelCost + accomodationCost + leisureCost;
+  const totalCost =
+    parseInt(travelCost) + parseInt(accomodationCost) + parseInt(leisureCost);
 
   return (
     <div className='flex flex-col gap-5'>
