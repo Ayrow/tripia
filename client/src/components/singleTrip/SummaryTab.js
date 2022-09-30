@@ -9,8 +9,6 @@ const SummaryTab = ({
   isEditing,
   handleTripInput,
   themeOptions,
-  nbAdults,
-  nbChildren,
 }) => {
   return (
     <>
@@ -77,7 +75,7 @@ const SummaryTab = ({
                 name='nbAdults'
                 min='1'
                 onChange={handleTripInput}
-                defaultValue={nbAdults}
+                defaultValue={adults}
               />{' '}
               adults
             </p>
@@ -86,9 +84,9 @@ const SummaryTab = ({
                 className='w-20'
                 type='number'
                 name='nbChildren'
-                min='1'
+                min='0'
                 onChange={handleTripInput}
-                defaultValue={nbChildren}
+                defaultValue={children}
               />
               children
             </p>

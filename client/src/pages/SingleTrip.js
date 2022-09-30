@@ -13,8 +13,6 @@ const SingleTrip = () => {
   const navigate = useNavigate();
 
   const {
-    nbAdults,
-    nbChildren,
     showAlert,
     displayAlert,
     itemID,
@@ -43,6 +41,10 @@ const SingleTrip = () => {
 
   const { user } = useUserContext();
 
+  useEffect(() => {
+    getSingleTrip(id);
+  }, [id, singleTrip]);
+
   const {
     theme,
     destination,
@@ -57,10 +59,6 @@ const SingleTrip = () => {
       leisure: { leisureDetail, leisureCost } = {},
     } = {},
   } = singleTrip;
-
-  useEffect(() => {
-    getSingleTrip(id);
-  }, [id]);
 
   const handleTripInput = (e) => {
     const name = e.target.name;
@@ -84,7 +82,7 @@ const SingleTrip = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateTrip({ singleTrip });
+    updateTrip(singleTrip);
   };
 
   return (
@@ -170,13 +168,11 @@ const SingleTrip = () => {
                 theme={theme}
                 themeOptions={themeOptions}
                 duration={duration}
-                adults={adults}
-                children={children}
                 cost={cost}
                 isEditing={isEditing}
                 handleTripInput={handleTripInput}
-                nbAdults={nbAdults}
-                nbChildren={nbChildren}
+                adults={adults}
+                children={children}
               />
             )}
 

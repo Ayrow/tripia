@@ -26,15 +26,15 @@ const initialTripState = {
   isEditing: false,
   itemID: null,
   destination: '',
-  nbAdults: 1,
-  nbChildren: 0,
+  nbAdults: null,
+  nbChildren: null,
   nbTravelers: {
     adults: 1,
     children: 0,
   },
   likes: 0,
   duration: 0,
-  theme: 'History and Cultural',
+  theme: '',
   themeOptions: [
     'History and Cultural',
     'Romance and Honeymoon',
@@ -68,16 +68,16 @@ const initialTripState = {
     },
   },
   travelDetail: '',
-  travelCost: 0,
+  travelCost: null,
   accomodationDetail: '',
-  accomodationCost: 0,
+  accomodationCost: null,
   leisureDetail: '',
-  leisureCost: 0,
+  leisureCost: null,
   allTrips: [],
   userTrips: [],
   savedTrips: [],
-  totalUserTrips: 0,
-  totalTrips: 0,
+  totalUserTrips: null,
+  totalTrips: null,
 };
 
 const TripContext = createContext();
@@ -242,7 +242,83 @@ const TripProvider = ({ children }) => {
     dispatch({ type: EDIT_TRIP_BEGIN, payload: id });
   };
 
-  const updateTrip = async ({ singleTrip }) => {
+  const pushToSingleTrip = () => {
+    const {
+      singleTrip,
+      nbAdults,
+      nbChildren,
+      theme,
+      itemID,
+      destination,
+      nbTravelers,
+      duration,
+      cost,
+      activities,
+      advices,
+      costDetails,
+    } = state;
+
+    if (theme) {
+      singleTrip.theme = theme;
+    }
+    if (duration || duration !== 0) {
+      singleTrip.duration = duration;
+    }
+    if (destination) {
+      singleTrip.destination = destination;
+    }
+
+    if (cost) {
+      singleTrip.cost = cost;
+    }
+    if (advices) {
+      singleTrip.advices = advices;
+    }
+    if (activities) {
+      singleTrip.activities = activities;
+    }
+
+    if (nbAdults) {
+      singleTrip.nbTravelers.adults = nbAdults;
+    }
+
+    if (nbChildren) {
+      singleTrip.nbTravelers.children = nbChildren;
+    }
+
+    if (costDetails.travel.travelDetail) {
+      singleTrip.costDetails.travel.travelDetail =
+        costDetails.travel.travelDetail;
+    }
+
+    if (costDetails.travel.travelCost) {
+      singleTrip.costDetails.travel.travelCost = costDetails.travel.travelCost;
+    }
+
+    if (costDetails.leisure.leisureDetail) {
+      singleTrip.costDetails.leisure.leisureDetail =
+        costDetails.leisure.leisureDetail;
+    }
+
+    if (costDetails.leisureCost) {
+      singleTrip.costDetails.leisureCost = costDetails.leisureCost;
+    }
+
+    if (costDetails.accomodation.accomodationDetail) {
+      singleTrip.costDetails.accomodation.accomodationDetail =
+        costDetails.accomodation.accomodationDetail;
+    }
+
+    if (costDetails.accomodation.accomodationCost) {
+      singleTrip.costDetails.accomodation.accomodationCost =
+        costDetails.accomodation.accomodationCost;
+    }
+
+    // singleTrip.nbTravelers = nbTravelers;
+    // singleTrip.costDetails = costDetails;
+  };
+
+  const updateTrip = async (singleTrip) => {
     const {
       theme,
       itemID,
@@ -265,42 +341,13 @@ const TripProvider = ({ children }) => {
     costDetails.leisure.leisureCost = state.leisureCost;
 
     try {
-      if (!destination) {
-        dispatch({
-          type: UPDATE_TRIP_BEGIN,
-          payload: {
-            destination: singleTrip.destination,
-            theme: singleTrip.theme,
-            duration: singleTrip.duration,
-          },
-        });
-      }
-
-      if (duration === 0 || !duration) {
-        dispatch({
-          type: UPDATE_TRIP_BEGIN,
-          payload: {
-            destination: singleTrip.destination,
-            theme: singleTrip.theme,
-            duration: singleTrip.duration,
-          },
-        });
-      }
-      await authFetch.patch(`/trips/usertrips/${itemID}`, {
-        theme,
-        destination,
-        nbTravelers,
-        duration,
-        cost,
-        activities,
-        advices,
-        costDetails,
-      });
+      pushToSingleTrip();
+      await authFetch.patch(`/trips/usertrips/${itemID}`, state.singleTrip);
+      getSingleTrip(itemID);
       dispatch({ type: EDIT_TRIP_SUCCESS });
     } catch (error) {
       console.log(error);
     }
-    getSingleTrip(itemID);
   };
 
   const cancelTripEdition = () => {
