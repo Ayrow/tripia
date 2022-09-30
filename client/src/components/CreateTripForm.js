@@ -1,7 +1,10 @@
+import { useAppContext } from '../context/appContext';
 import { useTripContext } from '../context/tripContext';
 import Alert from './Alert';
 
 const CreateTripForm = ({ setToggleCreateForm }) => {
+  const { showAlert, displayAlert } = useAppContext();
+
   const {
     handleChange,
     theme,
@@ -21,22 +24,30 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
     leisureCost,
     createTrip,
     clearTripForm,
-    showAlert,
-    displayAlert,
   } = useTripContext();
 
   const handleTripInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     handleChange({ name, value });
+    console.log('name', name);
+    console.log('value', value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!destination || !duration || !cost) {
+    if (
+      !destination ||
+      !duration ||
+      duration === 0 ||
+      !cost ||
+      cost === 0 ||
+      theme === 'Select A Theme' ||
+      !theme
+    ) {
       displayAlert({
         type: 'danger',
-        msg: 'Please fill in the missing fields',
+        msg: 'Some mandatory fields have not been filled',
       });
       return;
     }
@@ -66,15 +77,20 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
             </div>
             <div className='flex flex-col gap-2 border rounded-xl p-5'>
               <label htmlFor='' className='text-black'>
-                Theme
+                Theme <span className='text-red-500'>*</span>
               </label>
               <select
                 name='theme'
-                value={theme}
+                defaultValue='Select A Theme'
                 onChange={handleTripInput}
                 className='block w-52 py-2 px-3 rounded-md capitalize
                 shadow-sm focus:outline-none focus:ring-primary-500
                 focus:border-primary-500 border bg-white border-black text-black'>
+                <option
+                  className='bg-white text-red-700 hover:text-red-500'
+                  disabled={true}>
+                  Select A Theme
+                </option>
                 {themeOptions.map((item, index) => {
                   return (
                     <option key={index} value={item} className=''>
@@ -111,7 +127,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                     name='nbAdults'
                     min='1'
                     onChange={handleTripInput}
-                    value={nbAdults}
+                    defaultValue={1}
                   />
                 </div>
               </div>
@@ -123,7 +139,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                     name='nbChildren'
                     min='0'
                     onChange={handleTripInput}
-                    value={nbChildren}
+                    defaultValue={0}
                   />
                 </div>
               </div>
@@ -136,7 +152,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                 type='number'
                 min='0'
                 name='cost'
-                value={cost}
+                defaultValue={0}
                 onChange={handleTripInput}
                 className=' block w-52 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500
@@ -162,7 +178,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                 <input
                   type='number'
                   name='travelCost'
-                  value={travelCost}
+                  defaultValue={0}
                   id=''
                   onChange={handleTripInput}
                   className='border border-black text-black'
@@ -183,7 +199,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                 <input
                   type='number'
                   name='accomodationCost'
-                  value={accomodationCost}
+                  defaultValue={0}
                   id=''
                   onChange={handleTripInput}
                   className='border border-black text-black'
@@ -203,7 +219,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                 <input
                   type='number'
                   name='leisureCost'
-                  value={leisureCost}
+                  defaultValue={0}
                   id=''
                   onChange={handleTripInput}
                   className='border border-black text-black'
