@@ -20,11 +20,13 @@ const SummaryTab = ({
         {isEditing ? (
           <select
             name='theme'
-            defaultValue={theme}
             onChange={handleTripInput}
             className='block w-52 py-2 px-3 rounded-md capitalize
                 shadow-sm focus:outline-none focus:ring-primary-500
                 focus:border-primary-500 border bg-white border-black text-black'>
+            <option hidden value={theme}>
+              {theme}
+            </option>
             {themeOptions.map((item, index) => {
               return (
                 <option key={index} value={item} className=''>
@@ -48,7 +50,7 @@ const SummaryTab = ({
               type='number'
               min='0'
               name='duration'
-              defaultValue={duration}
+              placeholder={duration}
               onChange={handleTripInput}
               className=' block w-20 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500
@@ -75,7 +77,7 @@ const SummaryTab = ({
                 name='nbAdults'
                 min='1'
                 onChange={handleTripInput}
-                defaultValue={adults}
+                placeholder={adults}
               />{' '}
               adults
             </p>
@@ -86,7 +88,7 @@ const SummaryTab = ({
                 name='nbChildren'
                 min='0'
                 onChange={handleTripInput}
-                defaultValue={children}
+                placeholder={children}
               />
               children
             </p>
@@ -112,7 +114,7 @@ const SummaryTab = ({
               type='number'
               min='0'
               name='cost'
-              defaultValue={cost}
+              placeholder={cost}
               onChange={handleTripInput}
               className=' block w-28 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500

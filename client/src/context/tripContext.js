@@ -17,6 +17,7 @@ import {
   DELETE_TRIP_BEGIN,
   CANCEL_TRIP_EDITION,
   HANDLE_CHANGE,
+  RESET_SINGLE_TRIP,
 } from './actions';
 import { useAppContext } from './appContext';
 import { useUserContext } from './userContext';
@@ -32,7 +33,7 @@ const initialTripState = {
     adults: 1,
     children: 0,
   },
-  likes: 0,
+  likes: '',
   duration: 0,
   theme: '',
   themeOptions: [
@@ -135,16 +136,16 @@ const TripProvider = ({ children }) => {
         costDetails,
       } = state;
 
-      nbTravelers.adults = state.nbAdults;
-      nbTravelers.children = state.nbChildren;
+      nbTravelers.adults = state.nbAdults || 1;
+      nbTravelers.children = state.nbChildren || 0;
       costDetails.travel.travelDetail = state.travelDetail;
-      costDetails.travel.travelCost = state.travelCost;
+      costDetails.travel.travelCost = state.travelCost || 0;
       costDetails.accomodation.accomodationDetail = state.accomodationDetail;
-      costDetails.accomodation.accomodationCost = state.accomodationCost;
+      costDetails.accomodation.accomodationCost = state.accomodationCost || 0;
       costDetails.leisure.leisureDetail = state.leisureDetail;
-      costDetails.leisure.leisureCost = state.leisureCost;
+      costDetails.leisure.leisureCost = state.leisureCost || 0;
 
-      await authFetch.post('/trips/usertrips', {
+      const { data } = await authFetch.post('/trips/usertrips', {
         theme,
         destination,
         nbTravelers,
@@ -154,7 +155,10 @@ const TripProvider = ({ children }) => {
         advices,
         costDetails,
       });
-      dispatch({ type: CREATE_TRIP_SUCCESS });
+
+      const { trip } = data;
+
+      dispatch({ type: CREATE_TRIP_SUCCESS, payload: trip });
       displayAlert({
         type: 'success',
         msg: 'Trip created successfully !',
@@ -213,10 +217,9 @@ const TripProvider = ({ children }) => {
     try {
       const { data } = await authFetch(url);
       const { trip } = data;
-      console.log('trip', trip);
       dispatch({
         type: GET_SINGLE_TRIP_SUCCESS,
-        payload: { trip: trip, itemID: id },
+        payload: trip,
       });
     } catch (error) {
       // logoutUser();
@@ -239,8 +242,15 @@ const TripProvider = ({ children }) => {
     }
   };
 
+  // const resetSingleTrip = () => {
+  //   dispatch({ type: RESET_SINGLE_TRIP });
+  // };
+
   const editUserTrip = async (id) => {
-    await getSingleTrip(id);
+    if (state.singleTrip._id !== id) {
+      await getSingleTrip(id);
+    }
+    console.log('trip to edit', id);
     dispatch({
       type: EDIT_TRIP_BEGIN,
       payload: { id: id, singleTrip: state.singleTrip },
@@ -336,7 +346,7 @@ const TripProvider = ({ children }) => {
     try {
       pushToSingleTrip();
       await authFetch.patch(`/trips/usertrips/${itemID}`, state.singleTrip);
-      dispatch({ type: EDIT_TRIP_SUCCESS });
+      dispatch({ type: EDIT_TRIP_SUCCESS, payload: state.singleTrip });
     } catch (error) {
       console.log(error);
     }
@@ -361,6 +371,7 @@ const TripProvider = ({ children }) => {
         cancelTripEdition,
         authFetch,
         handleChange,
+        resetSingleTrip,
       }}>
       {children}
     </TripContext.Provider>

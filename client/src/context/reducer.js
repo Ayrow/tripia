@@ -25,6 +25,7 @@ import {
   CLEAR_TRIP_FORM,
   CANCEL_TRIP_EDITION,
   UPDATE_TRIP_BEGIN,
+  RESET_SINGLE_TRIP,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -137,12 +138,12 @@ const reducer = (state, action) => {
         isLoading: false,
         allTrips: action.payload,
       };
+
     case GET_SINGLE_TRIP_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        singleTrip: action.payload.trip,
-        itemID: action.payload.itemID,
+        singleTrip: action.payload,
       };
     case GET_TRIPS_ERROR:
       return {
@@ -195,8 +196,10 @@ const reducer = (state, action) => {
     case EDIT_TRIP_SUCCESS:
       return {
         ...state,
+        ...initialTripState,
+        singleTrip: action.payload,
         isEditing: false,
-        itemID: null,
+        // itemID: null,
       };
     case CANCEL_TRIP_EDITION:
       return {
@@ -210,6 +213,11 @@ const reducer = (state, action) => {
         theme: action.payload.theme,
         destination: action.payload.destination,
         duration: action.payload.duration,
+      };
+    case RESET_SINGLE_TRIP:
+      return {
+        ...state,
+        singleTrip: {},
       };
     default:
       throw new Error(`There is no action: ${action.type}`);

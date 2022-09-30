@@ -30,8 +30,6 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
     const name = e.target.name;
     const value = e.target.value;
     handleChange({ name, value });
-    console.log('name', name);
-    console.log('value', value);
   };
 
   const handleSubmit = (e) => {

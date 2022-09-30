@@ -36,19 +36,14 @@ const SingleTrip = () => {
   const [toggleTab, setToggleTab] = useState(initialState);
 
   const toggling = (e) => {
+    e.preventDefault();
     setToggleTab({ [e.target.name]: true });
   };
 
   const { user } = useUserContext();
 
-  useEffect(() => {
-    getSingleTrip(id);
-    if (isEditing) {
-      editUserTrip(id);
-    }
-  }, [id]);
-
   const {
+    _id,
     theme,
     destination,
     duration,
@@ -88,6 +83,14 @@ const SingleTrip = () => {
     updateTrip(singleTrip);
   };
 
+  useEffect(() => {
+    getSingleTrip(id);
+    if (isEditing) {
+      editUserTrip(_id);
+    }
+    console.log();
+  }, [id]);
+
   return (
     <div className='my-5 mx-2'>
       <button
@@ -107,9 +110,8 @@ const SingleTrip = () => {
                 <input
                   type='text'
                   name='destination'
-                  defaultValue={destination}
                   onChange={handleTripInput}
-                  placeholder='Europe, South America, Spain...'
+                  placeholder={destination}
                   className='block w-52 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500
                 focus:border-primary-500 border border-black text-black'
@@ -186,7 +188,7 @@ const SingleTrip = () => {
                     name='activities'
                     cols='30'
                     rows='5'
-                    defaultValue={activities}
+                    placeholder={activities}
                     onChange={handleTripInput}
                     className='border border-black text-black'></textarea>
                 ) : (
@@ -212,7 +214,7 @@ const SingleTrip = () => {
                 {isEditing ? (
                   <textarea
                     name='advices'
-                    defaultValue={advices}
+                    placeholder={advices}
                     cols='30'
                     rows='5'
                     onChange={handleTripInput}

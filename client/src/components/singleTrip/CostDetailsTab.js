@@ -28,7 +28,7 @@ const CostDetailsTab = ({
                 name='travelDetail'
                 cols='30'
                 rows='5'
-                defaultValue={travelDetail}
+                placeholder={travelDetail}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             </div>
@@ -40,7 +40,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='travelCost'
                   id=''
-                  defaultValue={travelCost || 0}
+                  placeholder={travelCost || 0}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -66,9 +66,9 @@ const CostDetailsTab = ({
               Detail:{' '}
               <textarea
                 name='accomodationDetail'
-                defaultValue={accomodationDetail}
                 cols='30'
                 rows='5'
+                placeholder={accomodationDetail}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             </div>
@@ -80,7 +80,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='accomodationCost'
                   id=''
-                  defaultValue={accomodationCost || 0}
+                  placeholder={accomodationCost || 0}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -108,7 +108,7 @@ const CostDetailsTab = ({
                 name='leisureDetail'
                 cols='30'
                 rows='5'
-                defaultValue={leisureDetail || 0}
+                placeholder={leisureDetail}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             </div>
@@ -120,7 +120,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='leisureCost'
                   id=''
-                  defaultValue={leisureCost || 0}
+                  placeholder={leisureCost || 0}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />

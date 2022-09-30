@@ -23,7 +23,6 @@ const getAllTrips = async (req, res) => {
 const getUserTrips = async (req, res) => {
   let result = Trip.find({ createdBy: req.user.userId });
   const trips = await result;
-  console.log(req.user);
 
   res.status(StatusCodes.OK).json({ trips });
 };

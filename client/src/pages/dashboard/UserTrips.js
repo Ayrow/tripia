@@ -30,9 +30,9 @@ const UserTrips = () => {
     navigate(`/explore/${id}`);
   };
 
-  const editTrip = (id) => {
-    editUserTrip(id);
+  const editTrip = async (id) => {
     navigate(`/explore/${id}`);
+    editUserTrip(id);
   };
 
   useEffect(() => {
