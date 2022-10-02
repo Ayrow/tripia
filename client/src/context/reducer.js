@@ -26,6 +26,7 @@ import {
   CANCEL_TRIP_EDITION,
   UPDATE_TRIP_BEGIN,
   RESET_SINGLE_TRIP,
+  HANDLE_TRIP_CHANGE,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -69,6 +70,64 @@ const reducer = (state, action) => {
       return {
         ...state,
         [action.payload.name]: action.payload.value,
+      };
+
+    case HANDLE_TRIP_CHANGE:
+      const { singleTrip } = state;
+
+      if (
+        action.payload.name.startsWith('nbTravelers') &&
+        action.payload.name.split('.').length > 1
+      ) {
+        let travelerField = action.payload.name.split('.')[1];
+
+        return {
+          ...state,
+          singleTrip: {
+            ...singleTrip,
+            nbTravelers: {
+              ...singleTrip.nbTravelers,
+              [travelerField]: action.payload.value,
+            },
+          },
+        };
+      }
+
+      if (
+        action.payload.name.startsWith('costDetails') &&
+        action.payload.name.split('.').length > 2
+      ) {
+        let costField = action.payload.name.split('.')[2];
+        return {
+          ...state,
+          singleTrip: {
+            ...singleTrip,
+            costDetails: {
+              ...singleTrip.costDetails,
+              travel: {
+                ...singleTrip.costDetails.travel,
+                [costField]: action.payload.value,
+              },
+              accomodation: {
+                ...singleTrip.costDetails.accomodation,
+                [costField]: action.payload.value,
+              },
+
+              leisure: {
+                ...singleTrip.costDetails.leisure,
+                [costField]: action.payload.value,
+              },
+            },
+          },
+        };
+      }
+
+      return {
+        ...state,
+        singleTrip: {
+          ...singleTrip,
+          [action.payload.name]: action.payload.value,
+        },
       };
     case SETUP_USER_BEGIN:
       return {
@@ -144,6 +203,7 @@ const reducer = (state, action) => {
         ...state,
         isLoading: false,
         singleTrip: action.payload,
+        fetchedSingleTrip: action.payload,
       };
     case GET_TRIPS_ERROR:
       return {
@@ -173,18 +233,7 @@ const reducer = (state, action) => {
     case CLEAR_TRIP_FORM:
       return {
         ...state,
-        destination: '',
-        nbAdults: 1,
-        nbChildren: 0,
-        nbTravelers: {
-          adults: 1,
-          children: 0,
-        },
-        duration: 1,
-        theme: '',
-        cost: 0,
-        activities: '',
-        advices: '',
+        singleTrip: initialTripState.singleTrip,
       };
     case EDIT_TRIP_BEGIN:
       return {
@@ -198,26 +247,48 @@ const reducer = (state, action) => {
         ...state,
         ...initialTripState,
         singleTrip: action.payload,
+        fetchedSingleTrip: action.payload,
         isEditing: false,
-        // itemID: null,
       };
     case CANCEL_TRIP_EDITION:
       return {
         ...state,
         isEditing: false,
-        itemID: null,
+        // itemID: null,
       };
     case UPDATE_TRIP_BEGIN:
       return {
         ...state,
-        theme: action.payload.theme,
-        destination: action.payload.destination,
-        duration: action.payload.duration,
       };
     case RESET_SINGLE_TRIP:
       return {
         ...state,
-        singleTrip: {},
+        singleTrip: {
+          destination: '',
+          duration: 0,
+          theme: '',
+          cost: 0,
+          advices: '',
+          activities: '',
+          nbTravelers: {
+            adults: 1,
+            children: 0,
+          },
+          costDetails: {
+            travel: {
+              travelDetail: '',
+              travelCost: 0,
+            },
+            accomodation: {
+              accomodationDetail: '',
+              accomodationCost: 0,
+            },
+            leisure: {
+              leisureDetail: '',
+              leisureCost: 0,
+            },
+          },
+        },
       };
     default:
       throw new Error(`There is no action: ${action.type}`);

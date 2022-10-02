@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreateTripForm from '../../components/CreateTripForm';
-import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/appContext';
 import { useTripContext } from '../../context/tripContext';
 import { FaUser, FaHeart, FaChild } from 'react-icons/fa';
 import ConfirmationModal from '../../components/ConfirmationModal';
-import { CANCEL_TRIP_EDITION } from '../../context/actions';
 
 const UserTrips = () => {
   const navigate = useNavigate();
 
-  const { isConfirmationModalOpen, openModalConfirm, isEditing } =
-    useAppContext();
+  const { isConfirmationModalOpen, openModalConfirm } = useAppContext();
 
   const {
     userTrips,

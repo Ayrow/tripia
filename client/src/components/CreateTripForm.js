@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useAppContext } from '../context/appContext';
 import { useTripContext } from '../context/tripContext';
 import Alert from './Alert';
@@ -6,30 +7,45 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
   const { showAlert, displayAlert } = useAppContext();
 
   const {
-    handleChange,
-    theme,
+    // handleChange,
+    // theme,
+    // themeOptions,
+    // destination,
+    // nbAdults,
+    // nbChildren,
+    // duration,
+    // cost,
+    // activities,
+    // advices,
+    // travelDetail,
+    // travelCost,
+    // accomodationDetail,
+    // accomodationCost,
+    // leisureDetail,
+    // leisureCost,
+    singleTrip,
     themeOptions,
+    createTrip,
+    clearTripForm,
+    handleTripChange,
+  } = useTripContext();
+
+  const {
+    _id,
+    theme,
     destination,
-    nbAdults,
-    nbChildren,
     duration,
     cost,
     activities,
     advices,
-    travelDetail,
-    travelCost,
-    accomodationDetail,
-    accomodationCost,
-    leisureDetail,
-    leisureCost,
-    createTrip,
-    clearTripForm,
-  } = useTripContext();
+    nbTravelers,
+    costDetails,
+  } = singleTrip;
 
   const handleTripInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    handleChange({ name, value });
+    handleTripChange({ name, value });
   };
 
   const handleSubmit = (e) => {
@@ -52,6 +68,11 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
     createTrip();
     setToggleCreateForm(false);
   };
+
+  useEffect(() => {
+    clearTripForm();
+  }, []);
+
   return (
     <form className='mt-5 sm:p-7'>
       <div className='shadow sm:rounded-md'>
@@ -84,11 +105,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                 className='block w-52 py-2 px-3 rounded-md capitalize
                 shadow-sm focus:outline-none focus:ring-primary-500
                 focus:border-primary-500 border bg-white border-black text-black'>
-                <option
-                  className='bg-white text-red-700 hover:text-red-500'
-                  disabled={true}>
-                  Select A Theme
-                </option>
+                <option hidden>Select A Theme</option>
                 {themeOptions.map((item, index) => {
                   return (
                     <option key={index} value={item} className=''>
@@ -122,10 +139,10 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                 <div className='flex gap-2'>
                   <input
                     type='number'
-                    name='nbAdults'
+                    name='nbTravelers.adults'
                     min='1'
                     onChange={handleTripInput}
-                    defaultValue={1}
+                    value={nbTravelers.adults}
                   />
                 </div>
               </div>
@@ -134,7 +151,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                 <div className='flex gap-2'>
                   <input
                     type='number'
-                    name='nbChildren'
+                    name='nbTravelers.children'
                     min='0'
                     onChange={handleTripInput}
                     defaultValue={0}
@@ -166,8 +183,8 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                   Travel expenses (car, airplane tickets, train...)
                 </label>
                 <textarea
-                  name='travelDetail'
-                  value={travelDetail}
+                  name='costDetails.travel.travelDetail'
+                  value={costDetails.travel.travelDetail}
                   cols='30'
                   rows='5'
                   onChange={handleTripInput}
@@ -175,8 +192,8 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
 
                 <input
                   type='number'
-                  name='travelCost'
-                  defaultValue={0}
+                  name='costDetails.travel.travelCost'
+                  value={costDetails.travel.travelCost}
                   id=''
                   onChange={handleTripInput}
                   className='border border-black text-black'
@@ -188,16 +205,16 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                   Accomodation
                 </label>
                 <textarea
-                  name='accomodationDetail'
-                  value={accomodationDetail}
+                  name='costDetails.accomodation.accomodationDetail'
+                  value={costDetails.accomodation.accomodationDetail}
                   cols='30'
                   rows='5'
                   onChange={handleTripInput}
                   className='border border-black text-black list-item'></textarea>
                 <input
                   type='number'
-                  name='accomodationCost'
-                  defaultValue={0}
+                  name='costDetails.accomodation.accomodationCost'
+                  value={costDetails.accomodation.accomodationCost}
                   id=''
                   onChange={handleTripInput}
                   className='border border-black text-black'
@@ -208,16 +225,16 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                   Leisure
                 </label>
                 <textarea
-                  name='leisureDetail'
-                  value={leisureDetail}
+                  name='costDetails.leisure.leisureDetail'
+                  value={costDetails.leisure.leisureDetail}
                   cols='30'
                   rows='5'
                   onChange={handleTripInput}
                   className='border border-black text-black'></textarea>
                 <input
                   type='number'
-                  name='leisureCost'
-                  defaultValue={0}
+                  name='costDetails.leisure.leisureCost'
+                  value={costDetails.leisure.leisureCost}
                   id=''
                   onChange={handleTripInput}
                   className='border border-black text-black'

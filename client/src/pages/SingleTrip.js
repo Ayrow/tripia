@@ -21,9 +21,9 @@ const SingleTrip = () => {
     isEditing,
     editUserTrip,
     themeOptions,
-    cancelTripEdition,
     updateTrip,
-    handleChange,
+    cancelTripEdition,
+    handleTripChange,
   } = useTripContext();
 
   const initialState = {
@@ -43,52 +43,37 @@ const SingleTrip = () => {
   const { user } = useUserContext();
 
   const {
-    _id,
     theme,
     destination,
     duration,
     cost,
     activities,
     advices,
-    nbTravelers: { adults, children } = {},
-    costDetails: {
-      travel: { travelDetail, travelCost } = {},
-      accomodation: { accomodationDetail, accomodationCost } = {},
-      leisure: { leisureDetail, leisureCost } = {},
-    } = {},
+    nbTravelers,
+    costDetails,
   } = singleTrip;
 
   const handleTripInput = (e) => {
     const name = e.target.name;
     let value = e.target.value;
-    if (name === 'destination' && value === '') {
-      value = destination;
-    }
-    if (name === 'duration' && value === '') {
-      value = duration;
-    }
-    if (name === 'cost' && value === '') {
-      value = cost;
-    }
-    handleChange({ name, value });
+    // console.log('test', fetchedSingleTrip);
+
+    handleTripChange({ name, value });
   };
 
   const navigateBack = () => {
-    cancelTripEdition();
+    cancelTripEdition(id);
     navigate(-1);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateTrip(singleTrip);
+
+    updateTrip();
   };
 
   useEffect(() => {
     getSingleTrip(id);
-    if (isEditing) {
-      editUserTrip(_id);
-    }
-    console.log();
   }, [id]);
 
   return (
@@ -110,8 +95,8 @@ const SingleTrip = () => {
                 <input
                   type='text'
                   name='destination'
+                  value={destination}
                   onChange={handleTripInput}
-                  placeholder={destination}
                   className='block w-52 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500
                 focus:border-primary-500 border border-black text-black'
@@ -134,7 +119,7 @@ const SingleTrip = () => {
                       <button
                         type='button'
                         className='btn border bg-red-500 hover:bg-red-400'
-                        onClick={cancelTripEdition}>
+                        onClick={() => cancelTripEdition(itemID)}>
                         Cancel
                       </button>
                     </div>
@@ -171,13 +156,13 @@ const SingleTrip = () => {
             {toggleTab.summary && (
               <SummaryTab
                 theme={theme}
-                themeOptions={themeOptions}
                 duration={duration}
+                adults={nbTravelers.adults}
+                children={nbTravelers.children}
                 cost={cost}
+                themeOptions={themeOptions}
                 isEditing={isEditing}
                 handleTripInput={handleTripInput}
-                adults={adults}
-                children={children}
               />
             )}
 
@@ -188,7 +173,7 @@ const SingleTrip = () => {
                     name='activities'
                     cols='30'
                     rows='5'
-                    placeholder={activities}
+                    value={activities}
                     onChange={handleTripInput}
                     className='border border-black text-black'></textarea>
                 ) : (
@@ -199,12 +184,12 @@ const SingleTrip = () => {
 
             {toggleTab.costDetails && (
               <CostDetailsTab
-                travelDetail={travelDetail}
-                travelCost={travelCost}
-                accomodationDetail={accomodationDetail}
-                accomodationCost={accomodationCost}
-                leisureCost={leisureCost}
-                leisureDetail={leisureDetail}
+                travelDetail={costDetails.travel.travelDetail}
+                travelCost={costDetails.travel.travelCost}
+                accomodationDetail={costDetails.accomodation.accomodationDetail}
+                accomodationCost={costDetails.accomodation.accomodationCost}
+                leisureCost={costDetails.leisure.leisureCost}
+                leisureDetail={costDetails.leisure.leisureDetail}
                 isEditing={isEditing}
                 handleTripInput={handleTripInput}
               />
@@ -214,7 +199,7 @@ const SingleTrip = () => {
                 {isEditing ? (
                   <textarea
                     name='advices'
-                    placeholder={advices}
+                    value={advices}
                     cols='30'
                     rows='5'
                     onChange={handleTripInput}

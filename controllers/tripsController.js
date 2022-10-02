@@ -4,12 +4,15 @@ import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
 
 const addTrip = async (req, res) => {
-  const { destination, duration, cost } = req.body;
+  const { singleTrip } = req.body;
+  const { destination, duration, cost } = singleTrip;
   if (!destination || !duration || !cost) {
     throw new BadRequestError('Please provide all required values');
   }
-  req.body.createdBy = req.user.userId;
-  const trip = await Trip.create(req.body);
+  req.body.singleTrip.createdBy = req.user.userId;
+
+  const trip = await Trip.create(req.body.singleTrip);
+
   res.status(StatusCodes.CREATED).json({ trip });
 };
 
@@ -35,16 +38,11 @@ const getSingleTrip = async (req, res) => {
 
 const updateTrip = async (req, res) => {
   const { id: tripId } = req.params;
-  console.log(req.body);
 
   const trip = await Trip.findOne({ _id: tripId });
   if (!trip) {
     throw new NotFoundError(`No trip with id : ${tripId}`);
   }
-
-  // if (!req.body.destination) {
-  //   req.body.destination = trip.destination;
-  // }
 
   checkPermission(req.user, trip.createdBy);
 

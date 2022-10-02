@@ -25,10 +25,10 @@ const CostDetailsTab = ({
             <div className=' flex flex-col'>
               Detail:{' '}
               <textarea
-                name='travelDetail'
+                name='costDetails.travel.travelDetail'
                 cols='30'
                 rows='5'
-                placeholder={travelDetail}
+                value={travelDetail}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             </div>
@@ -38,9 +38,9 @@ const CostDetailsTab = ({
                 {' '}
                 <input
                   type='number'
-                  name='travelCost'
+                  name='costDetails.travel.travelCost'
                   id=''
-                  placeholder={travelCost || 0}
+                  value={travelCost || 0}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -65,10 +65,10 @@ const CostDetailsTab = ({
             <div className=' flex flex-col'>
               Detail:{' '}
               <textarea
-                name='accomodationDetail'
+                name='costDetails.accomodation.accomodationDetail'
                 cols='30'
                 rows='5'
-                placeholder={accomodationDetail}
+                value={accomodationDetail}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             </div>
@@ -78,9 +78,9 @@ const CostDetailsTab = ({
                 {' '}
                 <input
                   type='number'
-                  name='accomodationCost'
+                  name='costDetails.accomodation.accomodationCost'
                   id=''
-                  placeholder={accomodationCost || 0}
+                  value={accomodationCost || 0}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -105,10 +105,10 @@ const CostDetailsTab = ({
             <div className=' flex flex-col'>
               Detail:{' '}
               <textarea
-                name='leisureDetail'
+                name='costDetails.leisure.leisureDetail'
                 cols='30'
                 rows='5'
-                placeholder={leisureDetail}
+                value={leisureDetail}
                 onChange={handleTripInput}
                 className='border border-black text-black'></textarea>
             </div>
@@ -118,9 +118,9 @@ const CostDetailsTab = ({
                 {' '}
                 <input
                   type='number'
-                  name='leisureCost'
+                  name='costDetails.leisure.leisureCost'
                   id=''
-                  placeholder={leisureCost || 0}
+                  value={leisureCost || 0}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />

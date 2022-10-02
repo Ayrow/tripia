@@ -42,7 +42,7 @@ const SummaryTab = ({
       <LineBreak />
       <div className='flex gap-2 items-center'>
         <h4 className=' font-bold border-b-2 w-fit border-orange-500'>
-          Duration:{' '}
+          Duration:
         </h4>
         {isEditing ? (
           <p className='flex gap-5 items-center'>
@@ -50,7 +50,8 @@ const SummaryTab = ({
               type='number'
               min='0'
               name='duration'
-              placeholder={duration}
+              value={duration}
+              // placeholder={duration}
               onChange={handleTripInput}
               className=' block w-20 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500
@@ -74,10 +75,10 @@ const SummaryTab = ({
               <input
                 className='w-20'
                 type='number'
-                name='nbAdults'
+                name='nbTravelers.adults'
                 min='1'
+                value={adults}
                 onChange={handleTripInput}
-                placeholder={adults}
               />{' '}
               adults
             </p>
@@ -85,10 +86,10 @@ const SummaryTab = ({
               <input
                 className='w-20'
                 type='number'
-                name='nbChildren'
+                name='nbTravelers.children'
                 min='0'
+                value={children}
                 onChange={handleTripInput}
-                placeholder={children}
               />
               children
             </p>
@@ -112,9 +113,9 @@ const SummaryTab = ({
             {' '}
             <input
               type='number'
-              min='0'
               name='cost'
-              placeholder={cost}
+              min='0'
+              value={cost}
               onChange={handleTripInput}
               className=' block w-28 py-2 px-3 rounded-md
                 shadow-sm focus:outline-none focus:ring-primary-500
