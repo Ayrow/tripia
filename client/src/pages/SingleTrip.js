@@ -74,6 +74,9 @@ const SingleTrip = () => {
 
   useEffect(() => {
     getSingleTrip(id);
+    if (singleTrip.createdBy !== user._id) {
+      cancelTripEdition();
+    }
   }, [id]);
 
   return (

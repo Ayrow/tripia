@@ -27,7 +27,6 @@ import axios from 'axios';
 const initialTripState = {
   isEditing: false,
   itemID: null,
-  likes: '',
   themeOptions: [
     'History and Cultural',
     'Romance and Honeymoon',
@@ -42,12 +41,12 @@ const initialTripState = {
     'Family',
     'Wellness',
   ],
-
   allTrips: [],
   userTrips: [],
   fetchedSingleTrip: {},
   singleTrip: {
     destination: '',
+    likes: 0,
     duration: 0,
     theme: '',
     cost: 0,
@@ -158,7 +157,6 @@ const TripProvider = ({ children }) => {
     try {
       const { data } = await authFetch(url);
       const { everyTrips } = data;
-      console.log(everyTrips);
       dispatch({ type: GET_ALL_TRIPS_SUCCESS, payload: everyTrips });
     } catch (error) {
       dispatch({

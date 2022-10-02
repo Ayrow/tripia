@@ -162,6 +162,7 @@ const reducer = (state, action) => {
         ...state,
         isLoading: true,
         showAlert: false,
+        isEditing: false,
       };
     case CREATE_TRIP_SUCCESS:
       return {
@@ -178,6 +179,7 @@ const reducer = (state, action) => {
         showAlert: true,
         alertType: 'danger',
         alertText: action.payload.msg,
+        isEditing: false,
       };
     case GET_TRIPS_BEGIN:
       return {
@@ -211,6 +213,7 @@ const reducer = (state, action) => {
         showAlert: true,
         alertType: 'danger',
         alertText: action.payload.msg,
+        isEditing: false,
       };
     case DELETE_TRIP_BEGIN:
       return {
