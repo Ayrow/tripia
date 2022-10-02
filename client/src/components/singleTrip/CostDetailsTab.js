@@ -40,7 +40,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='costDetails.travel.travelCost'
                   id=''
-                  value={travelCost || 0}
+                  value={travelCost}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />
@@ -51,7 +51,7 @@ const CostDetailsTab = ({
         ) : (
           <div>
             <p>Details : {travelDetail}</p>
-            <p>Cost: {travelCost || 0}€</p>
+            <p>Cost: {travelCost}€</p>
           </div>
         )}
       </div>
@@ -80,7 +80,7 @@ const CostDetailsTab = ({
                   type='number'
                   name='costDetails.accomodation.accomodationCost'
                   id=''
-                  value={accomodationCost || 0}
+                  value={accomodationCost}
                   onChange={handleTripInput}
                   className='border border-black text-black'
                 />

@@ -240,25 +240,25 @@ const TripProvider = ({ children }) => {
       singleTrip.cost = fetchedSingleTrip.cost;
     }
 
-    if (singleTrip.nbTravelers.adults) {
+    if (!singleTrip.nbTravelers.adults) {
       singleTrip.nbTravelers.adults = fetchedSingleTrip.nbTravelers.adults;
     }
 
-    if (!children) {
+    if (!singleTrip.nbTravelers.adults) {
       singleTrip.nbTravelers.children = fetchedSingleTrip.nbTravelers.children;
     }
 
-    if (singleTrip.costDetails.travel.travelCost) {
+    if (!singleTrip.costDetails.travel.travelCost) {
       singleTrip.costDetails.travel.travelCost =
         fetchedSingleTrip.costDetails.travel.travelCost;
     }
 
-    if (singleTrip.costDetails.leisure.leisureCost) {
+    if (!singleTrip.costDetails.leisure.leisureCost) {
       singleTrip.costDetails.leisure.leisureCost =
         fetchedSingleTrip.costDetails.leisure.leisureCost;
     }
 
-    if (singleTrip.costDetails.accomodation.accomodationCost) {
+    if (!singleTrip.costDetails.accomodation.accomodationCost) {
       singleTrip.costDetails.accomodation.accomodationCost =
         fetchedSingleTrip.costDetails.accomodation.accomodationCost;
     }
