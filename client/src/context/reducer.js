@@ -27,6 +27,7 @@ import {
   UPDATE_TRIP_BEGIN,
   RESET_SINGLE_TRIP,
   HANDLE_TRIP_CHANGE,
+  GET_SAVED_TRIP_SUCCESS,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -262,6 +263,11 @@ const reducer = (state, action) => {
     case UPDATE_TRIP_BEGIN:
       return {
         ...state,
+      };
+    case GET_SAVED_TRIP_SUCCESS:
+      return {
+        ...state,
+        saved: action.payload,
       };
     case RESET_SINGLE_TRIP:
       return {

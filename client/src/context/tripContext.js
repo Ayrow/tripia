@@ -19,6 +19,7 @@ import {
   HANDLE_CHANGE,
   RESET_SINGLE_TRIP,
   HANDLE_TRIP_CHANGE,
+  GET_SAVED_TRIP_SUCCESS,
 } from './actions';
 import { useAppContext } from './appContext';
 import { useUserContext } from './userContext';
@@ -296,7 +297,15 @@ const TripProvider = ({ children }) => {
     }
   };
 
-  const getAllSavedTrips = () => {
+  const getAllSavedTrips = async () => {
+    try {
+      const { data } = await authFetch('/trips/usertrips/saved');
+
+      const { trips } = data;
+      dispatch({ type: GET_SAVED_TRIP_SUCCESS, payload: trips });
+    } catch (error) {
+      console.log(error);
+    }
     console.log('fetching saved trips');
   };
 

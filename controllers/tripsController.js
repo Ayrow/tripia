@@ -84,7 +84,16 @@ const saveTrip = async (req, res) => {
 };
 
 const getAllSavedTrips = async (req, res) => {
-  res.status(200).json({ msg: 'get all saved trips' });
+  const id = req.user.userId;
+
+  const user = await User.findOne({ _id: id });
+  console.log(req.user.userId);
+  const savedTrips = user.saved;
+
+  const trips = await Trip.find({ _id: savedTrips });
+  console.log('trips', trips);
+
+  res.status(200).json({ trips });
 };
 
 const deleteSavedTrip = async (req, res) => {
