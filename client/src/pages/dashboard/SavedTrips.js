@@ -1,11 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../../context/appContext';
 import { useTripContext } from '../../context/tripContext';
 import { FaUser, FaChild, FaHeart } from 'react-icons/fa';
+import ConfirmationModal from '../../components/ConfirmationModal';
 
 const SavedTrips = () => {
-  const { getAllSavedTrips, saved } = useTripContext();
-  const { openModalConfirm } = useAppContext();
+  const { getAllSavedTrips, savedTrips, removeSavedTrip } = useTripContext();
+  const { openModalConfirm, isConfirmationModalOpen } = useAppContext();
+  const [itemID, setItemID] = useState(null);
 
   useEffect(() => {
     getAllSavedTrips();
@@ -13,12 +15,15 @@ const SavedTrips = () => {
 
   return (
     <div>
+      {isConfirmationModalOpen && (
+        <ConfirmationModal deleteItem={removeSavedTrip} setToggleCreateForm />
+      )}
       <div className=''>
         <h2 className='text-center text-2xl mb-10 pt-4'>Saved trips</h2>
       </div>
 
       <div className='flex w-full flex-wrap gap-5 mt-5 p-3'>
-        {saved.map((trip, index) => {
+        {savedTrips.map((trip, index) => {
           const {
             destination,
             theme,
@@ -73,8 +78,8 @@ const SavedTrips = () => {
                     onClick={() =>
                       openModalConfirm({
                         id: _id,
-                        text: 'Are you sure you want to delete this trip?',
-                        title: 'Remove Trip',
+                        text: 'Are you sure you want to delete this saved trip?',
+                        title: 'Remove Trip from saved',
                         editType: 'Delete',
                         passwordValidation: false,
                       })

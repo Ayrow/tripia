@@ -300,13 +300,22 @@ const TripProvider = ({ children }) => {
   const getAllSavedTrips = async () => {
     try {
       const { data } = await authFetch('/trips/usertrips/saved');
-
       const { trips } = data;
       dispatch({ type: GET_SAVED_TRIP_SUCCESS, payload: trips });
     } catch (error) {
       console.log(error);
     }
     console.log('fetching saved trips');
+  };
+
+  const removeSavedTrip = async ({ itemID }) => {
+    try {
+      await authFetch.delete(`/trips/usertrips/saved/${itemID}`);
+      closeModalConfirm();
+      getAllSavedTrips();
+    } catch (error) {
+      console.log('error', error);
+    }
   };
 
   return (
@@ -328,6 +337,7 @@ const TripProvider = ({ children }) => {
         // stopEditing,
         saveTrip,
         getAllSavedTrips,
+        removeSavedTrip,
       }}>
       {children}
     </TripContext.Provider>

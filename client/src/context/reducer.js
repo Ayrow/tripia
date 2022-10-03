@@ -267,7 +267,7 @@ const reducer = (state, action) => {
     case GET_SAVED_TRIP_SUCCESS:
       return {
         ...state,
-        saved: action.payload,
+        savedTrips: action.payload,
       };
     case RESET_SINGLE_TRIP:
       return {
