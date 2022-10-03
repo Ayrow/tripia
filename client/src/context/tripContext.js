@@ -192,6 +192,9 @@ const TripProvider = ({ children }) => {
       const { data } = await authFetch(url);
       const { trip } = data;
 
+      if (state.itemID !== id) {
+        cancelTripEdition();
+      }
       dispatch({
         type: GET_SINGLE_TRIP_SUCCESS,
         payload: trip,
