@@ -1,4 +1,5 @@
 import Trip from '../models/Trip.js';
+import User from '../models/User.js';
 import checkPermission from '../utils/checkPermission.js';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
@@ -63,11 +64,23 @@ const deleteTrip = async (req, res) => {
   checkPermission(req.user, trip.createdBy);
   await trip.remove();
 
-  res.status(200).json({ msg: 'Successful! The trip has been removed.' });
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: 'Successful! The trip has been removed.' });
 };
 
 const saveTrip = async (req, res) => {
-  res.status(200).json({ msg: 'save Trip' });
+  const { id } = req.body;
+
+  // const trip = await Trip.findOne({ _id: id });
+  const userExists = await User.findOne({ _id: req.user.userId });
+  if (!userExists) {
+    throw new UnAuthenticatedError('You need an account to save a trip');
+  }
+
+  await User.updateOne({ _id: req.user.userId }, { $addToSet: { saved: id } });
+
+  res.status(StatusCodes.OK).json({ msg: 'The trip has been saved' });
 };
 
 const getAllSavedTrips = async (req, res) => {

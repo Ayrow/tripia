@@ -276,15 +276,28 @@ const TripProvider = ({ children }) => {
     }
   };
 
-  const stopEditing = () => {
-    dispatch({ type: CANCEL_TRIP_EDITION });
-  };
+  // const stopEditing = () => {
+  //   dispatch({ type: CANCEL_TRIP_EDITION });
+  // };
 
   const cancelTripEdition = (id) => {
     if (id) {
       getSingleTrip(id);
     }
     dispatch({ type: CANCEL_TRIP_EDITION });
+  };
+
+  const saveTrip = async (id) => {
+    try {
+      const { data } = await authFetch.post('/trips/usertrips/saved', { id });
+      console.log('save successful!', data);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  const getAllSavedTrips = () => {
+    console.log('fetching saved trips');
   };
 
   return (
@@ -303,7 +316,9 @@ const TripProvider = ({ children }) => {
         authFetch,
         handleChange,
         handleTripChange,
-        stopEditing,
+        // stopEditing,
+        saveTrip,
+        getAllSavedTrips,
       }}>
       {children}
     </TripContext.Provider>

@@ -10,7 +10,6 @@ const TravelCard = ({
   likes,
   cost,
   _id,
-  cancelTripEdition,
 }) => {
   return (
     <Link

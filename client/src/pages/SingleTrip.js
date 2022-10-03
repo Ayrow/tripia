@@ -24,6 +24,7 @@ const SingleTrip = () => {
     updateTrip,
     cancelTripEdition,
     handleTripChange,
+    saveTrip,
   } = useTripContext();
 
   const initialState = {
@@ -51,6 +52,7 @@ const SingleTrip = () => {
     advices,
     nbTravelers,
     costDetails,
+    likes,
   } = singleTrip;
 
   const handleTripInput = (e) => {
@@ -134,9 +136,13 @@ const SingleTrip = () => {
                 </div>
               ) : (
                 <button
-                  className='flex items-center gap-2 btn border'
-                  onClick={() => {}}>
-                  <FaHeart /> Save
+                  type='button'
+                  className='bg-orange-600 flex items-center gap-2 btn border'
+                  onClick={() => {
+                    saveTrip(id);
+                  }}>
+                  <FaHeart />
+                  Save
                 </button>
               )}
             </div>

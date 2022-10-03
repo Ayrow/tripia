@@ -29,6 +29,7 @@ const UserSchema = new mongoose.Schema(
       {
         type: mongoose.Types.ObjectId,
         ref: 'Trip',
+        unique: true,
       },
     ],
     password: {
