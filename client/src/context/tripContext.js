@@ -20,6 +20,8 @@ import {
   RESET_SINGLE_TRIP,
   HANDLE_TRIP_CHANGE,
   GET_SAVED_TRIP_SUCCESS,
+  TOGGLE_SAVE_BUTTON,
+  SAVE_TRIP_SUCCESS,
 } from './actions';
 import { useAppContext } from './appContext';
 import { useUserContext } from './userContext';
@@ -72,16 +74,20 @@ const initialTripState = {
       },
     },
   },
+  savedTripsID: [],
   savedTrips: [],
   totalUserTrips: null,
   totalTrips: null,
+  liked: false,
+  textColor: '',
+  textContent: '',
 };
 
 const TripContext = createContext();
 
 const TripProvider = ({ children }) => {
   const { displayAlert, clearAlert, closeModalConfirm } = useAppContext();
-  const { logoutUser, token } = useUserContext();
+  const { logoutUser, token, user } = useUserContext();
   const [state, dispatch] = useReducer(reducer, initialTripState);
 
   //axios
@@ -186,9 +192,25 @@ const TripProvider = ({ children }) => {
     clearAlert();
   };
 
+  const checkIfTripSaved = (id) => {
+    const isSaved = state.savedTripsID.includes(id);
+    if (isSaved) {
+      dispatch({
+        type: TOGGLE_SAVE_BUTTON,
+        payload: { color: 'text-red-700', text: 'Unsave' },
+      });
+    } else {
+      dispatch({
+        type: TOGGLE_SAVE_BUTTON,
+        payload: { color: '', text: 'Save' },
+      });
+    }
+  };
+
   const getSingleTrip = async (id) => {
     let url = `/trips/${id}`;
     dispatch({ type: GET_TRIPS_BEGIN });
+
     try {
       const { data } = await authFetch(url);
       const { trip } = data;
@@ -198,8 +220,9 @@ const TripProvider = ({ children }) => {
       }
       dispatch({
         type: GET_SINGLE_TRIP_SUCCESS,
-        payload: trip,
+        payload: { trip, id },
       });
+      // Check if trip is saved and display data
     } catch (error) {
       console.log(error);
     }
@@ -291,7 +314,15 @@ const TripProvider = ({ children }) => {
   const saveTrip = async (id) => {
     try {
       const { data } = await authFetch.post('/trips/usertrips/saved', { id });
-      console.log('save successful!', data);
+      const { user } = data;
+      dispatch({
+        type: SAVE_TRIP_SUCCESS,
+        payload: { user: user, savedTrips: user.saved },
+      });
+      dispatch({
+        type: TOGGLE_SAVE_BUTTON,
+        payload: { color: 'text-red-700', text: 'Unsave' },
+      });
     } catch (error) {
       console.log('error', error);
     }
@@ -300,19 +331,33 @@ const TripProvider = ({ children }) => {
   const getAllSavedTrips = async () => {
     try {
       const { data } = await authFetch('/trips/usertrips/saved');
-      const { trips } = data;
-      dispatch({ type: GET_SAVED_TRIP_SUCCESS, payload: trips });
+      const { trips, user } = data;
+      dispatch({
+        type: GET_SAVED_TRIP_SUCCESS,
+        payload: { trips, savedTripsID: user.saved },
+      });
+      console.log(user.saved);
     } catch (error) {
       console.log(error);
     }
-    console.log('fetching saved trips');
   };
 
   const removeSavedTrip = async ({ itemID }) => {
     try {
-      await authFetch.delete(`/trips/usertrips/saved/${itemID}`);
+      const { data } = await authFetch.delete(
+        `/trips/usertrips/saved/${itemID}`
+      );
+      const { user } = data;
       closeModalConfirm();
       getAllSavedTrips();
+      dispatch({
+        type: SAVE_TRIP_SUCCESS,
+        payload: { user: user, savedTrips: user.saved },
+      });
+      dispatch({
+        type: TOGGLE_SAVE_BUTTON,
+        payload: { color: '', text: 'Save' },
+      });
     } catch (error) {
       console.log('error', error);
     }
@@ -336,8 +381,9 @@ const TripProvider = ({ children }) => {
         handleTripChange,
         // stopEditing,
         saveTrip,
-        getAllSavedTrips,
         removeSavedTrip,
+        checkIfTripSaved,
+        getAllSavedTrips,
       }}>
       {children}
     </TripContext.Provider>

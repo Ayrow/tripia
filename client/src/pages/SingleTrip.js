@@ -7,10 +7,12 @@ import ButtonTab from '../components/ButtonTab';
 import SummaryTab from '../components/singleTrip/SummaryTab';
 import CostDetailsTab from '../components/singleTrip/CostDetailsTab';
 import { useUserContext } from '../context/userContext';
+import { useAppContext } from '../context/appContext';
 
 const SingleTrip = () => {
   let { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useUserContext();
 
   const {
     showAlert,
@@ -25,6 +27,11 @@ const SingleTrip = () => {
     cancelTripEdition,
     handleTripChange,
     saveTrip,
+    removeSavedTrip,
+    checkIfTripSaved,
+    savedTripsID,
+    textColor,
+    textContent,
   } = useTripContext();
 
   const initialState = {
@@ -35,13 +42,12 @@ const SingleTrip = () => {
   };
 
   const [toggleTab, setToggleTab] = useState(initialState);
+  const [toggleSave, setToggleSave] = useState(savedTripsID.includes(id));
 
-  const toggling = (e) => {
+  const togglingTab = (e) => {
     e.preventDefault();
     setToggleTab({ [e.target.name]: true });
   };
-
-  const { user } = useUserContext();
 
   const {
     theme,
@@ -70,9 +76,23 @@ const SingleTrip = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     updateTrip();
   };
+
+  const handleTripSave = (id) => {
+    if (toggleSave) {
+      setToggleSave(false);
+      const tripID = { itemID: id };
+      removeSavedTrip(tripID);
+    } else {
+      setToggleSave(true);
+      saveTrip(id);
+    }
+  };
+
+  useEffect(() => {
+    checkIfTripSaved(id);
+  }, []);
 
   useEffect(() => {
     getSingleTrip(id);
@@ -139,23 +159,23 @@ const SingleTrip = () => {
                   type='button'
                   className='bg-orange-600 flex items-center gap-2 btn border'
                   onClick={() => {
-                    saveTrip(id);
+                    handleTripSave(id);
                   }}>
-                  <FaHeart />
-                  Save
+                  <FaHeart className={`${textColor} bg-w`} />
+                  {textContent}
                 </button>
               )}
             </div>
           </div>
           <div className=' bg-slate-600 flex justify-around '>
-            <ButtonTab name='summary' toggling={toggling} />
-            <ButtonTab name='activities' toggling={toggling} />
+            <ButtonTab name='summary' toggling={togglingTab} />
+            <ButtonTab name='activities' toggling={togglingTab} />
             <ButtonTab
               name='costDetails'
               btnText='cost details'
-              toggling={toggling}
+              toggling={togglingTab}
             />
-            <ButtonTab name='advices' toggling={toggling} />
+            <ButtonTab name='advices' toggling={togglingTab} />
           </div>
 
           <div className='relative text-black flex flex-col gap-7 p-5 text-lg'>

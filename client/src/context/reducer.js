@@ -28,6 +28,8 @@ import {
   RESET_SINGLE_TRIP,
   HANDLE_TRIP_CHANGE,
   GET_SAVED_TRIP_SUCCESS,
+  TOGGLE_SAVE_BUTTON,
+  SAVE_TRIP_SUCCESS,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -143,6 +145,10 @@ const reducer = (state, action) => {
         alertText: action.payload.msg,
         user: action.payload.user,
         token: action.payload.token,
+        initialTripState: {
+          ...initialTripState,
+          savedTripsID: action.payload.savedTrips,
+        },
       };
     case SETUP_USER_ERROR:
       return {
@@ -205,8 +211,9 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
-        singleTrip: action.payload,
-        fetchedSingleTrip: action.payload,
+        singleTrip: action.payload.trip,
+        fetchedSingleTrip: action.payload.trip,
+        itemID: action.payload.itemID,
       };
     case GET_TRIPS_ERROR:
       return {
@@ -267,7 +274,21 @@ const reducer = (state, action) => {
     case GET_SAVED_TRIP_SUCCESS:
       return {
         ...state,
-        savedTrips: action.payload,
+        savedTrips: action.payload.trips,
+        savedTripsID: action.payload.savedTripsID,
+      };
+    case TOGGLE_SAVE_BUTTON:
+      return {
+        ...state,
+        ...initialState,
+        textColor: action.payload.color,
+        textContent: action.payload.text,
+      };
+    case SAVE_TRIP_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+        savedTripsID: action.payload.savedTrips,
       };
     case RESET_SINGLE_TRIP:
       return {

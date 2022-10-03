@@ -9,7 +9,6 @@ const SavedTrips = () => {
   const navigate = useNavigate();
   const { getAllSavedTrips, savedTrips, removeSavedTrip } = useTripContext();
   const { openModalConfirm, isConfirmationModalOpen } = useAppContext();
-  const [itemID, setItemID] = useState(null);
 
   useEffect(() => {
     getAllSavedTrips();

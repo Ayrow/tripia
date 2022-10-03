@@ -77,6 +77,7 @@ const UserProvider = ({ children }) => {
         payload: {
           user,
           token,
+          savedTrips: user.saved,
         },
       });
       addUserToLocalStorage({ user, token });

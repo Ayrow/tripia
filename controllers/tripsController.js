@@ -71,16 +71,15 @@ const deleteTrip = async (req, res) => {
 
 const saveTrip = async (req, res) => {
   const { id } = req.body;
-
   // const trip = await Trip.findOne({ _id: id });
-  const userExists = await User.findOne({ _id: req.user.userId });
-  if (!userExists) {
+  const user = await User.findOne({ _id: req.user.userId });
+  if (!user) {
     throw new UnAuthenticatedError('You need an account to save a trip');
   }
 
   await User.updateOne({ _id: req.user.userId }, { $addToSet: { saved: id } });
 
-  res.status(StatusCodes.OK).json({ msg: 'The trip has been saved' });
+  res.status(StatusCodes.OK).json({ user });
 };
 
 const getAllSavedTrips = async (req, res) => {
@@ -91,17 +90,17 @@ const getAllSavedTrips = async (req, res) => {
 
   const trips = await Trip.find({ _id: savedTrips });
 
-  res.status(200).json({ trips });
+  res.status(200).json({ trips, user });
 };
 
 const deleteSavedTrip = async (req, res) => {
   const { id } = req.params;
-  await User.findOneAndUpdate(
+
+  const user = await User.findOneAndUpdate(
     { _id: req.user.userId },
     { $pull: { saved: id } }
   );
-
-  res.status(200).json({ msg: 'delete saved trip' });
+  res.status(200).json({ user });
 };
 
 export {
