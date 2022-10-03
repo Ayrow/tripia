@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/appContext';
 import { useTripContext } from '../../context/tripContext';
 import { FaUser, FaChild, FaHeart } from 'react-icons/fa';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
 const SavedTrips = () => {
+  const navigate = useNavigate();
   const { getAllSavedTrips, savedTrips, removeSavedTrip } = useTripContext();
   const { openModalConfirm, isConfirmationModalOpen } = useAppContext();
   const [itemID, setItemID] = useState(null);
@@ -73,6 +75,11 @@ const SavedTrips = () => {
                   </p>
                 </div>
                 <div className='flex gap-5 justify-end pr-5 py-5 text-xl'>
+                  <button
+                    className='btn btn-hipster flex items-center px-6'
+                    onClick={() => navigate(`/explore/${_id}`)}>
+                    See
+                  </button>
                   <button
                     className='btn btn-danger bg-red-500'
                     onClick={() =>
