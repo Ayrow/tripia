@@ -213,7 +213,7 @@ const reducer = (state, action) => {
         isLoading: false,
         singleTrip: action.payload.trip,
         fetchedSingleTrip: action.payload.trip,
-        itemID: action.payload.itemID,
+        itemID: action.payload.id,
       };
     case GET_TRIPS_ERROR:
       return {
@@ -288,7 +288,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.payload.user,
-        savedTripsID: action.payload.savedTrips,
+        savedTripsID: action.payload.savedTripsID,
       };
     case RESET_SINGLE_TRIP:
       return {

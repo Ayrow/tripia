@@ -28,7 +28,7 @@ const SingleTrip = () => {
     handleTripChange,
     saveTrip,
     removeSavedTrip,
-    checkIfTripSaved,
+    // checkIfTripSaved,
     savedTripsID,
     textColor,
     textContent,
@@ -89,10 +89,6 @@ const SingleTrip = () => {
       saveTrip(id);
     }
   };
-
-  useEffect(() => {
-    checkIfTripSaved(id);
-  }, []);
 
   useEffect(() => {
     getSingleTrip(id);

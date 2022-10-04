@@ -33,7 +33,8 @@ const getUserTrips = async (req, res) => {
 
 const getSingleTrip = async (req, res) => {
   const { id: tripId } = req.params;
-  let trip = await Trip.findOne({ _id: tripId });
+  const trip = await Trip.findOne({ _id: tripId });
+
   res.status(StatusCodes.OK).json({ trip });
 };
 
@@ -71,13 +72,18 @@ const deleteTrip = async (req, res) => {
 
 const saveTrip = async (req, res) => {
   const { id } = req.body;
-  // const trip = await Trip.findOne({ _id: id });
+
   const user = await User.findOne({ _id: req.user.userId });
+  const trip = await Trip.findOne({ _id: id });
+
   if (!user) {
     throw new UnAuthenticatedError('You need an account to save a trip');
   }
 
+  const updatedLikes = trip.likes + 1;
+
   await User.updateOne({ _id: req.user.userId }, { $addToSet: { saved: id } });
+  await Trip.findOneAndUpdate({ _id: id }, { likes: updatedLikes });
 
   res.status(StatusCodes.OK).json({ user });
 };
@@ -96,10 +102,15 @@ const getAllSavedTrips = async (req, res) => {
 const deleteSavedTrip = async (req, res) => {
   const { id } = req.params;
 
+  const trip = await Trip.findOne({ _id: id });
   const user = await User.findOneAndUpdate(
     { _id: req.user.userId },
     { $pull: { saved: id } }
   );
+
+  const updatedLikes = trip.likes - 1;
+  await Trip.findOneAndUpdate({ _id: id }, { likes: updatedLikes });
+
   res.status(200).json({ user });
 };
 

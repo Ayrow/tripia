@@ -81,6 +81,8 @@ const initialTripState = {
   liked: false,
   textColor: '',
   textContent: '',
+  search: '',
+  priceRange: [],
 };
 
 const TripContext = createContext();
@@ -223,6 +225,7 @@ const TripProvider = ({ children }) => {
         payload: { trip, id },
       });
       // Check if trip is saved and display data
+      checkIfTripSaved(id);
     } catch (error) {
       console.log(error);
     }
@@ -317,12 +320,13 @@ const TripProvider = ({ children }) => {
       const { user } = data;
       dispatch({
         type: SAVE_TRIP_SUCCESS,
-        payload: { user: user, savedTrips: user.saved },
+        payload: { user: user, savedTripsID: user.saved },
       });
       dispatch({
         type: TOGGLE_SAVE_BUTTON,
         payload: { color: 'text-red-700', text: 'Unsave' },
       });
+      getAllSavedTrips();
     } catch (error) {
       console.log('error', error);
     }
@@ -336,7 +340,6 @@ const TripProvider = ({ children }) => {
         type: GET_SAVED_TRIP_SUCCESS,
         payload: { trips, savedTripsID: user.saved },
       });
-      console.log(user.saved);
     } catch (error) {
       console.log(error);
     }
@@ -348,11 +351,12 @@ const TripProvider = ({ children }) => {
         `/trips/usertrips/saved/${itemID}`
       );
       const { user } = data;
+      console.log('user', user.saved);
       closeModalConfirm();
       getAllSavedTrips();
       dispatch({
         type: SAVE_TRIP_SUCCESS,
-        payload: { user: user, savedTrips: user.saved },
+        payload: { user: user, savedTripsID: user.saved },
       });
       dispatch({
         type: TOGGLE_SAVE_BUTTON,
