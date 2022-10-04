@@ -7,22 +7,6 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
   const { showAlert, displayAlert } = useAppContext();
 
   const {
-    // handleChange,
-    // theme,
-    // themeOptions,
-    // destination,
-    // nbAdults,
-    // nbChildren,
-    // duration,
-    // cost,
-    // activities,
-    // advices,
-    // travelDetail,
-    // travelCost,
-    // accomodationDetail,
-    // accomodationCost,
-    // leisureDetail,
-    // leisureCost,
     singleTrip,
     themeOptions,
     createTrip,
