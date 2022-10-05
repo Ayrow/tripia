@@ -1,13 +1,10 @@
 import { useEffect } from 'react';
 import TravelCard from './TravelCard';
 import { useTripContext } from '../context/tripContext';
+import PageBtnContainer from './PageBtnContainer';
 
 const CardsList = () => {
-  const { allTrips, getAllTrips } = useTripContext();
-
-  useEffect(() => {
-    getAllTrips();
-  }, []);
+  const { allTrips, numOfPages } = useTripContext();
 
   return (
     <div className='my-10'>
@@ -16,6 +13,7 @@ const CardsList = () => {
           return <TravelCard key={trip._id} {...trip} />;
         })}
       </div>
+      {numOfPages > 1 && <PageBtnContainer />}
     </div>
   );
 };

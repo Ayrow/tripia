@@ -18,10 +18,37 @@ const addTrip = async (req, res) => {
 };
 
 const getAllTrips = async (req, res) => {
-  let result = Trip.find({});
+  const { search, sort, theme } = req.query;
+
+  const queryObject = {};
+
+  if (theme && theme !== 'any') {
+    queryObject.theme = theme;
+  }
+
+  if (search) {
+    queryObject.destination = { $regex: search, $options: 'i' };
+  }
+
+  let result = Trip.find(queryObject);
+  console.log('result', result);
+
+  if (sort === 'latest') {
+    result = result.sort('createdAt');
+  }
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  result = result.skip(skip).limit(limit);
+
   const everyTrips = await result;
 
-  res.status(StatusCodes.OK).json({ everyTrips });
+  const totalTrips = await Trip.countDocuments(queryObject);
+  const numOfPages = Math.ceil(totalTrips / limit);
+
+  res.status(StatusCodes.OK).json({ everyTrips, totalTrips, numOfPages });
 };
 
 const getUserTrips = async (req, res) => {

@@ -30,6 +30,8 @@ import {
   GET_SAVED_TRIP_SUCCESS,
   TOGGLE_SAVE_BUTTON,
   SAVE_TRIP_SUCCESS,
+  CHANGE_PAGE,
+  CLEAR_FILTERS,
 } from './actions';
 
 import { initialState } from './appContext';
@@ -204,8 +206,9 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
-        allTrips: action.payload,
-        theme: '',
+        allTrips: action.payload.everyTrips,
+        totalTrips: action.payload.totalTrips,
+        numOfPages: action.payload.numOfPages,
       };
 
     case GET_SINGLE_TRIP_SUCCESS:
@@ -290,6 +293,17 @@ const reducer = (state, action) => {
         ...state,
         user: action.payload.user,
         savedTripsID: action.payload.savedTripsID,
+      };
+    case CHANGE_PAGE:
+      return {
+        ...state,
+        page: action.payload.page,
+      };
+    case CLEAR_FILTERS:
+      return {
+        ...state,
+        theme: '',
+        search: '',
       };
     case RESET_SINGLE_TRIP:
       return {

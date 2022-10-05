@@ -22,6 +22,8 @@ import {
   GET_SAVED_TRIP_SUCCESS,
   TOGGLE_SAVE_BUTTON,
   SAVE_TRIP_SUCCESS,
+  CHANGE_PAGE,
+  CLEAR_FILTERS,
 } from './actions';
 import { useAppContext } from './appContext';
 import { useUserContext } from './userContext';
@@ -76,14 +78,16 @@ const initialTripState = {
   },
   savedTripsID: [],
   savedTrips: [],
-  totalUserTrips: null,
-  totalTrips: null,
+  totalUserTrips: 0,
+  totalTrips: 0,
   liked: false,
   textColor: '',
   textContent: '',
   search: '',
+  theme: '',
   priceRange: [],
   page: 1,
+  numOfPages: 1,
   sort: 'latest',
   sortOptions: ['latest', 'oldest', 'most saved', 'a-z'],
 };
@@ -164,12 +168,20 @@ const TripProvider = ({ children }) => {
   };
 
   const getAllTrips = async () => {
-    let url = `/trips`;
+    const { page, search, sort, theme, priceRange } = state;
+    let url = `/trips?page=${page}&pricerange=${priceRange}&theme=${theme}&sort=${sort}`;
+    if (search) {
+      url = url + `&search=${search}`;
+      console.log('search', search);
+    }
     dispatch({ type: GET_TRIPS_BEGIN });
     try {
       const { data } = await authFetch(url);
-      const { everyTrips } = data;
-      dispatch({ type: GET_ALL_TRIPS_SUCCESS, payload: everyTrips });
+      const { everyTrips, totalTrips, numOfPages } = data;
+      dispatch({
+        type: GET_ALL_TRIPS_SUCCESS,
+        payload: { everyTrips, totalTrips, numOfPages },
+      });
     } catch (error) {
       dispatch({
         type: GET_TRIPS_ERROR,
@@ -370,6 +382,14 @@ const TripProvider = ({ children }) => {
     }
   };
 
+  const changePage = (page) => {
+    dispatch({ type: CHANGE_PAGE, payload: { page } });
+  };
+
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
+  };
+
   return (
     <TripContext.Provider
       value={{
@@ -391,6 +411,8 @@ const TripProvider = ({ children }) => {
         removeSavedTrip,
         checkIfTripSaved,
         getAllSavedTrips,
+        changePage,
+        clearFilters,
       }}>
       {children}
     </TripContext.Provider>
