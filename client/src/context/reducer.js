@@ -205,6 +205,7 @@ const reducer = (state, action) => {
         ...state,
         isLoading: false,
         allTrips: action.payload,
+        theme: '',
       };
 
     case GET_SINGLE_TRIP_SUCCESS:

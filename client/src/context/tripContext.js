@@ -83,6 +83,9 @@ const initialTripState = {
   textContent: '',
   search: '',
   priceRange: [],
+  page: 1,
+  sort: 'latest',
+  sortOptions: ['latest', 'oldest', 'most saved', 'a-z'],
 };
 
 const TripContext = createContext();
