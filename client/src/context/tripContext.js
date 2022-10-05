@@ -172,7 +172,6 @@ const TripProvider = ({ children }) => {
     let url = `/trips?page=${page}&pricerange=${priceRange}&theme=${theme}&sort=${sort}`;
     if (search) {
       url = url + `&search=${search}`;
-      console.log('search', search);
     }
     dispatch({ type: GET_TRIPS_BEGIN });
     try {
