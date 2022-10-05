@@ -4,8 +4,15 @@ import { useTripContext } from '../context/tripContext';
 
 const FilterTrips = () => {
   const { isLoading } = useAppContext();
-  const { themeOptions, clearFilters, search, theme, handleChange } =
-    useTripContext();
+  const {
+    themeOptions,
+    clearFilters,
+    search,
+    theme,
+    handleChange,
+    sort,
+    sortOptions,
+  } = useTripContext();
   const [toggleFilter, setToggleFilter] = useState(false);
   const [toggleSorting, setToggleSorting] = useState(false);
 

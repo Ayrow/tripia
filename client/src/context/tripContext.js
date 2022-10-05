@@ -85,7 +85,7 @@ const initialTripState = {
   textContent: '',
   search: '',
   theme: '',
-  priceRange: [],
+  maxPrice: 0,
   page: 1,
   numOfPages: 1,
   sort: 'latest',
@@ -168,8 +168,8 @@ const TripProvider = ({ children }) => {
   };
 
   const getAllTrips = async () => {
-    const { page, search, sort, theme, priceRange } = state;
-    let url = `/trips?page=${page}&pricerange=${priceRange}&theme=${theme}&sort=${sort}`;
+    const { page, search, sort, theme, maxPrice } = state;
+    let url = `/trips?page=${page}&maxPrice=${maxPrice}&theme=${theme}&sort=${sort}`;
     if (search) {
       url = url + `&search=${search}`;
     }

@@ -3,6 +3,7 @@ import User from '../models/User.js';
 import checkPermission from '../utils/checkPermission.js';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
+import { query } from 'express';
 
 const addTrip = async (req, res) => {
   const { singleTrip } = req.body;
@@ -18,12 +19,16 @@ const addTrip = async (req, res) => {
 };
 
 const getAllTrips = async (req, res) => {
-  const { search, sort, theme } = req.query;
+  const { search, sort, theme, maxPrice } = req.query;
 
   const queryObject = {};
 
   if (theme && theme !== 'any') {
     queryObject.theme = theme;
+  }
+
+  if (maxPrice && maxPrice !== 0) {
+    query.Object.maxPrice = maxPrice;
   }
 
   if (search) {
@@ -35,6 +40,18 @@ const getAllTrips = async (req, res) => {
 
   if (sort === 'latest') {
     result = result.sort('createdAt');
+  }
+
+  if (sort === 'oldest') {
+    result = result.sort('-createdAt');
+  }
+
+  if (sort === 'a-z') {
+    result = result.sort('destination');
+  }
+
+  if (sort === 'most saved') {
+    result = result.sort('-saved');
   }
 
   const page = Number(req.query.page) || 1;
