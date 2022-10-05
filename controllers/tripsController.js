@@ -38,11 +38,11 @@ const getAllTrips = async (req, res) => {
   let result = Trip.find(queryObject);
   console.log('result', result);
 
-  if (sort === 'latest') {
+  if (sort === 'oldest') {
     result = result.sort('createdAt');
   }
 
-  if (sort === 'oldest') {
+  if (sort === 'latest') {
     result = result.sort('-createdAt');
   }
 
@@ -51,7 +51,7 @@ const getAllTrips = async (req, res) => {
   }
 
   if (sort === 'most saved') {
-    result = result.sort('-saved');
+    result = result.sort('-likes');
   }
 
   const page = Number(req.query.page) || 1;

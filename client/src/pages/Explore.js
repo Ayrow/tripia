@@ -9,6 +9,7 @@ const Explore = () => {
   useEffect(() => {
     getAllTrips();
   }, [sort, search, theme, page]);
+
   return (
     <div>
       <div className='my-10 text-center w-full px-5'>

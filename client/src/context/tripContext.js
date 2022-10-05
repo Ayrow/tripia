@@ -85,7 +85,7 @@ const initialTripState = {
   textContent: '',
   search: '',
   theme: '',
-  maxPrice: 0,
+  maxPrice: '',
   page: 1,
   numOfPages: 1,
   sort: 'latest',
