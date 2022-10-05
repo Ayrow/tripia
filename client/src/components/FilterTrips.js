@@ -12,16 +12,15 @@ const FilterTrips = () => {
     handleChange,
     sort,
     sortOptions,
+    maxPrice,
   } = useTripContext();
   const [toggleFilter, setToggleFilter] = useState(false);
-  const [toggleSorting, setToggleSorting] = useState(false);
 
   const handleSearch = (e) => {
     if (isLoading) return;
     const name = e.target.name;
     const value = e.target.value;
     handleChange({ name, value });
-    console.log(search);
   };
 
   const handleSubmit = (e) => {
@@ -35,12 +34,12 @@ const FilterTrips = () => {
         <button type='button' className='btn bg-orange-600 hover:bg-orange-500'>
           Filter
         </button>
-        <button type='button' className='btn bg-orange-600 hover:bg-orange-500'>
+        <div className='btn bg-orange-600 hover:bg-orange-500'>
           Sort By
           <select
             name='sort'
-            defaultValue='Select A Theme'
             onChange={handleSearch}
+            value={sort}
             className='block w-52 py-2 px-3 rounded-md capitalize
                 shadow-sm focus:outline-none focus:ring-primary-500
                 focus:border-primary-500 border bg-white border-black text-black'>
@@ -52,13 +51,13 @@ const FilterTrips = () => {
               );
             })}
           </select>
-        </button>
+        </div>
       </div>
 
-      <form className='border rounded-xl'>
-        <h4 className='text-center mt-'>Filter Trips</h4>
-        <div className=' p-10'>
-          <div className='flex gap-10 '>
+      <form className='border rounded-xl mt-5'>
+        <h4 className='text-center my-5'>Filter Trips</h4>
+        <div className=' px-10'>
+          <div className='flex gap-10 flex-row justify-around flex-wrap'>
             <div className='flex flex-col gap-2'>
               <label htmlFor='' className='text-black'>
                 Search
@@ -69,6 +68,7 @@ const FilterTrips = () => {
                 focus:border-primary-500 border bg-white border-black text-black'
                 type='text'
                 name='search'
+                placeholder='Europe, Brazil, Italy...'
                 onChange={handleSearch}
                 value={search}
               />
@@ -85,7 +85,10 @@ const FilterTrips = () => {
                 className='block w-52 py-2 px-3 rounded-md capitalize
                 shadow-sm focus:outline-none focus:ring-primary-500
                 focus:border-primary-500 border bg-white border-black text-black'>
-                <option hidden></option>
+                <option value='' className=''>
+                  Not filtering
+                </option>
+
                 {themeOptions.map((item, index) => {
                   return (
                     <option key={index} value={item} className=''>
@@ -95,9 +98,23 @@ const FilterTrips = () => {
                 })}
               </select>
             </div>
+
+            <div className='flex flex-col gap-2'>
+              <label htmlFor='' className='text-black'>
+                Max Price
+              </label>
+              <input
+                className='block w-52 py-1 px-3 rounded-md capitalize
+                shadow-sm focus:outline-none focus:ring-primary-500
+                focus:border-primary-500 border bg-white border-black text-black'
+                type='number'
+                name='maxPrice'
+                onChange={handleSearch}
+              />
+            </div>
           </div>
           <button
-            className='btn btn-danger'
+            className='btn btn-danger my-5'
             disabled={isLoading}
             onClick={handleSubmit}>
             clear filters

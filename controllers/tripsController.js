@@ -28,8 +28,10 @@ const getAllTrips = async (req, res) => {
   }
 
   if (maxPrice && maxPrice !== 0) {
-    query.Object.maxPrice = maxPrice;
+    queryObject.cost = { $lte: maxPrice };
   }
+
+  console.log('maxPrice', maxPrice);
 
   if (search) {
     queryObject.destination = { $regex: search, $options: 'i' };

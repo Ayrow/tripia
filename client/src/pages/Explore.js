@@ -4,11 +4,11 @@ import FilterTrips from '../components/FilterTrips';
 import { useTripContext } from '../context/tripContext';
 
 const Explore = () => {
-  const { getAllTrips, sort, search, theme, page } = useTripContext();
+  const { getAllTrips, sort, search, theme, maxPrice, page } = useTripContext();
 
   useEffect(() => {
     getAllTrips();
-  }, [sort, search, theme, page]);
+  }, [sort, search, theme, page, maxPrice]);
 
   return (
     <div>
