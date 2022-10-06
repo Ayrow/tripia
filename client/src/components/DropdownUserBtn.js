@@ -3,13 +3,16 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
 import UnknownUser from '../assets/images/unknown-user.png';
 import userLinks from '../utils/userlinks';
+import { useTripContext } from '../context/trip/tripContext';
 
 const DropdownUserBtn = ({ username, logoutUser }) => {
   const [showMenu, setShowMenu] = useState(false);
+  const { removeSavedTripsFromLocalStorage } = useTripContext();
   const navigate = useNavigate();
 
   const logout = () => {
     logoutUser();
+    removeSavedTripsFromLocalStorage();
     navigate('/');
   };
 
