@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import Hero from '../assets/images/landing-hero.svg';
 import bgVector from '../assets/images/hero-vector-bg.svg';
-import { useAppContext } from '../context/app/appContext';
+import { useUserContext } from '../context/user/userContext';
 
 const HeroLanding = () => {
-  const { user } = useAppContext();
+  const { user } = useUserContext();
   return (
     <header
       className='grid md:grid-cols-2 relative h-screen w-full'

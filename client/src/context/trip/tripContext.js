@@ -23,6 +23,7 @@ import {
   SAVE_TRIP_SUCCESS,
   CHANGE_PAGE,
   CLEAR_FILTERS,
+  SET_FILTER_TRIPS,
 } from '../actions';
 import { useAppContext } from '../app/appContext';
 import { useUserContext } from '../user/userContext';
@@ -92,6 +93,7 @@ const initialTripState = {
   numOfPages: 1,
   sort: 'latest',
   sortOptions: ['latest', 'oldest', 'most saved', 'a-z'],
+  limit: 10,
 };
 
 const TripContext = createContext();
@@ -132,7 +134,7 @@ const TripProvider = ({ children }) => {
     }
   );
 
-  const addSavedTripsToLocalStorage = ({ savedTripsID, savedTrips }) => {
+  const addSavedTripsToLocalStorage = (savedTripsID) => {
     localStorage.setItem('savedTripsID', JSON.stringify(savedTripsID));
   };
 
@@ -180,10 +182,14 @@ const TripProvider = ({ children }) => {
     dispatch({ type: CLEAR_TRIP_FORM });
   };
 
-  const getAllTrips = async () => {
+  const getAllTrips = async ({ sorting, limiting }) => {
     setLoading(true);
-    const { page, search, sort, theme, maxPrice } = state;
-    let url = `/trips?page=${page}&maxPrice=${maxPrice}&theme=${theme}&sort=${sort}`;
+    dispatch({
+      type: SET_FILTER_TRIPS,
+      payload: { sorting, limiting },
+    });
+    const { page, search, theme, maxPrice, sort, limit } = state;
+    let url = `/trips?page=${page}&maxPrice=${maxPrice}&theme=${theme}&sort=${sort}&limit=${limit}`;
     if (search) {
       url = url + `&search=${search}`;
     }
@@ -369,6 +375,7 @@ const TripProvider = ({ children }) => {
     } catch (error) {
       console.log('error', error);
     }
+
     setLoading(false);
   };
 

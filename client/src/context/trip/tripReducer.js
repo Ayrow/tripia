@@ -20,6 +20,7 @@ import {
   SAVE_TRIP_SUCCESS,
   CHANGE_PAGE,
   CLEAR_FILTERS,
+  SET_FILTER_TRIPS,
 } from '../actions';
 
 import { initialTripState } from './tripContext';
@@ -117,6 +118,12 @@ const reducer = (state, action) => {
         ...state,
         userTrips: action.payload,
       };
+    case SET_FILTER_TRIPS:
+      return {
+        ...state,
+        sort: action.payload.sorting,
+        limit: action.payload.limiting,
+      };
     case GET_ALL_TRIPS_SUCCESS:
       return {
         ...state,
@@ -201,6 +208,7 @@ const reducer = (state, action) => {
         theme: '',
         search: '',
       };
+
     case RESET_SINGLE_TRIP:
       return {
         ...state,

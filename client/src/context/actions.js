@@ -52,3 +52,5 @@ export const TOGGLE_SAVE_BUTTON = 'TOGGLE_SAVE_BUTTON';
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 
 export const CLEAR_FILTERS = 'CLEAR_FILTERS';
+
+export const SET_FILTER_TRIPS = 'SET_FILTER_TRIPS';

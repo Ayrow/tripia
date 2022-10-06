@@ -15,12 +15,12 @@ const Explore = () => {
     page,
     total,
     totalTrips,
+    setTripsFilter,
   } = useTripContext();
   const { isLoading } = useAppContext();
 
   useEffect(() => {
-    getAllTrips();
-    console.log('totalTrips', totalTrips);
+    getAllTrips({ sorting: 'latest', limiting: 10 });
   }, [sort, search, theme, page, maxPrice]);
 
   return (

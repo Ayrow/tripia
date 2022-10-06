@@ -14,7 +14,6 @@ const SavedTrips = () => {
 
   useEffect(() => {
     getAllSavedTrips();
-    console.log('savedTrips', savedTrips);
   }, []);
 
   return (

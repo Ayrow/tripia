@@ -1,18 +1,23 @@
-import { Fragment } from 'react';
-import fakeList from '../data-travel.json';
+import { Fragment, useEffect } from 'react';
+import HeroLanding from '../components/HeroLanding';
+import { useTripContext } from '../context/trip/tripContext';
 import TravelCard from '../components/TravelCard';
 
-import HeroLanding from '../components/HeroLanding';
-
 const LandingPage = () => {
+  const { getAllTrips, allTrips, limit } = useTripContext();
+
+  useEffect(() => {
+    getAllTrips({ sorting: 'most saved', limiting: 4 });
+  }, [limit]);
+
   return (
     <Fragment>
       <HeroLanding />
-      <div className='py-10'>
-        <h2 className=' text-3xl text-center pb-5'>Latest experiences</h2>
+      <div className='my-10'>
+        <h2 className=' text-3xl text-center pb-5'>Most saved trips</h2>
         <div className='grid grid-cols-1 md:grid-cols-2 mx-5 gap-10 place-items-center'>
-          {fakeList.map((item) => {
-            return <TravelCard key={item.id} {...item} />;
+          {allTrips.map((trip) => {
+            return <TravelCard key={trip._id} {...trip} />;
           })}
         </div>
       </div>
