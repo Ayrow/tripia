@@ -24,7 +24,8 @@ const initialUserState = {
 };
 
 const UserProvider = ({ children }) => {
-  const { displayAlert, clearAlert, closeModalConfirm } = useAppContext();
+  const { displayAlert, clearAlert, closeModalConfirm, setLoading } =
+    useAppContext();
   const [state, dispatch] = useReducer(reducer, initialUserState);
 
   //axios
@@ -68,6 +69,7 @@ const UserProvider = ({ children }) => {
   };
 
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
+    setLoading(true);
     dispatch({ type: SETUP_USER_BEGIN });
     try {
       const { data } = await authFetch.post(`/auth/${endPoint}`, currentUser);
@@ -89,6 +91,7 @@ const UserProvider = ({ children }) => {
       });
       displayAlert({ type: 'danger', msg: error.response.data.msg });
     }
+    setLoading(false);
     clearAlert();
   };
 
@@ -109,6 +112,7 @@ const UserProvider = ({ children }) => {
 
   const deleteUser = async ({ itemID: email, password }) => {
     dispatch({ type: DELETE_USER_BEGIN });
+    setLoading(true);
     const currentUser = { email, password };
     try {
       const { verified } = await verifyAccount(currentUser);
@@ -116,6 +120,7 @@ const UserProvider = ({ children }) => {
     } catch (error) {
       displayAlert({ type: 'danger', msg: error.response.data.msg });
     }
+    setLoading(false);
     closeModalConfirm();
     removeUserFromLocalStorage();
     logoutUser();
@@ -123,6 +128,7 @@ const UserProvider = ({ children }) => {
 
   const updateUser = async ({ itemID: email, password, newUserDetails }) => {
     // dispatch({ type: DELETE_USER_BEGIN });
+    setLoading(true);
     try {
       const currentUser = { email, password };
       if (password) {
@@ -141,6 +147,7 @@ const UserProvider = ({ children }) => {
       closeModalConfirm();
       displayAlert({ type: 'danger', msg: error.response.data.msg });
     }
+    setLoading(false);
     clearAlert();
   };
 

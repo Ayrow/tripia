@@ -3,6 +3,7 @@ import {
   CLEAR_ALERT,
   OPEN_MODAL_CONFIRM,
   CLOSE_MODAL_CONFIRM,
+  HANDLE_LOADING,
 } from '../actions';
 
 const reducer = (state, action) => {
@@ -38,6 +39,11 @@ const reducer = (state, action) => {
         modalConfirmType: '',
         needPasswordValidation: '',
         itemID: null,
+      };
+    case HANDLE_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
       };
     // case HANDLE_CHANGE:
     //   return {

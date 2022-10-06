@@ -96,7 +96,8 @@ const initialTripState = {
 const TripContext = createContext();
 
 const TripProvider = ({ children }) => {
-  const { displayAlert, clearAlert, closeModalConfirm } = useAppContext();
+  const { displayAlert, clearAlert, closeModalConfirm, setLoading } =
+    useAppContext();
   const { logoutUser, token, user } = useUserContext();
   const [state, dispatch] = useReducer(reducer, initialTripState);
 
@@ -140,6 +141,7 @@ const TripProvider = ({ children }) => {
 
   const createTrip = async () => {
     dispatch({ type: CREATE_TRIP_BEGIN });
+    setLoading(true);
     try {
       const { singleTrip } = state;
       const { data } = await authFetch.post('/trips/usertrips', {
@@ -159,6 +161,7 @@ const TripProvider = ({ children }) => {
         payload: { msg: error.response.data.msg },
       });
     }
+    setLoading(false);
     clearAlert();
     clearTripForm();
     getUserTrips();
@@ -170,6 +173,7 @@ const TripProvider = ({ children }) => {
 
   const getAllTrips = async () => {
     dispatch({ type: GET_TRIPS_BEGIN });
+    setLoading(true);
     const { page, search, sort, theme, maxPrice } = state;
     let url = `/trips?page=${page}&maxPrice=${maxPrice}&theme=${theme}&sort=${sort}`;
     if (search) {
@@ -189,12 +193,14 @@ const TripProvider = ({ children }) => {
         payload: { msg: error },
       });
     }
+    setLoading(false);
     clearAlert();
   };
 
   const getUserTrips = async () => {
     let url = `/trips/usertrips`;
     dispatch({ type: GET_TRIPS_BEGIN });
+    setLoading(true);
     try {
       const { data } = await authFetch(url);
       const { trips } = data;
@@ -207,6 +213,7 @@ const TripProvider = ({ children }) => {
       });
       logoutUser();
     }
+    setLoading(false);
     clearAlert();
   };
 
@@ -228,7 +235,7 @@ const TripProvider = ({ children }) => {
   const getSingleTrip = async (id) => {
     let url = `/trips/${id}`;
     dispatch({ type: GET_TRIPS_BEGIN });
-
+    setLoading(true);
     try {
       const { data } = await authFetch(url);
       const { trip } = data;
@@ -245,10 +252,12 @@ const TripProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   const deleteTrip = async ({ itemID }) => {
     dispatch({ type: DELETE_TRIP_BEGIN });
+    setLoading(true);
     try {
       await authFetch.delete(`/trips/usertrips/${itemID}`);
       getUserTrips();
@@ -261,6 +270,7 @@ const TripProvider = ({ children }) => {
       displayAlert({ type: 'danger', msg: error.response.data.msg });
       // logoutUser();
     }
+    setLoading(false);
   };
 
   const editUserTrip = (id) => {
@@ -309,6 +319,7 @@ const TripProvider = ({ children }) => {
   };
 
   const updateTrip = async () => {
+    setLoading(true);
     const { itemID, singleTrip } = state;
     checkForEmptyValues();
     try {
@@ -317,6 +328,7 @@ const TripProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   // const stopEditing = () => {
@@ -331,6 +343,7 @@ const TripProvider = ({ children }) => {
   };
 
   const saveTrip = async (id) => {
+    setLoading(true);
     try {
       const { data } = await authFetch.post('/trips/usertrips/saved', { id });
       const { user } = data;
@@ -346,9 +359,11 @@ const TripProvider = ({ children }) => {
     } catch (error) {
       console.log('error', error);
     }
+    setLoading(false);
   };
 
   const getAllSavedTrips = async () => {
+    setLoading(true);
     try {
       const { data } = await authFetch('/trips/usertrips/saved');
       const { trips, user } = data;
@@ -359,9 +374,11 @@ const TripProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   const removeSavedTrip = async ({ itemID }) => {
+    setLoading(true);
     try {
       const { data } = await authFetch.delete(
         `/trips/usertrips/saved/${itemID}`
@@ -381,6 +398,7 @@ const TripProvider = ({ children }) => {
     } catch (error) {
       console.log('error', error);
     }
+    setLoading(false);
   };
 
   const changePage = (page) => {

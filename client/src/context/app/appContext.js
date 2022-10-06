@@ -8,6 +8,7 @@ import {
   OPEN_MODAL_CONFIRM,
   CLOSE_MODAL_CONFIRM,
   HANDLE_CHANGE,
+  HANDLE_LOADING,
 } from '../actions.js';
 
 const initialState = {
@@ -92,6 +93,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
 
+  const setLoading = (boolean) => {
+    dispatch({ type: HANDLE_LOADING, payload: boolean });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -101,6 +106,7 @@ const AppProvider = ({ children }) => {
         openModalConfirm,
         closeModalConfirm,
         clearAlert,
+        setLoading,
       }}>
       {children}
     </AppContext.Provider>

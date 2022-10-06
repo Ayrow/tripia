@@ -1,15 +1,5 @@
 import {
-  DISPLAY_ALERT,
-  CLEAR_ALERT,
-  OPEN_MODAL_CONFIRM,
-  CLOSE_MODAL_CONFIRM,
   HANDLE_CHANGE,
-  SETUP_USER_BEGIN,
-  SETUP_USER_SUCCESS,
-  SETUP_USER_ERROR,
-  LOGOUT_USER,
-  DELETE_USER_BEGIN,
-  UPDATE_USER_SUCCESS,
   CREATE_TRIP_BEGIN,
   CREATE_TRIP_SUCCESS,
   CREATE_TRIP_ERROR,
@@ -105,14 +95,12 @@ const reducer = (state, action) => {
     case CREATE_TRIP_BEGIN:
       return {
         ...state,
-        isLoading: true,
         showAlert: false,
         isEditing: false,
       };
     case CREATE_TRIP_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         showAlert: true,
         alertType: 'success',
         alertText: 'Successfully created!',
@@ -120,7 +108,6 @@ const reducer = (state, action) => {
     case CREATE_TRIP_ERROR:
       return {
         ...state,
-        isLoading: false,
         showAlert: true,
         alertType: 'danger',
         alertText: action.payload.msg,
@@ -138,13 +125,11 @@ const reducer = (state, action) => {
     case GET_USER_TRIPS_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         userTrips: action.payload,
       };
     case GET_ALL_TRIPS_SUCCESS:
       return {
         ...state,
-        // isLoading: false,
         allTrips: action.payload.everyTrips,
         totalTrips: action.payload.totalTrips,
         numOfPages: action.payload.numOfPages,
@@ -153,7 +138,6 @@ const reducer = (state, action) => {
     case GET_SINGLE_TRIP_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         singleTrip: action.payload.trip,
         fetchedSingleTrip: action.payload.trip,
         itemID: action.payload.id,
@@ -197,7 +181,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         isEditing: false,
-        isLoading: false,
         // itemID: null,
       };
     case UPDATE_TRIP_BEGIN:

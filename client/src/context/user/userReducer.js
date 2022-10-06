@@ -28,7 +28,6 @@ const reducer = (state, action) => {
     case SETUP_USER_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         alertType: action.payload.type,
         alertText: action.payload.msg,
         user: action.payload.user,
@@ -41,12 +40,10 @@ const reducer = (state, action) => {
     case SETUP_USER_ERROR:
       return {
         ...state,
-        isLoading: false,
       };
     case LOGOUT_USER:
       return {
         ...state,
-        isLoading: false,
         token: null,
         user: null,
         isEditing: false,
