@@ -36,7 +36,7 @@ const FilterTrips = () => {
           onClick={() => setToggleFilter(!toggleFilter)}>
           Filter
         </button>
-        <div className='btn bg-orange-600 hover:bg-orange-500 flex gap-2 items-center'>
+        <div className=' btn cursor-default bg-orange-600 hover:bg-orange-500 flex gap-2 items-center'>
           Sort By
           <select
             name='sort'
@@ -44,7 +44,7 @@ const FilterTrips = () => {
             value={sort}
             className='inline-flex w-52 py-2 px-3 rounded-md capitalize
                 shadow-sm focus:outline-none focus:ring-primary-500
-                focus:border-primary-500 border bg-white border-black text-black'>
+                focus:border-primary-500 border bg-white border-black text-black cursor-pointer'>
             {sortOptions.map((item, index) => {
               return (
                 <option key={index} value={item} className=''>
@@ -57,13 +57,15 @@ const FilterTrips = () => {
       </div>
 
       {toggleFilter && (
-        <form className='border rounded-xl mt-5'>
-          <h4 className='text-center my-5'>Filter Trips</h4>
-          <div className=' px-10'>
+        <form className='border border-orange-500 rounded-xl mt-5 bg-slate-100 shadow-lg'>
+          <h4 className='text-center my-5 text-black uppercase'>
+            Filter Trips
+          </h4>
+          <div className=' px-10 pt-4'>
             <div className='flex gap-10 flex-row justify-around flex-wrap'>
               <div className='flex flex-col gap-2'>
                 <label htmlFor='' className='text-black'>
-                  Search
+                  Search Destination
                 </label>
                 <input
                   className='block w-52 py-1 px-3 rounded-md capitalize
@@ -116,6 +118,8 @@ const FilterTrips = () => {
                 />
               </div>
             </div>
+          </div>
+          <div className='flex justify-end mr-10'>
             <button
               className='btn btn-danger my-5'
               disabled={isLoading}

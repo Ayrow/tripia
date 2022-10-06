@@ -6,11 +6,21 @@ import { useAppContext } from '../context/app/appContext';
 import { useTripContext } from '../context/trip/tripContext';
 
 const Explore = () => {
-  const { getAllTrips, sort, search, theme, maxPrice, page } = useTripContext();
+  const {
+    getAllTrips,
+    sort,
+    search,
+    theme,
+    maxPrice,
+    page,
+    total,
+    totalTrips,
+  } = useTripContext();
   const { isLoading } = useAppContext();
 
   useEffect(() => {
     getAllTrips();
+    console.log('totalTrips', totalTrips);
   }, [sort, search, theme, page, maxPrice]);
 
   return (
@@ -24,7 +34,17 @@ const Explore = () => {
           inspired
         </p>
       </div>
+
       <FilterTrips />
+      {totalTrips > 0 ? (
+        <p className='text-center text-xl font-bold'>
+          {totalTrips === 1
+            ? '1 trip has been found'
+            : `${totalTrips} trips have been found`}
+        </p>
+      ) : (
+        <p className='text-center text-xl font-bold'>No trip found</p>
+      )}
       {isLoading ? <Loading center={true} /> : <CardsList />}
     </div>
   );
