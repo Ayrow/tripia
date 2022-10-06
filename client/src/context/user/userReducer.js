@@ -32,10 +32,6 @@ const reducer = (state, action) => {
         alertText: action.payload.msg,
         user: action.payload.user,
         token: action.payload.token,
-        // initialTripState: {
-        //   ...initialTripState,
-        //   savedTripsID: action.payload.savedTrips,
-        // },
       };
     case SETUP_USER_ERROR:
       return {
