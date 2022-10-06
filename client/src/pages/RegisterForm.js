@@ -4,6 +4,7 @@ import Alert from '../components/Alert';
 import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
 import { useAppContext } from '../context/app/appContext';
+import { useTripContext } from '../context/trip/tripContext';
 import { useUserContext } from '../context/user/userContext';
 
 const initialState = {
@@ -18,6 +19,7 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const { isLoading, displayAlert, showAlert } = useAppContext();
   const { user, setupUser } = useUserContext();
+  const { getAllSavedTrips } = useTripContext();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -66,6 +68,7 @@ const RegisterForm = () => {
         alertType: 'success',
       });
     }
+    getAllSavedTrips();
   };
 
   useEffect(() => {
