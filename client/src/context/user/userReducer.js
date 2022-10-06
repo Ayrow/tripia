@@ -61,18 +61,6 @@ const reducer = (state, action) => {
         token: action.payload.token,
       };
 
-    case GET_SAVED_TRIP_SUCCESS:
-      return {
-        ...state,
-        savedTrips: action.payload.trips,
-        savedTripsID: action.payload.savedTripsID,
-      };
-    case TOGGLE_SAVE_BUTTON:
-      return {
-        ...state,
-        textColor: action.payload.color,
-        textContent: action.payload.text,
-      };
     case SAVE_TRIP_SUCCESS:
       return {
         ...state,

@@ -11,7 +11,6 @@ import {
 import { useAppContext } from '../app/appContext';
 
 import axios from 'axios';
-import { useTripContext } from '../trip/tripContext';
 
 const UserContext = createContext();
 
@@ -21,7 +20,6 @@ const token = localStorage.getItem('token');
 const initialUserState = {
   user: user ? JSON.parse(user) : null,
   token: token,
-  savedTripsID: [],
 };
 
 const UserProvider = ({ children }) => {

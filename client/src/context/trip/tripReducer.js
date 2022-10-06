@@ -3,7 +3,6 @@ import {
   CREATE_TRIP_BEGIN,
   CREATE_TRIP_SUCCESS,
   CREATE_TRIP_ERROR,
-  GET_TRIPS_BEGIN,
   GET_USER_TRIPS_SUCCESS,
   GET_ALL_TRIPS_SUCCESS,
   GET_SINGLE_TRIP_SUCCESS,
@@ -14,7 +13,6 @@ import {
   EDIT_TRIP_ERROR,
   CLEAR_TRIP_FORM,
   CANCEL_TRIP_EDITION,
-  UPDATE_TRIP_BEGIN,
   RESET_SINGLE_TRIP,
   HANDLE_TRIP_CHANGE,
   GET_SAVED_TRIP_SUCCESS,
@@ -113,15 +111,7 @@ const reducer = (state, action) => {
         alertText: action.payload.msg,
         isEditing: false,
       };
-    case GET_TRIPS_BEGIN:
-      return {
-        ...state,
-        // initialState: {
-        //   ...initialState,
-        //   isLoading: true,
-        // },
-        // isLoading: true,
-      };
+
     case GET_USER_TRIPS_SUCCESS:
       return {
         ...state,
@@ -183,10 +173,6 @@ const reducer = (state, action) => {
         isEditing: false,
         // itemID: null,
       };
-    case UPDATE_TRIP_BEGIN:
-      return {
-        ...state,
-      };
     case GET_SAVED_TRIP_SUCCESS:
       return {
         ...state,
@@ -202,7 +188,6 @@ const reducer = (state, action) => {
     case SAVE_TRIP_SUCCESS:
       return {
         ...state,
-        user: action.payload.user,
         savedTripsID: action.payload.savedTripsID,
       };
     case CHANGE_PAGE:

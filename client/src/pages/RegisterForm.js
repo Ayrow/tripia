@@ -68,7 +68,6 @@ const RegisterForm = () => {
         alertType: 'success',
       });
     }
-    getAllSavedTrips();
   };
 
   useEffect(() => {
@@ -76,6 +75,7 @@ const RegisterForm = () => {
       setTimeout(() => {
         navigate('/explore');
       }, 3000);
+      getAllSavedTrips();
     }
   }, [user, navigate]);
 

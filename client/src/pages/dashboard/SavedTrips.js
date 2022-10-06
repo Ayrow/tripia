@@ -4,11 +4,13 @@ import { useAppContext } from '../../context/app/appContext';
 import { useTripContext } from '../../context/trip/tripContext';
 import { FaUser, FaChild, FaHeart } from 'react-icons/fa';
 import ConfirmationModal from '../../components/ConfirmationModal';
+import Loading from '../../components/Loading';
 
 const SavedTrips = () => {
   const navigate = useNavigate();
   const { getAllSavedTrips, savedTrips, removeSavedTrip } = useTripContext();
-  const { openModalConfirm, isConfirmationModalOpen } = useAppContext();
+  const { openModalConfirm, isConfirmationModalOpen, isLoading } =
+    useAppContext();
 
   useEffect(() => {
     getAllSavedTrips();
@@ -22,7 +24,11 @@ const SavedTrips = () => {
       <div className=''>
         <h2 className='text-center text-2xl mb-10 pt-4'>Saved trips</h2>
       </div>
-
+      {isLoading && (
+        <div className='mt-10'>
+          <Loading center={true} />
+        </div>
+      )}
       <div className='flex w-full flex-wrap gap-5 mt-5 p-3'>
         {savedTrips.map((trip, index) => {
           const {

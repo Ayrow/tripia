@@ -64,8 +64,6 @@ const SingleTrip = () => {
   const handleTripInput = (e) => {
     const name = e.target.name;
     let value = e.target.value;
-    // console.log('test', fetchedSingleTrip);
-
     handleTripChange({ name, value });
   };
 

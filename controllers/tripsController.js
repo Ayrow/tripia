@@ -148,9 +148,8 @@ const deleteSavedTrip = async (req, res) => {
   const trip = await Trip.findOne({ _id: id });
   const user = await User.findOneAndUpdate(
     { _id: req.user.userId },
-    { $pull: { saved: id } }
+    { $unset: { saved: id } }
   );
-
   const updatedLikes = trip.likes - 1;
   await Trip.findOneAndUpdate({ _id: id }, { likes: updatedLikes });
 

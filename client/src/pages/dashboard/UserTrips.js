@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreateTripForm from '../../components/CreateTripForm';
+import Loading from '../../components/Loading';
 import { useAppContext } from '../../context/app/appContext';
 import { useTripContext } from '../../context/trip/tripContext';
 import { FaUser, FaHeart, FaChild } from 'react-icons/fa';
@@ -9,7 +10,8 @@ import ConfirmationModal from '../../components/ConfirmationModal';
 const UserTrips = () => {
   const navigate = useNavigate();
 
-  const { isConfirmationModalOpen, openModalConfirm } = useAppContext();
+  const { isConfirmationModalOpen, openModalConfirm, isLoading } =
+    useAppContext();
 
   const {
     userTrips,
@@ -48,6 +50,7 @@ const UserTrips = () => {
       <div className=''>
         <h2 className='text-center text-2xl mb-10 pt-4'>My trips</h2>
       </div>
+
       <div className='flex justify-center mt-2'>
         <button
           type='button'
@@ -56,8 +59,15 @@ const UserTrips = () => {
           {toggleCreateForm ? 'Hide Form' : 'Add a new trip'}
         </button>
       </div>
+
       {toggleCreateForm && (
         <CreateTripForm setToggleCreateForm={setToggleCreateForm} />
+      )}
+
+      {isLoading && (
+        <div className='mt-10'>
+          <Loading center={true} />
+        </div>
       )}
       <div className='flex w-full flex-wrap gap-5 mt-5 p-3'>
         {userTrips.map((trip, index) => {

@@ -4,7 +4,6 @@ import {
   CREATE_TRIP_BEGIN,
   CREATE_TRIP_SUCCESS,
   CREATE_TRIP_ERROR,
-  GET_TRIPS_BEGIN,
   GET_USER_TRIPS_SUCCESS,
   GET_ALL_TRIPS_SUCCESS,
   GET_TRIPS_ERROR,
@@ -28,6 +27,9 @@ import {
 import { useAppContext } from '../app/appContext';
 import { useUserContext } from '../user/userContext';
 import axios from 'axios';
+
+const savedTripsID = localStorage.getItem('savedTripsID');
+const savedTrips = localStorage.getItem('savedTrips');
 
 const initialTripState = {
   isEditing: false,
@@ -77,7 +79,7 @@ const initialTripState = {
       },
     },
   },
-  savedTripsID: [],
+  savedTripsID: savedTripsID || [],
   savedTrips: [],
   totalUserTrips: 0,
   totalTrips: 0,
@@ -131,6 +133,16 @@ const TripProvider = ({ children }) => {
     }
   );
 
+  const addSavedTripsToLocalStorage = ({ savedTripsID, savedTrips }) => {
+    localStorage.setItem('savedTripsID', JSON.stringify(savedTripsID));
+    localStorage.setItem('savedTrips', savedTrips);
+  };
+
+  const removeSavedTripsFromLocalStorage = () => {
+    localStorage.removeItem('savedTripsID');
+    localStorage.removeItem('savedTrips');
+  };
+
   const handleChange = ({ name, value }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
@@ -172,7 +184,6 @@ const TripProvider = ({ children }) => {
   };
 
   const getAllTrips = async () => {
-    dispatch({ type: GET_TRIPS_BEGIN });
     setLoading(true);
     const { page, search, sort, theme, maxPrice } = state;
     let url = `/trips?page=${page}&maxPrice=${maxPrice}&theme=${theme}&sort=${sort}`;
@@ -199,7 +210,6 @@ const TripProvider = ({ children }) => {
 
   const getUserTrips = async () => {
     let url = `/trips/usertrips`;
-    dispatch({ type: GET_TRIPS_BEGIN });
     setLoading(true);
     try {
       const { data } = await authFetch(url);
@@ -219,6 +229,7 @@ const TripProvider = ({ children }) => {
 
   const checkIfTripSaved = (id) => {
     const isSaved = state.savedTripsID.includes(id);
+    console.log('isSaved', isSaved);
     if (isSaved) {
       dispatch({
         type: TOGGLE_SAVE_BUTTON,
@@ -233,9 +244,8 @@ const TripProvider = ({ children }) => {
   };
 
   const getSingleTrip = async (id) => {
-    let url = `/trips/${id}`;
-    dispatch({ type: GET_TRIPS_BEGIN });
     setLoading(true);
+    let url = `/trips/${id}`;
     try {
       const { data } = await authFetch(url);
       const { trip } = data;
@@ -248,6 +258,7 @@ const TripProvider = ({ children }) => {
         payload: { trip, id },
       });
       // Check if trip is saved and display data
+      console.log('savedTripsID', state.savedTripsID);
       checkIfTripSaved(id);
     } catch (error) {
       console.log(error);
@@ -347,15 +358,19 @@ const TripProvider = ({ children }) => {
     try {
       const { data } = await authFetch.post('/trips/usertrips/saved', { id });
       const { user } = data;
+      user.saved.push(id);
       dispatch({
         type: SAVE_TRIP_SUCCESS,
-        payload: { user: user, savedTripsID: user.saved },
+        payload: { savedTripsID: user.saved },
       });
       dispatch({
         type: TOGGLE_SAVE_BUTTON,
         payload: { color: 'text-red-700', text: 'Unsave' },
       });
-      getAllSavedTrips();
+      addSavedTripsToLocalStorage({
+        savedTripsID: user.saved,
+        savedTrips,
+      });
     } catch (error) {
       console.log('error', error);
     }
@@ -367,9 +382,14 @@ const TripProvider = ({ children }) => {
     try {
       const { data } = await authFetch('/trips/usertrips/saved');
       const { trips, user } = data;
+
       dispatch({
         type: GET_SAVED_TRIP_SUCCESS,
         payload: { trips, savedTripsID: user.saved },
+      });
+      addSavedTripsToLocalStorage({
+        savedTripsID: user.saved,
+        savedTrips: trips,
       });
     } catch (error) {
       console.log(error);
@@ -379,17 +399,21 @@ const TripProvider = ({ children }) => {
 
   const removeSavedTrip = async ({ itemID }) => {
     setLoading(true);
+    console.log('itemID', itemID);
     try {
       const { data } = await authFetch.delete(
         `/trips/usertrips/saved/${itemID}`
       );
       const { user } = data;
-      console.log('user', user.saved);
+      let newList = user.saved.filter((item) => item !== itemID);
       closeModalConfirm();
-      getAllSavedTrips();
       dispatch({
         type: SAVE_TRIP_SUCCESS,
-        payload: { user: user, savedTripsID: user.saved },
+        payload: { user: user, savedTripsID: newList },
+      });
+      addSavedTripsToLocalStorage({
+        savedTripsID: newList,
+        savedTrips,
       });
       dispatch({
         type: TOGGLE_SAVE_BUTTON,
