@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import TravelCard from './TravelCard';
-import { useTripContext } from '../context/tripContext';
+import { useTripContext } from '../context/trip/tripContext';
 import PageBtnContainer from './PageBtnContainer';
 
 const CardsList = () => {

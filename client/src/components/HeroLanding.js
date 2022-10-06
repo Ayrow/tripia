@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Hero from '../assets/images/landing-hero.svg';
 import bgVector from '../assets/images/hero-vector-bg.svg';
-import { useAppContext } from '../context/appContext';
+import { useAppContext } from '../context/app/appContext';
 
 const HeroLanding = () => {
   const { user } = useAppContext();

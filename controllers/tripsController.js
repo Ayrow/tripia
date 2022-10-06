@@ -31,14 +31,11 @@ const getAllTrips = async (req, res) => {
     queryObject.cost = { $lte: maxPrice };
   }
 
-  console.log('maxPrice', maxPrice);
-
   if (search) {
     queryObject.destination = { $regex: search, $options: 'i' };
   }
 
   let result = Trip.find(queryObject);
-  console.log('result', result);
 
   if (sort === 'oldest') {
     result = result.sort('createdAt');

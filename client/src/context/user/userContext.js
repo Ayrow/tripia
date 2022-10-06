@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from 'react';
-import reducer from './reducer';
+import reducer from './userReducer';
 import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
@@ -7,8 +7,8 @@ import {
   LOGOUT_USER,
   DELETE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
-} from './actions';
-import { useAppContext } from './appContext';
+} from '../actions';
+import { useAppContext } from '../app/appContext';
 
 import axios from 'axios';
 
@@ -20,6 +20,7 @@ const token = localStorage.getItem('token');
 const initialUserState = {
   user: user ? JSON.parse(user) : null,
   token: token,
+  savedTripsID: [],
 };
 
 const UserProvider = ({ children }) => {
@@ -88,7 +89,6 @@ const UserProvider = ({ children }) => {
       });
       displayAlert({ type: 'danger', msg: error.response.data.msg });
     }
-
     clearAlert();
   };
 

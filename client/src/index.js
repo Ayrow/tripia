@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { AppProvider } from './context/appContext';
-import { UserProvider } from './context/userContext';
-import { TripProvider } from './context/tripContext';
+import { AppProvider } from './context/app/appContext';
+import { UserProvider } from './context/user/userContext';
+import { TripProvider } from './context/trip/tripContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

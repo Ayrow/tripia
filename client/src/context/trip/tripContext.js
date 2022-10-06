@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from 'react';
-import reducer from './reducer';
+import reducer from './tripReducer';
 import {
   CREATE_TRIP_BEGIN,
   CREATE_TRIP_SUCCESS,
@@ -24,13 +24,14 @@ import {
   SAVE_TRIP_SUCCESS,
   CHANGE_PAGE,
   CLEAR_FILTERS,
-} from './actions';
-import { useAppContext } from './appContext';
-import { useUserContext } from './userContext';
+} from '../actions';
+import { useAppContext } from '../app/appContext';
+import { useUserContext } from '../user/userContext';
 import axios from 'axios';
 
 const initialTripState = {
   isEditing: false,
+  // isLoading: false,
   itemID: null,
   themeOptions: [
     'History and Cultural',
@@ -168,12 +169,13 @@ const TripProvider = ({ children }) => {
   };
 
   const getAllTrips = async () => {
+    dispatch({ type: GET_TRIPS_BEGIN });
     const { page, search, sort, theme, maxPrice } = state;
     let url = `/trips?page=${page}&maxPrice=${maxPrice}&theme=${theme}&sort=${sort}`;
     if (search) {
       url = url + `&search=${search}`;
     }
-    dispatch({ type: GET_TRIPS_BEGIN });
+
     try {
       const { data } = await authFetch(url);
       const { everyTrips, totalTrips, numOfPages } = data;

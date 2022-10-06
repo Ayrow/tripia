@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Alert from '../components/Alert';
 import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
-import { useAppContext } from '../context/appContext';
-import { useUserContext } from '../context/userContext';
+import { useAppContext } from '../context/app/appContext';
+import { useUserContext } from '../context/user/userContext';
 
 const initialState = {
   username: '',
@@ -105,10 +105,10 @@ const RegisterForm = () => {
               isLoading={isLoading}
             />
           )}
-
+          {/* 
           <a href='#' className='text-xs text-orange-600 hover:underline'>
             Forgot Password?
-          </a>
+          </a>*/}
           <div className='mt-6'>
             <button
               type='submit'

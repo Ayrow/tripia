@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useTripContext } from '../context/tripContext';
+import { useTripContext } from '../context/trip/tripContext';
 import { FaHeart, FaArrowLeft } from 'react-icons/fa';
 import GalerieImages from '../components/singleTrip/GalerieImages';
 import ButtonTab from '../components/ButtonTab';
 import SummaryTab from '../components/singleTrip/SummaryTab';
 import CostDetailsTab from '../components/singleTrip/CostDetailsTab';
-import { useUserContext } from '../context/userContext';
-import { useAppContext } from '../context/appContext';
+import { useUserContext } from '../context/user/userContext';
+import { useAppContext } from '../context/app/appContext';
 
 const SingleTrip = () => {
   let { id } = useParams();

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useAppContext } from '../context/appContext';
-import { useTripContext } from '../context/tripContext';
+import { useAppContext } from '../context/app/appContext';
+import { useTripContext } from '../context/trip/tripContext';
 import Alert from './Alert';
 
 const CreateTripForm = ({ setToggleCreateForm }) => {

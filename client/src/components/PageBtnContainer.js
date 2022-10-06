@@ -1,4 +1,4 @@
-import { useTripContext } from '../context/tripContext';
+import { useTripContext } from '../context/trip/tripContext';
 
 const PageBtnContainer = () => {
   const { numOfPages, page, changePage } = useTripContext();

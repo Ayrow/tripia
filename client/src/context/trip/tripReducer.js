@@ -34,43 +34,10 @@ import {
   CLEAR_FILTERS,
 } from '../actions';
 
-import { initialState } from './app/appContext';
 import { initialTripState } from './tripContext';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case DISPLAY_ALERT:
-      return {
-        ...state,
-        showAlert: true,
-        alertType: action.payload.type,
-        alertText: action.payload.msg,
-      };
-    case CLEAR_ALERT:
-      return {
-        ...state,
-        showAlert: false,
-      };
-    case OPEN_MODAL_CONFIRM:
-      return {
-        ...state,
-        isConfirmationModalOpen: true,
-        itemID: action.payload.id,
-        modalConfirmText: action.payload.text,
-        modalConfirmTitle: action.payload.title,
-        modalConfirmType: action.payload.editType,
-        needPasswordValidation: action.payload.passwordValidation,
-      };
-    case CLOSE_MODAL_CONFIRM:
-      return {
-        ...state,
-        isConfirmationModalOpen: false,
-        modalConfirmText: '',
-        modalConfirmTitle: '',
-        modalConfirmType: '',
-        needPasswordValidation: '',
-        itemID: null,
-      };
     case HANDLE_CHANGE:
       return {
         ...state,
@@ -134,38 +101,7 @@ const reducer = (state, action) => {
           [action.payload.name]: action.payload.value,
         },
       };
-    case SETUP_USER_BEGIN:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case SETUP_USER_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        alertType: action.payload.type,
-        alertText: action.payload.msg,
-        user: action.payload.user,
-        token: action.payload.token,
-        // initialTripState: {
-        //   ...initialTripState,
-        //   savedTripsID: action.payload.savedTrips,
-        // },
-      };
-    case SETUP_USER_ERROR:
-      return {
-        ...state,
-        isLoading: false,
-      };
-    case LOGOUT_USER:
-      return {
-        ...initialState,
-        isLoading: false,
-        token: null,
-        user: null,
-        isEditing: false,
-        showAlert: false,
-      };
+
     case CREATE_TRIP_BEGIN:
       return {
         ...state,
@@ -237,18 +173,7 @@ const reducer = (state, action) => {
         alertType: 'success',
         alertText: 'Trip deleted successfully!',
       };
-    case DELETE_USER_BEGIN:
-      return {
-        ...state,
 
-        // itemID: action.payload,
-      };
-    case UPDATE_USER_SUCCESS:
-      return {
-        ...state,
-        user: action.payload.user,
-        token: action.payload.token,
-      };
     case CLEAR_TRIP_FORM:
       return {
         ...state,

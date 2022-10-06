@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../../context/appContext';
-import { useTripContext } from '../../context/tripContext';
+import { useAppContext } from '../../context/app/appContext';
+import { useTripContext } from '../../context/trip/tripContext';
 import { FaUser, FaChild, FaHeart } from 'react-icons/fa';
 import ConfirmationModal from '../../components/ConfirmationModal';
 

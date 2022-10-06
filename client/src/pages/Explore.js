@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import CardsList from '../components/CardsList';
 import FilterTrips from '../components/FilterTrips';
-import { useTripContext } from '../context/tripContext';
+import Loading from '../components/Loading';
+import { useAppContext } from '../context/app/appContext';
+import { useTripContext } from '../context/trip/tripContext';
 
 const Explore = () => {
   const { getAllTrips, sort, search, theme, maxPrice, page } = useTripContext();
+  const { isLoading } = useAppContext();
 
   useEffect(() => {
     getAllTrips();
@@ -22,7 +25,7 @@ const Explore = () => {
         </p>
       </div>
       <FilterTrips />
-      <CardsList />
+      {isLoading ? <Loading center={true} /> : <CardsList />}
     </div>
   );
 };

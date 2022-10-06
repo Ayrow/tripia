@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Alert from '../../components/Alert';
-import { useAppContext } from '../../context/appContext';
+import { useAppContext } from '../../context/app/appContext';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import UnknownUser from '../../assets/images/unknown-user.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useUserContext } from '../../context/userContext';
+import { useUserContext } from '../../context/user/userContext';
 
 const ManageAccount = () => {
   const { openModalConfirm, isConfirmationModalOpen, showAlert, displayAlert } =

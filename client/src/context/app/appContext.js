@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from 'react';
-import reducer from './reducer';
+import reducer from './appReducer';
 import axios from 'axios';
 
 import {
@@ -8,7 +8,7 @@ import {
   OPEN_MODAL_CONFIRM,
   CLOSE_MODAL_CONFIRM,
   HANDLE_CHANGE,
-} from './actions';
+} from '../actions.js';
 
 const initialState = {
   isLoading: false,

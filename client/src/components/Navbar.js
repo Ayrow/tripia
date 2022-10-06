@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Logo from '../assets/images/logo-tripia.png';
 import { FaMoon, FaSun } from 'react-icons/fa';
-import { useUserContext } from '../context/userContext';
+import { useUserContext } from '../context/user/userContext';
 import DropdownUserBtn from './DropdownUserBtn';
 
 const Navbar = () => {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreateTripForm from '../../components/CreateTripForm';
-import { useAppContext } from '../../context/appContext';
-import { useTripContext } from '../../context/tripContext';
+import { useAppContext } from '../../context/app/appContext';
+import { useTripContext } from '../../context/trip/tripContext';
 import { FaUser, FaHeart, FaChild } from 'react-icons/fa';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
