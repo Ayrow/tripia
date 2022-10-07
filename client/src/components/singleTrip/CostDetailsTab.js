@@ -63,7 +63,7 @@ const CostDetailsTab = ({
                 }}
               />
             </div>
-            <p>Cost: {travelCost}€</p>
+            <p className='mt-5'>Cost: {travelCost}€</p>
           </div>
         )}
       </div>
