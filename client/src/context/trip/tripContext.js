@@ -146,7 +146,8 @@ const TripProvider = ({ children }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
 
-  const handleTripChange = ({ name, value }) => {
+  const handleTripChange = (name, value) => {
+    console.log('name', name);
     dispatch({ type: HANDLE_TRIP_CHANGE, payload: { name, value } });
   };
 
@@ -259,8 +260,6 @@ const TripProvider = ({ children }) => {
         type: GET_SINGLE_TRIP_SUCCESS,
         payload: { trip, id },
       });
-      // Check if trip is saved and display data
-      console.log('savedTripsID', state.savedTripsID);
       checkIfTripSaved(id);
     } catch (error) {
       console.log(error);

@@ -7,7 +7,8 @@ import ButtonTab from '../components/ButtonTab';
 import SummaryTab from '../components/singleTrip/SummaryTab';
 import CostDetailsTab from '../components/singleTrip/CostDetailsTab';
 import { useUserContext } from '../context/user/userContext';
-import { useAppContext } from '../context/app/appContext';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const SingleTrip = () => {
   let { id } = useParams();
@@ -64,7 +65,12 @@ const SingleTrip = () => {
   const handleTripInput = (e) => {
     const name = e.target.name;
     let value = e.target.value;
-    handleTripChange({ name, value });
+
+    handleTripChange(name, value);
+  };
+
+  const handleQuillInput = (targetName, targetValue) => {
+    handleTripChange(targetName, targetValue);
   };
 
   const navigateBack = () => {
@@ -189,15 +195,16 @@ const SingleTrip = () => {
             {toggleTab.activities && (
               <div>
                 {isEditing ? (
-                  <textarea
+                  <ReactQuill
+                    theme='snow'
                     name='activities'
-                    cols='30'
-                    rows='5'
+                    rows='8'
                     value={activities}
-                    onChange={handleTripInput}
-                    className='border border-black text-black'></textarea>
+                    onChange={(value) => handleQuillInput('activities', value)}
+                    className='box-border w-full border border-black text-black'
+                  />
                 ) : (
-                  <p>{activities}</p>
+                  <div dangerouslySetInnerHTML={{ __html: activities }}></div>
                 )}
               </div>
             )}
@@ -217,15 +224,15 @@ const SingleTrip = () => {
             {toggleTab.advices && (
               <div>
                 {isEditing ? (
-                  <textarea
+                  <ReactQuill
                     name='advices'
                     value={advices}
-                    cols='30'
-                    rows='5'
-                    onChange={handleTripInput}
-                    className='border border-black text-black'></textarea>
+                    rows='8'
+                    onChange={(value) => handleQuillInput('advices', value)}
+                    className=' box-border w-full border border-black text-black'
+                  />
                 ) : (
-                  <p>{advices}</p>
+                  <div dangerouslySetInnerHTML={{ __html: advices }}></div>
                 )}
               </div>
             )}
