@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useAppContext } from '../context/app/appContext';
 import { useTripContext } from '../context/trip/tripContext';
 import Alert from './Alert';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const CreateTripForm = ({ setToggleCreateForm }) => {
   const { showAlert, displayAlert } = useAppContext();
@@ -30,6 +32,10 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
     const name = e.target.name;
     const value = e.target.value;
     handleTripChange({ name, value });
+  };
+
+  const handleQuillInput = (targetName, targetValue) => {
+    handleTripChange(targetName, targetValue);
   };
 
   const handleSubmit = (e) => {
@@ -62,7 +68,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
       <div className='shadow sm:rounded-md'>
         <div className='space-y-6 bg-white px-4 py-5 sm:p-6'>
           {showAlert && <Alert />}
-          <div className='flex flex-col md:flex-row flex-wrap justify-around'>
+          <div className='flex flex-col md:flex-row flex-wrap justify-around gap-5'>
             <div className='flex flex-col gap-2 border rounded-xl p-5'>
               <label htmlFor='' className='text-black'>
                 Destination <span className='text-red-500'>*</span>
@@ -160,69 +166,100 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
             </div>
           </div>
           <div className='flex flex-col gap-2 border rounded-xl p-5'>
-            <h3 className='text-black'>Cost details</h3>
-            <div className='flex justify-around flex-wrap gap-4'>
+            <h3 className='text-black text-center uppercase text-lg'>
+              Cost details
+            </h3>
+            <div className='flex flex-col flex-wrap gap-5 mt-10'>
               <div className='flex flex-col'>
                 <label htmlFor='' className='text-black'>
                   Travel expenses (car, airplane tickets, train...)
                 </label>
-                <textarea
-                  name='costDetails.travel.travelDetail'
-                  value={costDetails.travel.travelDetail}
-                  cols='30'
-                  rows='5'
-                  onChange={handleTripInput}
-                  className='border border-black text-black list-disc'></textarea>
-
-                <input
-                  type='number'
-                  name='costDetails.travel.travelCost'
-                  value={costDetails.travel.travelCost}
-                  id=''
-                  onChange={handleTripInput}
-                  className='border border-black text-black'
-                />
+                <div className='w-full'>
+                  <ReactQuill
+                    name='costDetails.travel.travelDetail'
+                    value={costDetails.travel.travelDetail}
+                    onChange={(value) =>
+                      handleQuillInput('costDetails.travel.travelDetail', value)
+                    }
+                    className=' text-black'
+                  />
+                  <div className='flex border gap-10 px-2'>
+                    <label className='text-black text-center w-full'>
+                      Cost
+                    </label>
+                    <input
+                      type='number'
+                      name='costDetails.travel.travelCost'
+                      value={costDetails.travel.travelCost}
+                      id=''
+                      onChange={handleTripInput}
+                      className='text-center text-black'
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className='flex flex-col'>
                 <label htmlFor='' className='text-black'>
                   Accomodation
                 </label>
-                <textarea
-                  name='costDetails.accomodation.accomodationDetail'
-                  value={costDetails.accomodation.accomodationDetail}
-                  cols='30'
-                  rows='5'
-                  onChange={handleTripInput}
-                  className='border border-black text-black list-item'></textarea>
-                <input
-                  type='number'
-                  name='costDetails.accomodation.accomodationCost'
-                  value={costDetails.accomodation.accomodationCost}
-                  id=''
-                  onChange={handleTripInput}
-                  className='border border-black text-black'
-                />
+                <div className='w-full'>
+                  <ReactQuill
+                    name='costDetails.accomodation.accomodationDetail'
+                    value={costDetails.accomodation.accomodationDetail}
+                    onChange={(value) =>
+                      handleQuillInput(
+                        'costDetails.accomodation.accomodationDetail',
+                        value
+                      )
+                    }
+                    className=' text-black'
+                  />
+                  <div className='flex border gap-10 px-2'>
+                    <label className='text-black w-full text-center'>
+                      Cost
+                    </label>
+                    <input
+                      type='number'
+                      name='costDetails.accomodation.accomodationCost'
+                      value={costDetails.accomodation.accomodationCost}
+                      id=''
+                      onChange={handleTripInput}
+                      className=' text-center text-black'
+                    />
+                  </div>
+                </div>
               </div>
               <div className='flex flex-col'>
                 <label htmlFor='' className='text-black'>
                   Leisure
                 </label>
-                <textarea
-                  name='costDetails.leisure.leisureDetail'
-                  value={costDetails.leisure.leisureDetail}
-                  cols='30'
-                  rows='5'
-                  onChange={handleTripInput}
-                  className='border border-black text-black'></textarea>
-                <input
-                  type='number'
-                  name='costDetails.leisure.leisureCost'
-                  value={costDetails.leisure.leisureCost}
-                  id=''
-                  onChange={handleTripInput}
-                  className='border border-black text-black'
-                />
+                <div className='w-full'>
+                  <ReactQuill
+                    name='costDetails.leisure.leisureDetail'
+                    value={costDetails.leisure.leisureDetail}
+                    onChange={(value) =>
+                      handleQuillInput(
+                        'costDetails.leisure.leisureDetail',
+                        value
+                      )
+                    }
+                    className=' text-black'
+                  />
+                  <div className='flex border gap-10 px-2'>
+                    <label className='text-black text-center w-full'>
+                      Cost
+                    </label>
+                    <input
+                      type='number'
+                      name='costDetails.leisure.leisureCost'
+                      value={costDetails.leisure.leisureCost}
+                      id=''
+                      onChange={handleTripInput}
+                      className='text-center text-black'
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -230,25 +267,23 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
             <label htmlFor='' className='text-black'>
               Activities
             </label>
-            <textarea
+            <ReactQuill
               name='activities'
               value={activities}
-              cols='30'
-              rows='5'
-              onChange={handleTripInput}
-              className='border border-black text-black'></textarea>
+              onChange={(value) => handleQuillInput('activities', value)}
+              className='border border-black text-black'
+            />
           </div>
           <div className='flex flex-col gap-2 border rounded-xl p-5'>
             <label htmlFor='' className='text-black'>
               Advices
             </label>
-            <textarea
+            <ReactQuill
               name='advices'
               value={advices}
-              cols='30'
-              rows='5'
-              onChange={handleTripInput}
-              className='border border-black text-black'></textarea>
+              onChange={(value) => handleQuillInput('advices', value)}
+              className='border border-black text-black'
+            />
           </div>
           <div className='flex gap-2 justify-end'>
             <button
