@@ -15,7 +15,7 @@ const links = [
   },
   {
     id: 3,
-    text: 'trips',
+    text: 'my trips',
     path: '/dashboard/my-trips',
     icon: <FaSuitcase />,
   },

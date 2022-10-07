@@ -219,6 +219,7 @@ const SingleTrip = () => {
                 leisureDetail={costDetails.leisure.leisureDetail}
                 isEditing={isEditing}
                 handleTripInput={handleTripInput}
+                handleQuillInput={handleQuillInput}
               />
             )}
             {toggleTab.advices && (

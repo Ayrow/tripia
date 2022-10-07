@@ -147,7 +147,6 @@ const TripProvider = ({ children }) => {
   };
 
   const handleTripChange = (name, value) => {
-    console.log('name', name);
     dispatch({ type: HANDLE_TRIP_CHANGE, payload: { name, value } });
   };
 
@@ -183,12 +182,31 @@ const TripProvider = ({ children }) => {
     dispatch({ type: CLEAR_TRIP_FORM });
   };
 
-  const getAllTrips = async ({ sorting, limiting }) => {
+  const getTripsLandinPage = async () => {
     setLoading(true);
-    dispatch({
-      type: SET_FILTER_TRIPS,
-      payload: { sorting, limiting },
-    });
+    const sort = 'most saved';
+    const limit = '4';
+    let url = `/trips?sort=${sort}&limit=${limit}`;
+
+    try {
+      const { data } = await authFetch(url);
+      const { everyTrips, totalTrips, numOfPages } = data;
+      dispatch({
+        type: GET_ALL_TRIPS_SUCCESS,
+        payload: { everyTrips, totalTrips, numOfPages },
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_TRIPS_ERROR,
+        payload: { msg: error },
+      });
+    }
+    setLoading(false);
+    clearAlert();
+  };
+
+  const getAllTrips = async () => {
+    setLoading(true);
     const { page, search, theme, maxPrice, sort, limit } = state;
     let url = `/trips?page=${page}&maxPrice=${maxPrice}&theme=${theme}&sort=${sort}&limit=${limit}`;
     if (search) {
@@ -339,6 +357,7 @@ const TripProvider = ({ children }) => {
       dispatch({ type: EDIT_TRIP_SUCCESS, payload: singleTrip });
     } catch (error) {
       console.log(error);
+      logoutUser();
     }
     setLoading(false);
   };
@@ -455,6 +474,7 @@ const TripProvider = ({ children }) => {
         changePage,
         clearFilters,
         removeSavedTripsFromLocalStorage,
+        getTripsLandinPage,
       }}>
       {children}
     </TripContext.Provider>

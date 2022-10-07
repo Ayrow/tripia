@@ -1,4 +1,6 @@
 import LineBreak from '../LineBreak';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const CostDetailsTab = ({
   travelDetail,
@@ -9,6 +11,7 @@ const CostDetailsTab = ({
   leisureDetail,
   isEditing,
   handleTripInput,
+  handleQuillInput,
 }) => {
   const totalCost =
     parseInt(travelCost) + parseInt(accomodationCost) + parseInt(leisureCost);
@@ -21,18 +24,20 @@ const CostDetailsTab = ({
         </h4>
 
         {isEditing ? (
-          <div className='flex flex-wrap gap-5'>
+          <div className=''>
             <div className=' flex flex-col'>
               Detail:{' '}
-              <textarea
+              <ReactQuill
+                theme='snow'
                 name='costDetails.travel.travelDetail'
-                cols='30'
-                rows='5'
                 value={travelDetail}
-                onChange={handleTripInput}
-                className='border border-black text-black'></textarea>
+                onChange={(value) =>
+                  handleQuillInput('costDetails.travel.travelDetail', value)
+                }
+                className=' text-black'
+              />
             </div>
-            <div className=' flex flex-col'>
+            <div className='flex gap-10'>
               Cost:{' '}
               <div className='flex gap-2'>
                 {' '}
@@ -42,7 +47,7 @@ const CostDetailsTab = ({
                   id=''
                   value={travelCost}
                   onChange={handleTripInput}
-                  className='border border-black text-black'
+                  className=' text-black w-1/2'
                 />
                 €
               </div>
@@ -50,7 +55,14 @@ const CostDetailsTab = ({
           </div>
         ) : (
           <div>
-            <p>Details : {travelDetail}</p>
+            <div>
+              <p>Details:</p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: travelDetail,
+                }}
+              />
+            </div>
             <p>Cost: {travelCost}€</p>
           </div>
         )}
@@ -61,18 +73,22 @@ const CostDetailsTab = ({
           Accomodation
         </h4>
         {isEditing ? (
-          <div className='flex flex-wrap gap-5'>
+          <div className=''>
             <div className=' flex flex-col'>
               Detail:{' '}
-              <textarea
+              <ReactQuill
                 name='costDetails.accomodation.accomodationDetail'
-                cols='30'
-                rows='5'
                 value={accomodationDetail}
-                onChange={handleTripInput}
-                className='border border-black text-black'></textarea>
+                onChange={(value) =>
+                  handleQuillInput(
+                    'costDetails.accomodation.accomodationDetail',
+                    value
+                  )
+                }
+                className=' text-black'
+              />
             </div>
-            <div className=' flex flex-col'>
+            <div className=' flex gap-10'>
               Cost:{' '}
               <div className='flex gap-2'>
                 {' '}
@@ -82,7 +98,7 @@ const CostDetailsTab = ({
                   id=''
                   value={accomodationCost}
                   onChange={handleTripInput}
-                  className='border border-black text-black'
+                  className='w-1/2 text-black'
                 />
                 €
               </div>
@@ -90,8 +106,16 @@ const CostDetailsTab = ({
           </div>
         ) : (
           <div>
-            <p>Details : {accomodationDetail}</p>
-            <p>Cost: {accomodationCost || 0}€</p>
+            <div>
+              <p>Details:</p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: accomodationDetail,
+                }}
+              />
+            </div>
+
+            <p className='mt-5'>Cost: {accomodationCost || 0}€</p>
           </div>
         )}
       </div>
@@ -101,19 +125,20 @@ const CostDetailsTab = ({
           Leisure
         </h4>
         {isEditing ? (
-          <div className='flex flex-wrap gap-5'>
+          <div className=''>
             <div className=' flex flex-col'>
               Detail:{' '}
-              <textarea
+              <ReactQuill
                 name='costDetails.leisure.leisureDetail'
-                cols='30'
-                rows='5'
                 value={leisureDetail}
-                onChange={handleTripInput}
-                className='border border-black text-black'></textarea>
+                onChange={(value) =>
+                  handleQuillInput('costDetails.leisure.leisureDetail', value)
+                }
+                className=' text-black'
+              />
             </div>
-            <div className=' flex flex-col'>
-              Cost:{' '}
+            <div className=' flex gap-10'>
+              Cost:
               <div className='flex gap-2'>
                 {' '}
                 <input
@@ -122,7 +147,7 @@ const CostDetailsTab = ({
                   id=''
                   value={leisureCost || 0}
                   onChange={handleTripInput}
-                  className='border border-black text-black'
+                  className=' text-black w-1/2'
                 />
                 €
               </div>
@@ -130,15 +155,21 @@ const CostDetailsTab = ({
           </div>
         ) : (
           <div>
-            <p>Details : {leisureDetail}</p>
-            <p>Cost: {leisureCost}€</p>
+            <div>
+              <p>Details:</p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: leisureDetail,
+                }}
+              />
+            </div>
+            <p className='mt-5'>Cost: {leisureCost}€</p>
           </div>
         )}
       </div>
       <LineBreak />
       <p className=' font-bold uppercase text-xl'>
-        Total:
-        {totalCost ? totalCost : 0}€
+        Total: <span>{totalCost ? totalCost : 0}€</span>
       </p>
     </div>
   );

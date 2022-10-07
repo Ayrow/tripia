@@ -20,12 +20,12 @@ const Explore = () => {
   const { isLoading } = useAppContext();
 
   useEffect(() => {
-    getAllTrips({ sorting: 'latest', limiting: 10 });
+    getAllTrips();
   }, [sort, search, theme, page, maxPrice]);
 
   return (
     <div>
-      <div className='my-10 text-center w-full px-5'>
+      <div className='my-10 text-center px-5'>
         <h2 className='text-3xl '>
           Explore trips recommanded by other globetrotters !
         </h2>

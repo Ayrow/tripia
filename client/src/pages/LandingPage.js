@@ -4,11 +4,11 @@ import { useTripContext } from '../context/trip/tripContext';
 import TravelCard from '../components/TravelCard';
 
 const LandingPage = () => {
-  const { getAllTrips, allTrips, limit } = useTripContext();
+  const { getTripsLandinPage, allTrips } = useTripContext();
 
   useEffect(() => {
-    getAllTrips({ sorting: 'most saved', limiting: 4 });
-  }, [limit]);
+    getTripsLandinPage();
+  }, []);
 
   return (
     <Fragment>

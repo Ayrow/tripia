@@ -17,7 +17,7 @@ const initialState = {
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  const { isLoading, displayAlert, showAlert } = useAppContext();
+  const { isLoading, displayAlert, showAlert, setLoading } = useAppContext();
   const { user, setupUser } = useUserContext();
   const { getAllSavedTrips } = useTripContext();
 

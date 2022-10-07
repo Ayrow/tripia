@@ -90,8 +90,9 @@ const UserProvider = ({ children }) => {
       });
       displayAlert({ type: 'danger', msg: error.response.data.msg });
     }
-    setLoading(false);
+
     clearAlert();
+    setLoading(false);
   };
 
   const logoutUser = () => {
