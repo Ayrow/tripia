@@ -5,6 +5,8 @@ import ConfirmationModal from '../../components/ConfirmationModal';
 import UnknownUser from '../../assets/images/unknown-user.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useUserContext } from '../../context/user/userContext';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const ManageAccount = () => {
   const { openModalConfirm, isConfirmationModalOpen, showAlert, displayAlert } =
@@ -24,6 +26,10 @@ const ManageAccount = () => {
 
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
+  };
+
+  const handleQuillInput = (targetName, targetValue) => {
+    setValue({ ...value, [targetName]: targetValue });
   };
 
   const saveProfile = (e) => {
@@ -149,14 +155,14 @@ const ManageAccount = () => {
                         About
                       </label>
                       <div className='mt-1'>
-                        <textarea
+                        <ReactQuill
+                          theme='snow'
                           id='about'
                           name='about'
-                          rows={3}
-                          className='relative block w-full px-4 py-2 mt-2 text-gray-800 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40'
+                          className='text-black'
                           placeholder='Tell a bit about yourself'
                           value={value.about}
-                          onChange={handleChange}
+                          onChange={(value) => handleQuillInput('about', value)}
                         />
                       </div>
                       <p className='mt-2 text-sm text-gray-500'>
