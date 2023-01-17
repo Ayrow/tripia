@@ -1,4 +1,8 @@
 const ImagesLinksForm = () => {
-  return <div>ImagesLinksForm</div>;
+  return (
+    <div className=' text-black'>
+      <p>Links</p>
+    </div>
+  );
 };
 export default ImagesLinksForm;

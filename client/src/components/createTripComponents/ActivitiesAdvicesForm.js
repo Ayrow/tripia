@@ -3,7 +3,7 @@ import 'react-quill/dist/quill.snow.css';
 
 const ActivitiesAdvicesForm = ({ activities, advices, handleQuillInput }) => {
   return (
-    <div className='flex flex-col gap-2 p-5'>
+    <div className=''>
       <div className='flex flex-col gap-2 border rounded-xl p-5'>
         <label htmlFor='' className='text-black'>
           Activities

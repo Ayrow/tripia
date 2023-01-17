@@ -9,9 +9,6 @@ import {
 } from './createTripComponents/index';
 import Alert from './Alert';
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-
 const CreateTripForm = ({ setToggleCreateForm }) => {
   const { showAlert, displayAlert } = useAppContext();
 
@@ -76,27 +73,47 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
         <div className='space-y-6 bg-white px-4 py-5 sm:p-6'>
           {showAlert && <Alert />}
 
-          <BasicInfoForm
-            destination={destination}
-            handleTripInput={handleTripInput}
-            themeOptions={themeOptions}
-            duration={duration}
-            nbTravelers={nbTravelers}
-          />
+          <div className='flex flex-col gap-2 border border-slate-600 rounded-xl p-5'>
+            <h3 className='text-black text-center uppercase text-lg font-semibold'>
+              Basic Infos
+            </h3>
+            <BasicInfoForm
+              destination={destination}
+              handleTripInput={handleTripInput}
+              themeOptions={themeOptions}
+              duration={duration}
+              nbTravelers={nbTravelers}
+            />
+          </div>
 
-          <DetailedCostsForm
-            costDetails={costDetails}
-            handleQuillInput={handleQuillInput}
-            handleTripInput={handleTripInput}
-          />
+          <div className='flex flex-col gap-2 border border-slate-600 rounded-xl p-5'>
+            <h3 className='text-black text-center uppercase text-lg font-semibold'>
+              Cost details
+            </h3>
+            <DetailedCostsForm
+              costDetails={costDetails}
+              handleQuillInput={handleQuillInput}
+              handleTripInput={handleTripInput}
+            />
+          </div>
 
-          <ActivitiesAdvicesForm
-            activities={activities}
-            advices={advices}
-            handleQuillInput={handleQuillInput}
-          />
+          <div className='flex flex-col gap-2 border border-slate-600 rounded-xl p-5'>
+            <h3 className='text-black text-center uppercase text-lg font-semibold'>
+              Activities and Advices
+            </h3>
+            <ActivitiesAdvicesForm
+              activities={activities}
+              advices={advices}
+              handleQuillInput={handleQuillInput}
+            />
+          </div>
 
-          <ImagesLinksForm />
+          <div className='flex flex-col gap-2 border border-slate-600 rounded-xl p-5'>
+            <h3 className='text-black text-center uppercase text-lg font-semibold'>
+              Travel Pictures
+            </h3>
+            <ImagesLinksForm />
+          </div>
 
           <div className='flex gap-2 justify-end'>
             <button
