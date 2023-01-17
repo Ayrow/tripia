@@ -16,8 +16,6 @@ const SingleTrip = () => {
   const { user } = useUserContext();
 
   const {
-    showAlert,
-    displayAlert,
     itemID,
     getSingleTrip,
     singleTrip,
@@ -29,7 +27,6 @@ const SingleTrip = () => {
     handleTripChange,
     saveTrip,
     removeSavedTrip,
-    // checkIfTripSaved,
     savedTripsID,
     textColor,
     textContent,
@@ -59,7 +56,6 @@ const SingleTrip = () => {
     advices,
     nbTravelers,
     costDetails,
-    likes,
   } = singleTrip;
 
   const handleTripInput = (e) => {
@@ -128,7 +124,7 @@ const SingleTrip = () => {
               )}
             </h3>
             <div className='flex gap-5'>
-              {singleTrip.createdBy === user._id ? (
+              {user && singleTrip.createdBy === user._id ? (
                 <div>
                   {isEditing ? (
                     <div className='flex gap-5'>

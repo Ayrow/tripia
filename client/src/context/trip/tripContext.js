@@ -9,21 +9,17 @@ import {
   GET_TRIPS_ERROR,
   EDIT_TRIP_BEGIN,
   EDIT_TRIP_SUCCESS,
-  EDIT_TRIP_ERROR,
-  UPDATE_TRIP_BEGIN,
   GET_SINGLE_TRIP_SUCCESS,
   CLEAR_TRIP_FORM,
   DELETE_TRIP_BEGIN,
   CANCEL_TRIP_EDITION,
   HANDLE_CHANGE,
-  RESET_SINGLE_TRIP,
   HANDLE_TRIP_CHANGE,
   GET_SAVED_TRIP_SUCCESS,
   TOGGLE_SAVE_BUTTON,
   SAVE_TRIP_SUCCESS,
   CHANGE_PAGE,
   CLEAR_FILTERS,
-  SET_FILTER_TRIPS,
 } from '../actions';
 import { useAppContext } from '../app/appContext';
 import { useUserContext } from '../user/userContext';
@@ -101,7 +97,7 @@ const TripContext = createContext();
 const TripProvider = ({ children }) => {
   const { displayAlert, clearAlert, closeModalConfirm, setLoading } =
     useAppContext();
-  const { logoutUser, token, user } = useUserContext();
+  const { logoutUser, token } = useUserContext();
   const [state, dispatch] = useReducer(reducer, initialTripState);
 
   //axios

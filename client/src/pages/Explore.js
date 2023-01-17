@@ -6,17 +6,8 @@ import { useAppContext } from '../context/app/appContext';
 import { useTripContext } from '../context/trip/tripContext';
 
 const Explore = () => {
-  const {
-    getAllTrips,
-    sort,
-    search,
-    theme,
-    maxPrice,
-    page,
-    total,
-    totalTrips,
-    setTripsFilter,
-  } = useTripContext();
+  const { getAllTrips, sort, search, theme, maxPrice, page, totalTrips } =
+    useTripContext();
   const { isLoading } = useAppContext();
 
   useEffect(() => {

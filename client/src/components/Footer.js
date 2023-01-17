@@ -6,7 +6,7 @@ const Footer = () => {
           <li className='my-2'>
             <a
               className='text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200'
-              href='#'>
+              href='https://github.com/Ayrow/tripia'>
               FAQ
             </a>
           </li>
@@ -14,14 +14,14 @@ const Footer = () => {
           <li className='my-2'>
             <a
               className='text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200'
-              href='#'>
+              href='https://github.com/Ayrow'>
               Github
             </a>
           </li>
           <li className='my-2'>
             <a
               className='text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200'
-              href='#'>
+              href='https://www.linkedin.com/in/aymeric-pilaert-a53b6498/'>
               LinkedIn
             </a>
           </li>

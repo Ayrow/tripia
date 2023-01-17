@@ -17,7 +17,6 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
   } = useTripContext();
 
   const {
-    _id,
     theme,
     destination,
     duration,
