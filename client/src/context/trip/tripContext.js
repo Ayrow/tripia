@@ -142,7 +142,7 @@ const TripProvider = ({ children }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
   };
 
-  const handleTripChange = (name, value) => {
+  const handleTripChange = ({ name, value }) => {
     dispatch({ type: HANDLE_TRIP_CHANGE, payload: { name, value } });
   };
 

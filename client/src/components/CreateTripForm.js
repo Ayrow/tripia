@@ -34,7 +34,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
   };
 
   const handleQuillInput = (targetName, targetValue) => {
-    handleTripChange(targetName, targetValue);
+    handleTripChange({ name: targetName, value: targetValue });
   };
 
   const handleSubmit = (e) => {
@@ -164,8 +164,9 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
               />
             </div>
           </div>
-          <div className='flex flex-col gap-2 border rounded-xl p-5'>
-            <h3 className='text-black text-center uppercase text-lg'>
+
+          <div className='flex flex-col gap-2 border border-slate-600 rounded-xl p-5'>
+            <h3 className='text-black text-center uppercase text-lg font-semibold'>
               Cost details
             </h3>
             <div className='flex flex-col flex-wrap gap-5 mt-10'>
@@ -182,10 +183,8 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                     }
                     className=' text-black'
                   />
-                  <div className='flex border gap-10 px-2'>
-                    <label className='text-black text-center w-full'>
-                      Cost
-                    </label>
+                  <div className='flex w-1/4 gap-10 border border-gray-400 px-2'>
+                    <label className='text-black w-full'>Cost (in euros)</label>
                     <input
                       type='number'
                       name='costDetails.travel.travelCost'
@@ -198,10 +197,8 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                 </div>
               </div>
 
-              <div className='flex flex-col'>
-                <label htmlFor='' className='text-black'>
-                  Accomodation
-                </label>
+              <div className='flex flex-col '>
+                <label className='text-black'>Accomodation</label>
                 <div className='w-full'>
                   <ReactQuill
                     name='costDetails.accomodation.accomodationDetail'
@@ -214,10 +211,8 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                     }
                     className=' text-black'
                   />
-                  <div className='flex border gap-10 px-2'>
-                    <label className='text-black w-full text-center'>
-                      Cost
-                    </label>
+                  <div className='flex w-1/4 gap-10 border border-gray-400 px-2'>
+                    <label className='text-black w-full'>Cost (in euros)</label>
                     <input
                       type='number'
                       name='costDetails.accomodation.accomodationCost'
@@ -245,10 +240,8 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
                     }
                     className=' text-black'
                   />
-                  <div className='flex border gap-10 px-2'>
-                    <label className='text-black text-center w-full'>
-                      Cost
-                    </label>
+                  <div className='flex w-1/4 gap-10 border border-gray-400 px-2'>
+                    <label className='text-black w-full'>Cost (in euros)</label>
                     <input
                       type='number'
                       name='costDetails.leisure.leisureCost'
@@ -262,6 +255,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
               </div>
             </div>
           </div>
+
           <div className='flex flex-col gap-2 border rounded-xl p-5'>
             <label htmlFor='' className='text-black'>
               Activities

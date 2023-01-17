@@ -34,7 +34,6 @@ const reducer = (state, action) => {
 
     case HANDLE_TRIP_CHANGE:
       const { singleTrip } = state;
-
       if (
         action.payload.name.startsWith('nbTravelers') &&
         action.payload.name.split('.').length > 1
