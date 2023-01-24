@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const ImagesLinksForm = ({ handleTripChange, images }) => {
   const [imageLink, setImageLink] = useState('');
-  const [imagesArray, setImagesArray] = useState([]);
+  const [imagesArray, setImagesArray] = useState([images]);
 
   const addLinktoImagesSet = () => {
     const linkExists = imagesArray.find((image) => image === imageLink);
