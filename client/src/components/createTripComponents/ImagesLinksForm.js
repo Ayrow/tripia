@@ -5,10 +5,15 @@ const ImagesLinksForm = ({ handleTripChange, images }) => {
   const [imagesArray, setImagesArray] = useState(images);
 
   const addLinktoImagesSet = () => {
+    const linkExists = imagesArray.find((image) => image === imageLink);
+
     if (!imageLink) {
-      alert('there is no link to add');
+      alert('Please enter a url');
     } else if (!imageLink.includes('.') && !imageLink.includes('https://')) {
-      alert('please enter url');
+      alert('please enter a correct url');
+    } else if (linkExists) {
+      alert('this image is already added');
+      setImageLink('');
     } else {
       setImagesArray([...imagesArray, imageLink]);
       handleTripChange({ name: 'images', value: imagesArray });
