@@ -36,6 +36,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
     const name = e.target.name;
     const value = e.target.value;
 
+    console.log('images', images);
     handleTripChange({ name, value });
   };
 

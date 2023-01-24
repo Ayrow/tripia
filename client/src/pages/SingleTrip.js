@@ -52,6 +52,7 @@ const SingleTrip = () => {
     destination,
     duration,
     cost,
+    images,
     activities,
     advices,
     nbTravelers,
@@ -104,7 +105,7 @@ const SingleTrip = () => {
       </button>
 
       <div className='grid grid-cols-1 sm:grid-cols-2  gap-5'>
-        <GalerieImages />
+        <GalerieImages images={images} />
 
         <form className='relative flex flex-col bg-white'>
           <div className=' bg-blue-700 flex flex-wrap gap-5 justify-between p-5 text-xl'>

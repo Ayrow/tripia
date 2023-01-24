@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ImagesLinksForm = ({ handleTripChange, images }) => {
   const [imageLink, setImageLink] = useState('');
-  const [imagesArray, setImagesArray] = useState(images);
+  const [imagesArray, setImagesArray] = useState([]);
 
   const addLinktoImagesSet = () => {
     const linkExists = imagesArray.find((image) => image === imageLink);
@@ -15,17 +15,22 @@ const ImagesLinksForm = ({ handleTripChange, images }) => {
       alert('this image is already added');
       setImageLink('');
     } else {
-      setImagesArray([...imagesArray, imageLink]);
-      handleTripChange({ name: 'images', value: imagesArray });
+      let newImagesArray = [...imagesArray, imageLink];
+      handleTripChange({ name: 'images', value: newImagesArray });
+      setImagesArray(newImagesArray);
       setImageLink('');
     }
   };
 
   const removeImage = (imageIndex) => {
     let newArray = imagesArray.filter((_, index) => index !== imageIndex);
-    setImagesArray(newArray);
     handleTripChange({ name: 'images', value: imagesArray });
+    setImagesArray(newArray);
   };
+
+  useEffect(() => {
+    setImagesArray([]);
+  }, []);
 
   return (
     <div className=' text-black w-full'>
