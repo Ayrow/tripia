@@ -40,6 +40,8 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
   };
 
   const handleQuillInput = (targetName, targetValue) => {
+    console.log('destination', destination);
+    console.log('images', images);
     handleTripChange({ name: targetName, value: targetValue });
   };
 
@@ -114,7 +116,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
               Travel Pictures
             </h3>
             <ImagesLinksForm
-              handleTripInput={handleTripInput}
+              handleTripChange={handleTripChange}
               images={images}
             />
           </div>
