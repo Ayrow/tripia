@@ -25,6 +25,7 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
     destination,
     duration,
     cost,
+    images,
     activities,
     advices,
     nbTravelers,
@@ -112,7 +113,10 @@ const CreateTripForm = ({ setToggleCreateForm }) => {
             <h3 className='text-black text-center uppercase text-lg font-semibold'>
               Travel Pictures
             </h3>
-            <ImagesLinksForm />
+            <ImagesLinksForm
+              handleTripInput={handleTripInput}
+              images={images}
+            />
           </div>
 
           <div className='flex gap-2 justify-end'>

@@ -43,6 +43,7 @@ const TripSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'Please provide cost'],
     },
+    images: [],
     activities: { type: String },
     costDetails: {
       travel: {

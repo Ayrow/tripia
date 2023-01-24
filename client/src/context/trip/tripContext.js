@@ -54,6 +54,7 @@ const initialTripState = {
     duration: 0,
     theme: '',
     cost: 0,
+    images: [],
     advices: '',
     activities: '',
     nbTravelers: {
