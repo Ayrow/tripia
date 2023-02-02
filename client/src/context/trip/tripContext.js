@@ -375,17 +375,22 @@ const TripProvider = ({ children }) => {
     try {
       const { data } = await authFetch.post('/trips/usertrips/saved', { id });
       const { user } = data;
+
       dispatch({
         type: SAVE_TRIP_SUCCESS,
         payload: { savedTripsID: user.saved },
       });
+
       dispatch({
         type: TOGGLE_SAVE_BUTTON,
         payload: { color: 'text-red-700', text: 'Unsave' },
       });
+
       addSavedTripsToLocalStorage({
         savedTripsID: user.saved,
       });
+
+      getAllSavedTrips();
     } catch (error) {
       console.log('error', error);
     }
@@ -419,9 +424,8 @@ const TripProvider = ({ children }) => {
       );
       const { user } = data;
 
-      // let newList = user.saved.filter((item) => item !== itemID);
-
       closeModalConfirm();
+
       dispatch({
         type: SAVE_TRIP_SUCCESS,
         payload: { user: user, savedTripsID: user.saved },

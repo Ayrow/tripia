@@ -116,7 +116,7 @@ const deleteTrip = async (req, res) => {
 const saveTrip = async (req, res) => {
   const { id } = req.body;
 
-  const user = await User.findOne({ _id: req.user.userId });
+  let user = await User.findOne({ _id: req.user.userId });
   const trip = await Trip.findOne({ _id: id });
 
   if (!user) {
@@ -125,7 +125,9 @@ const saveTrip = async (req, res) => {
 
   const updatedLikes = trip.likes + 1;
 
-  await User.updateOne({ _id: req.user.userId }, { $addToSet: { saved: id } });
+  user.saved.addToSet(id);
+
+  await user.save();
 
   await Trip.findOneAndUpdate({ _id: id }, { likes: updatedLikes });
 
@@ -149,9 +151,14 @@ const deleteSavedTrip = async (req, res) => {
   const user = await User.findOne({ _id: req.user.userId });
   const trip = await Trip.findOne({ _id: id });
 
-  if (user) {
-    await User.updateOne({ _id: req.user.userId }, { $pull: { saved: id } });
+  if (!user) {
+    throw new UnAuthenticatedError('There is no user');
   }
+
+  user.saved.pull(id);
+  await user.save();
+
+  console.log('user', user);
 
   const updatedLikes = trip.likes - 1;
   await Trip.findOneAndUpdate({ _id: id }, { likes: updatedLikes });

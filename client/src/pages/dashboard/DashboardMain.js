@@ -6,6 +6,7 @@ const DashboardMain = () => {
 
   useEffect(() => {
     console.log('user.saved', user.saved);
+    console.log('user', user);
   }, []);
 
   return (

@@ -93,6 +93,7 @@ const SingleTrip = () => {
 
   useEffect(() => {
     getSingleTrip(id);
+    console.log('savedTripsID', savedTripsID);
   }, [id]);
 
   return (
