@@ -53,10 +53,11 @@ const ImagesLinksForm = ({ handleTripChange, images }) => {
       <div className='mt-5'>
         {imagesArray.map((image, index) => {
           return (
-            <div key={index} className='flex gap-2'>
+            <div key={index} className='flex gap-3 items-center'>
+              <img src={image} alt={`${index}`} width='100px' height='100px' />
               <p>{image}</p>
               <button
-                className='text-red-600'
+                className='text-red-600 text-lg'
                 type='button'
                 onClick={() => removeImage(index)}>
                 x
