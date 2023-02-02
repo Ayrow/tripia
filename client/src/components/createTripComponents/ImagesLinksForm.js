@@ -44,10 +44,10 @@ const ImagesLinksForm = ({ handleTripChange, images }) => {
           value={imageLink}
         />
         <button
-          className='p-2 border border-black'
+          className='p-2 text-green-800 hover:text-green-600 text-xl border border-green-800 hover:border-green-600 rounded-md bg-white px-2'
           type='button'
           onClick={addLinktoImagesSet}>
-          OK
+          Add
         </button>
       </div>
       <div className='mt-5 flex flex-col gap-2'>
@@ -57,10 +57,10 @@ const ImagesLinksForm = ({ handleTripChange, images }) => {
               <img src={image} alt={`${index}`} width='100px' height='100px' />
               <p>{image}</p>
               <button
-                className='text-red-600 text-lg'
+                className='text-red-800 hover:text-red-600 text-xl border border-red-800 hover:border-red-600 rounded-md px-2'
                 type='button'
                 onClick={() => removeImage(index)}>
-                x
+                Remove
               </button>
             </div>
           );
