@@ -1,4 +1,13 @@
+import { useEffect } from 'react';
+import { useUserContext } from '../../context/user/userContext';
+
 const DashboardMain = () => {
+  const { user } = useUserContext();
+
+  useEffect(() => {
+    console.log('user.saved', user.saved);
+  }, []);
+
   return (
     <div>
       <div>

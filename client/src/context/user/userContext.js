@@ -115,7 +115,7 @@ const UserProvider = ({ children }) => {
     setLoading(true);
     const currentUser = { email, password };
     try {
-      const { verified } = await verifyAccount(currentUser);
+      await verifyAccount(currentUser);
       await authFetch.delete('/auth/deleteUser');
     } catch (error) {
       displayAlert({ type: 'danger', msg: error.response.data.msg });
@@ -132,7 +132,7 @@ const UserProvider = ({ children }) => {
     try {
       const currentUser = { email, password };
       if (password) {
-        const { verified } = await verifyAccount(currentUser);
+        await verifyAccount(currentUser);
       }
       const { data } = await authFetch.patch(
         '/auth/updateUser',

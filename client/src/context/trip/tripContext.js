@@ -145,7 +145,6 @@ const TripProvider = ({ children }) => {
 
   const handleTripChange = ({ name, value }) => {
     dispatch({ type: HANDLE_TRIP_CHANGE, payload: { name, value } });
-    console.log('state.singleTrip.images', state.singleTrip.images);
   };
 
   const createTrip = async () => {
@@ -376,7 +375,6 @@ const TripProvider = ({ children }) => {
     try {
       const { data } = await authFetch.post('/trips/usertrips/saved', { id });
       const { user } = data;
-      user.saved.push(id);
       dispatch({
         type: SAVE_TRIP_SUCCESS,
         payload: { savedTripsID: user.saved },
@@ -420,14 +418,16 @@ const TripProvider = ({ children }) => {
         `/trips/usertrips/saved/${itemID}`
       );
       const { user } = data;
-      let newList = user.saved.filter((item) => item !== itemID);
+
+      // let newList = user.saved.filter((item) => item !== itemID);
+
       closeModalConfirm();
       dispatch({
         type: SAVE_TRIP_SUCCESS,
-        payload: { user: user, savedTripsID: newList },
+        payload: { user: user, savedTripsID: user.saved },
       });
       addSavedTripsToLocalStorage({
-        savedTripsID: newList,
+        savedTripsID: user.saved,
       });
       dispatch({
         type: TOGGLE_SAVE_BUTTON,
