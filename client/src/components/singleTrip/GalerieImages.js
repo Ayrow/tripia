@@ -8,13 +8,15 @@ const GalerieImages = ({ images }) => {
   const defaultImage =
     'https://europeupclose.com/wp-content/uploads/2017/04/iceland-1751463_1280.jpg';
 
+  const multipleImages = images.length > 1 ? 'h-96' : 'h-full';
+
   return (
     <div className=''>
       <div>
         <img
           src={mainImage || images[0] || defaultImage}
           alt=''
-          className=' object-contain w-full h-96'
+          className={`object-contain w-full ${multipleImages}  `}
         />
         <div className='flex gap-4 justify-between py-4 overflow-x-scroll scroll-auto'>
           {images.map((image, index) => {
