@@ -77,7 +77,6 @@ const SingleTrip = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('images', images);
     updateTrip();
   };
 

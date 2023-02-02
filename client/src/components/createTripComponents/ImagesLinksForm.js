@@ -24,7 +24,7 @@ const ImagesLinksForm = ({ handleTripChange, images }) => {
 
   const removeImage = (imageIndex) => {
     let newArray = imagesArray.filter((_, index) => index !== imageIndex);
-    handleTripChange({ name: 'images', value: imagesArray });
+    handleTripChange({ name: 'images', value: newArray });
     setImagesArray(newArray);
   };
 
