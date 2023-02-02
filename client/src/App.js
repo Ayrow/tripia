@@ -7,6 +7,7 @@ import {
   Error,
   Explore,
   ProtectedRoute,
+  FAQ,
 } from './pages';
 
 import {
@@ -27,6 +28,7 @@ const App = () => {
         <Route path='register' element={<RegisterForm />} />
         <Route path='explore' element={<Explore />} />
         <Route path={`explore/:id`} element={<SingleTrip />} />
+        <Route path='faq' element={<FAQ />} />
 
         <Route
           path='/dashboard/'

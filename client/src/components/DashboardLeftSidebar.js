@@ -3,7 +3,7 @@ import links from '../utils/userlinks';
 
 const DashboardLeftSidebar = () => {
   return (
-    <div className='relative h-full dark:bg-gray-800'>
+    <div className='relative h-0 sm:h-20 md:h-full dark:bg-gray-800'>
       <div className='hidden sm:flex md:grid grid-cols-1 items-center w-full'>
         {links.map((link) => {
           const { id, text, path, icon } = link;
