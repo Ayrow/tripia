@@ -145,7 +145,6 @@ const TripProvider = ({ children }) => {
 
   const handleTripChange = ({ name, value }) => {
     dispatch({ type: HANDLE_TRIP_CHANGE, payload: { name, value } });
-    console.log('state.singleTrip', state.singleTrip);
   };
 
   const createTrip = async () => {

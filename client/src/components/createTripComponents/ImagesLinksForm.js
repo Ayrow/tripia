@@ -50,7 +50,7 @@ const ImagesLinksForm = ({ handleTripChange, images }) => {
           OK
         </button>
       </div>
-      <div className='mt-5'>
+      <div className='mt-5 flex flex-col gap-2'>
         {imagesArray.map((image, index) => {
           return (
             <div key={index} className='flex gap-3 items-center'>
