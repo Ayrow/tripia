@@ -2,7 +2,7 @@ import { FaHeart, FaUser, FaChild } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const TravelCard = ({
-  image,
+  images,
   destination,
   theme,
   nbTravelers,
@@ -16,7 +16,7 @@ const TravelCard = ({
       to={`/explore/${_id}`}
       className='w-full h-80 rounded-2xl shadow-lg'
       style={{
-        // backgroundImage: `url(${image})`,
+        backgroundImage: `url(${images[0]})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
