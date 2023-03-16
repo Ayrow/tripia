@@ -132,6 +132,8 @@ const ManageAccount = () => {
                         </div>
                       </div>
                     </div>
+                    {/* 
+
                     <div>
                       <label className='block text-sm font-medium text-gray-700'>
                         Profile picture
@@ -148,6 +150,8 @@ const ManageAccount = () => {
                         />
                       </div>
                     </div>
+                    */}
+
                     <div>
                       <label
                         htmlFor='about'
