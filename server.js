@@ -37,7 +37,7 @@ app.use(NotFoundMiddleware);
 if (process.env.NODE_ENV === 'production') {
   app.use(
     cors({
-      origin: 'https://tripia-cq57.onrender.com/',
+      origin: 'https://tripia.netlify.app/',
       credentials: true,
     })
   );
