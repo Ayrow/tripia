@@ -34,7 +34,7 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   //axios
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
   const authFetch = axios.create({
     baseURL: `${API_URL}/api/v1`,
   });

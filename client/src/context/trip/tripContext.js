@@ -102,7 +102,7 @@ const TripProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialTripState);
 
   //axios
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
   const authFetch = axios.create({
     baseURL: `${API_URL}/api/v1`,
   });
