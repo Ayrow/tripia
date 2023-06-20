@@ -24,7 +24,21 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 
-app.cors();
+if (process.env.NODE_ENV === 'production') {
+  app.use(
+    cors({
+      origin: 'https://tripia.netlify.app/',
+      credentials: true,
+    })
+  );
+} else {
+  app.use(
+    cors({
+      origin: 'https://tripia.netlify.app/',
+      credentials: true,
+    })
+  );
+}
 
 app.get('/api/v1', (req, res) => {
   res.json({ msg: 'API' });
