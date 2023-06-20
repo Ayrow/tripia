@@ -16,6 +16,7 @@ import tripsRouter from './routes/tripsRoutes.js';
 //middleware
 import NotFoundMiddleware from './middleware/not-found.js';
 import ErrorHandlerMiddleware from './middleware/error-handler.js';
+const path = require('path');
 
 app.use(express.json());
 
@@ -28,6 +29,11 @@ app.use('/api/v1/trips', tripsRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
+
+app.use(express.static(path.join(__dirname, './client/build')));
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
+});
 
 const port = process.env.PORT || 5000;
 
