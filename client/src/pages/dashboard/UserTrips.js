@@ -69,7 +69,7 @@ const UserTrips = () => {
           <Loading center={true} />
         </div>
       )}
-      <div className='flex w-full flex-wrap gap-5 mt-5 p-3'>
+      <div className='flex w-full flex-wrap gap-5 mt-5 p-5'>
         {userTrips.map((trip, index) => {
           const {
             destination,
@@ -78,6 +78,7 @@ const UserTrips = () => {
             cost,
             nbTravelers,
             likes,
+            images,
             _id,
           } = trip;
           return (
@@ -85,10 +86,10 @@ const UserTrips = () => {
               key={index}
               className='w-full h-80 rounded-2xl shadow-lg'
               style={{
-                // backgroundImage: `url(${image})`,
+                //  backgroundImage: `url(${images[0]})`,
                 backgroundPosition: 'center',
-                backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
               }}>
               <div className=' w-full grid row-span-1 pt-5 bg-black h-full bg-opacity-60 rounded-2xl'>
                 <div className='grid grid-cols-2 px-5 '>
