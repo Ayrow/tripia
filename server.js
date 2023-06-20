@@ -45,6 +45,11 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 app.get('/api/v1', (req, res) => {
   res.json({ msg: 'API' });
 });
