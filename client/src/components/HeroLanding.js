@@ -7,7 +7,7 @@ const HeroLanding = () => {
   const { user } = useUserContext();
   return (
     <header
-      className='grid md:grid-cols-2 relative h-full w-full'
+      className='grid md:grid-cols-2 relative h-screen w-full'
       style={{
         backgroundImage: `url(${bgVector})`,
         backgroundPosition: 'center',
