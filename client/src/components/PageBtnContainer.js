@@ -1,4 +1,8 @@
-const PageBtnContainer = ({ numOfPages, page, handleInputChange }) => {
+import { useTripContext } from '../context/trip/tripContext';
+
+const PageBtnContainer = () => {
+  const { numOfPages, page, changePage } = useTripContext();
+
   const pages = Array.from({ length: numOfPages }, (_, index) => {
     return index + 1;
   });
@@ -19,7 +23,7 @@ const PageBtnContainer = ({ numOfPages, page, handleInputChange }) => {
               ? 'border py-1 px-2 rounded border-blue-300 text-blue-300'
               : 'border py-1 px-2 rounded'
           }
-          onClick={handleInputChange}
+          onClick={changePage}
           disabled={number == page}>
           {number}
         </button>
@@ -44,7 +48,7 @@ const PageBtnContainer = ({ numOfPages, page, handleInputChange }) => {
             ? 'border py-1 px-2 rounded border-blue-300 text-blue-300'
             : 'border py-1 px-2 rounded'
         }
-        onClick={handleInputChange}
+        onClick={changePage}
         disabled={number == page}>
         {number}
       </button>
@@ -57,7 +61,7 @@ const PageBtnContainer = ({ numOfPages, page, handleInputChange }) => {
         className='border p-1 rounded'
         name='page'
         value={parseInt(page) - 1}
-        onClick={handleInputChange}
+        onClick={changePage}
         disabled={page == 1}>
         Précédent
       </button>
@@ -66,7 +70,7 @@ const PageBtnContainer = ({ numOfPages, page, handleInputChange }) => {
         className='border p-1 rounded'
         name='page'
         value={parseInt(page) + 1}
-        onClick={handleInputChange}
+        onClick={changePage}
         disabled={page == numOfPages}>
         Suivant
       </button>

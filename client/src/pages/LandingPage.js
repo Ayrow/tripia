@@ -11,7 +11,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <section className='h-screen'>
+    <section className='relative h-screen'>
       <HeroLanding />
       <div className='relative my-10'>
         <h2 className=' text-3xl text-center pb-5'>Most saved trips</h2>
