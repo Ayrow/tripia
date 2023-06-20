@@ -25,7 +25,11 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(cors());
+  app.use(
+    cors({
+      origin: 'https://tripia.onrender.com',
+    })
+  );
 } else {
   app.use(
     cors({

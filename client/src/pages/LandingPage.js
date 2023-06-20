@@ -11,7 +11,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <Fragment>
+    <section className='h-screen'>
       <HeroLanding />
       <div className='my-10'>
         <h2 className=' text-3xl text-center pb-5'>Most saved trips</h2>
@@ -21,7 +21,7 @@ const LandingPage = () => {
           })}
         </div>
       </div>
-    </Fragment>
+    </section>
   );
 };
 export default LandingPage;
