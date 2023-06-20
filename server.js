@@ -16,6 +16,7 @@ import tripsRouter from './routes/tripsRoutes.js';
 //middleware
 import NotFoundMiddleware from './middleware/not-found.js';
 import ErrorHandlerMiddleware from './middleware/error-handler.js';
+import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
