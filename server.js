@@ -24,31 +24,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(
-    cors({
-      origin: 'https://tripia.netlify.app/',
-      credentials: true,
-    })
-  );
-
-  app.use(express.static(path.join(__dirname, './client/build')));
-
-  app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, './client/build/index.html'));
-  });
-} else {
-  app.use(
-    cors({
-      origin: 'http://localhost:5000/',
-    })
-  );
-}
-
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+app.cors();
 
 app.get('/api/v1', (req, res) => {
   res.json({ msg: 'API' });
