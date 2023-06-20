@@ -24,16 +24,6 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 
-app.get('/api/v1', (req, res) => {
-  res.json({ msg: 'API' });
-});
-
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/trips', tripsRouter);
-
-app.use(ErrorHandlerMiddleware);
-app.use(NotFoundMiddleware);
-
 if (process.env.NODE_ENV === 'production') {
   app.use(
     cors({
@@ -47,7 +37,23 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, './client/build/index.html'));
   });
+} else {
+  app.use(
+    cors({
+      origin: 'http://localhost:5000/',
+    })
+  );
 }
+
+app.get('/api/v1', (req, res) => {
+  res.json({ msg: 'API' });
+});
+
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/trips', tripsRouter);
+
+app.use(ErrorHandlerMiddleware);
+app.use(NotFoundMiddleware);
 
 const port = process.env.PORT || 5000;
 
