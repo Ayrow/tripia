@@ -16,7 +16,7 @@ import tripsRouter from './routes/tripsRoutes.js';
 //middleware
 import NotFoundMiddleware from './middleware/not-found.js';
 import ErrorHandlerMiddleware from './middleware/error-handler.js';
-const path = require('path');
+import path from 'path';
 
 app.use(express.json());
 
