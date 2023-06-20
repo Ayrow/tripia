@@ -25,16 +25,11 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(
-    cors({
-      origin: 'https://tripia.netlify.app/',
-      credentials: true,
-    })
-  );
+  app.use(cors());
 } else {
   app.use(
     cors({
-      origin: 'https://tripia.netlify.app/',
+      origin: 'http://localhost:5000',
       credentials: true,
     })
   );
