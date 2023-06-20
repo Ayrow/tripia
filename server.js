@@ -34,6 +34,13 @@ app.use(ErrorHandlerMiddleware);
 app.use(NotFoundMiddleware);
 
 if (process.env.NODE_ENV === 'production') {
+  app.use(
+    cors({
+      origin: 'https://tripia-cq57.onrender.com/',
+      credentials: true,
+    })
+  );
+
   app.use(express.static(path.join(__dirname, './client/build')));
 
   app.get('*', function (req, res) {

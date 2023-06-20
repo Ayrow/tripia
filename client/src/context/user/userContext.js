@@ -8,7 +8,7 @@ import {
   DELETE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
 } from '../actions';
-import { useAppContext } from '../app/appContext';
+import { useAppContext, API_URL } from '../app/appContext';
 
 import axios from 'axios';
 
@@ -28,8 +28,9 @@ const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialUserState);
 
   //axios
+  axios.defaults.withCredentials = true;
   const authFetch = axios.create({
-    baseURL: '/api/v1',
+    baseURL: `${API_URL}/api/v1`,
   });
 
   // request

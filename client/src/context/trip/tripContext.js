@@ -21,7 +21,7 @@ import {
   CHANGE_PAGE,
   CLEAR_FILTERS,
 } from '../actions';
-import { useAppContext } from '../app/appContext';
+import { useAppContext, API_URL } from '../app/appContext';
 import { useUserContext } from '../user/userContext';
 import axios from 'axios';
 
@@ -102,8 +102,9 @@ const TripProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialTripState);
 
   //axios
+  axios.defaults.withCredentials = true;
   const authFetch = axios.create({
-    baseURL: '/api/v1',
+    baseURL: `${API_URL}/api/v1`,
   });
 
   // request

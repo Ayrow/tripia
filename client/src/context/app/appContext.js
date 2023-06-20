@@ -11,6 +11,8 @@ import {
   HANDLE_LOADING,
 } from '../actions.js';
 
+export const API_URL = 'https://tripia.onrender.com';
+
 const initialState = {
   isLoading: false,
   showAlert: false,
@@ -32,8 +34,9 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   //axios
+  axios.defaults.withCredentials = true;
   const authFetch = axios.create({
-    baseURL: '/api/v1',
+    baseURL: `${API_URL}/api/v1`,
   });
 
   // request
